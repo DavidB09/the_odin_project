@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Homepage</title>
+    <meta name="author" content="David Brunner">
+    <meta name="keywords" content="Google Homepage, Mini Project, HTML/CSS">
+    <meta name="description" content="A non-responsive copy of the Google Homepage.">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="flex outline">
+        <div class="flex flex-left">
+            <a href="#">About</a>
+            <a href="#">Store</a>
+        </div>
+
+        <div class="flex flex-right">
+            <a href="#">Gmail</a>
+            <a href="#">Images</a>
+            <a id="google-apps" class="flex flex-center header-circle" href="#">
+                <span class="material-icons-outlined">apps</span>
+                <span id="google-apps-tooltip-text" class="header-tooltip-text">Google apps</span>
+            </a>
+            <a id="google-profile" class="flex flex-center header-circle" href="#" >
+                <p>D</p>
+                <span id="google-profile-tooltip-text" class="header-tooltip-text">
+                    <p>Google Account</p>
+                    <p>David Brunner</p>
+                    <p>random@gmail.com</p>
+                </span>
+            </a>
+        </div>
+    </header>
+
+    <main class="flex flex-center">
+        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" />
+
+        <div id="container-searchbar" class="flex">
+            <span id="search" class="material-icons-outlined">search</span>
+            
+            <input type="text" title="Search" value="">
+
+            <div>
+                <span id="clear" class="material-icons-outlined">clear</span>
+                <span id="clear-tooltip-text">Clear</span>
+            </div>
+        </div>
+
+        <div id="container-search-submit">
+            <input type="submit" value="Google Search" />
+            <input type="submit" value="I'm Feeling Lucky" />
+        </div>
+    </main>
+
+    <footer class="flex outline">
+        <div class="flex flex-left">
+            <a href="#">Advertising</a>
+            <a href="#">Business</a>
+            <a href="#">How Search works</a>
+        </div>
+
+        <div class="flex flex-center">
+            <a href="#">
+                <img id="google-leaf" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAYCAMAAAAiV0Z6AAAAPFBMVEVLoEN0wU6CzFKCzFKCzFKCzFKCzFJSo0MSczNDmkCCzFJPoUMTczNdr0gmgziCzFITczMTczMTczMTczPh00jOAAAAFHRSTlPF/+bIsms8Ad///hX+//5/tXw7aMEAx10AAACaSURBVHgBbc4HDoRQCATQ33tbvf9dF9QxaCT9UQaltLHOh/golXKhMs5Xqa0xU1lyoa2fXFyQOsDG38qsLy4TaV+sFislovyhPzLJJrBu6eQOtpW0LjbJkzTuTDLRVNKa3uxJI+VdiRqXSeu6GW+Qxi29eLIi8H7EsYrT42BD+mQtNO5JMjRuC4lSY8V4hsLX0egGijvUSEP9AbylEsOkeCgWAAAAAElFTkSuQmCC" />
+                Carbon neutral since 2007
+            </a>
+        </div>
+
+        <div class="flex flex-right">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Settings</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>

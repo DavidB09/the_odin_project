@@ -1,0 +1,275 @@
+
+/**** COMMON ELEMENTS ****/
+
+body {
+    font-size: 14px;
+    font-family: arial, sans-serif;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.outline {
+    position: absolute;
+    left: 0; 
+    justify-content: space-between;
+    width: 100vw; 
+}
+
+.flex {
+    display: flex; 
+    align-items: center;
+}
+
+.flex-left {
+    justify-content: flex-start;
+}
+
+.flex-right {
+    justify-content: flex-end;
+}
+
+.flex-center {
+    justify-content: center;
+}
+
+
+/**** HEADER ****/
+
+header {
+    top: 0; 
+}
+
+header div {
+    padding: 4px 6px; 
+}
+
+header a {
+    padding: 5px 10px;
+    color: #222;
+}
+
+header a:first-of-type {
+    margin-left: 10px; 
+}
+
+header .flex-right {
+    font-size: 13px; 
+}
+
+header .flex-right a:nth-child(1), header .flex-right a:nth-child(2) {
+    padding: 0 15px 0 0; 
+}
+
+.header-circle {
+    padding: 0px; 
+    height: 32px; 
+    width: 32px; 
+    border-radius: 50% 50%;
+}
+
+.header-circle:hover {
+    text-decoration: none;
+    outline: 4px solid rgba(60,64,67,0.08); 
+}
+
+/** Last two links **/
+
+#google-apps {
+    margin: 10px 8px; 
+}
+
+#google-apps:hover {
+    background-color: rgba(60,64,67,0.08);
+}
+
+#google-apps span:first-of-type {
+    color: #5f6368;
+    font-size: 23px; 
+}
+
+.header-tooltip-text {
+    position: absolute;
+    top: 100%; 
+    display: none; 
+    padding: 6px;
+    color: #fff ;
+    background-color: #555;
+    font-size: 12px ;
+    text-align: left;
+    border-radius: 4px;
+}
+
+#google-apps:hover .header-tooltip-text, #google-profile:hover .header-tooltip-text {
+    display: block; 
+}
+
+#google-apps-tooltip-text {
+    right: 1.75%; 
+}
+
+#google-profile {
+    margin: 10px 12px 10px 8px; 
+    color: white; 
+    background-color: #c2185b;
+    font-size: 16.5px; 
+}
+
+#google-profile-tooltip-text {
+    right: 0.3%; 
+    line-height: 17px;
+}
+
+#google-profile-tooltip-text p {
+    margin: 0; 
+    color: #B7B7B7; 
+}
+
+#google-profile-tooltip-text p:first-of-type {
+    color: #fff
+}
+
+
+/**** MAIN ****/
+
+main {
+    position: absolute; 
+    top: 19.6%; 
+    left: 0; 
+    flex-direction: column;
+    width: 100%; 
+}
+
+/** Searchbar **/
+
+#container-searchbar {
+    margin: 26px; 
+    height: 44px; 
+    max-width: 583px;
+    width: 100%; 
+    border-radius: 24px;
+    border: 1px solid #dfe1e5; 
+}
+
+#container-searchbar:hover {
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(32,33,36,.28); 
+    border-color: rgba(223,225,229,0)
+}
+
+#container-searchbar input {
+    flex: 100%; 
+    font-size: 16px; 
+    word-wrap: break-word;
+    border: none; 
+}
+
+#container-searchbar input:focus {
+    outline: none;
+}
+
+#container-searchbar #search {
+    padding: 0 13px 0px 15px; 
+    color: #9aa0a6; 
+    font-size: 20px; 
+}
+
+#container-searchbar #clear {
+    margin: 0 16px 0px 8px; 
+    color: #9aa0a6; 
+    opacity: 0; 
+    font-size: 24px; 
+}
+
+#container-searchbar #search:hover, #container-searchbar #clear:hover {
+    cursor: default;
+}
+
+#container-searchbar input:focus + div #clear {
+    opacity: 1; 
+}
+
+#clear-tooltip-text {
+    position: absolute;
+    top: 74%; 
+    left: 59.3%; 
+    display: none; 
+    padding: 8px 0;
+    width: 48px;
+    color: #fff;
+    background-color: #000;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#clear-tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 7px;
+    border-style: solid;
+    border-color: #000 transparent transparent transparent;
+    transform: rotate(180deg); 
+}
+
+#container-searchbar input:focus + div:hover #clear-tooltip-text {
+    display: block; 
+}
+
+/** Search Submit **/
+
+#container-search-submit input {
+    margin: 3.5px 4px; 
+    padding: 9px 16px; 
+    color: #3c4043; 
+    background-color: #f8f9fa; 
+    font-family: arial;
+    font-size: 14px; 
+    border-radius: 4px; 
+    border: 1px solid #f8f9fa;
+}
+
+#container-search-submit input:hover {
+    color: #202124; 
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    border: 1px solid #dadce0;
+}
+
+
+/**** FOOTER ****/
+
+footer {
+    bottom: 0; 
+    background-color: #f2f2f2;
+}
+
+footer div {
+    padding: 0 20px; 
+}
+
+footer a {
+    padding: 15px; 
+    color: #70757a; 
+}
+
+footer .flex-right {
+    width: 33.3333%; 
+}
+
+footer .flex-left {
+    width: 33.3333%; 
+}
+
+#google-leaf {
+    height: 14px; 
+    margin-right: 3px; 
+}
