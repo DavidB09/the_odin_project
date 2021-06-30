@@ -1,0 +1,70 @@
+html {
+    font-size: 62.5%; 
+}
+
+/* FONTS */
+
+@font-face {
+    font-family: "Night in Tokyo";
+    src: url("./assets/fonts/night-in-tokyo.bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Manga Temple";
+    src: url("./assets/fonts/manga-temple.regular.ttf") format("truetype");
+}
+
+/* COMMON ELEMENTS */
+
+body {
+    height: 100vh; 
+    width: 100vw; 
+    overflow: hidden;
+    background-image: url("./assets/images/japan_background.jpg"); 
+    background-position: bottom; 
+    background-size: cover;
+    font-size: 2rem; 
+    font-family: "Manga Temple";
+}
+
+h1 {
+    color: white; 
+    font-family: "Night in Tokyo";
+    font-size: 6.5rem; 
+}
+
+h2 {
+    margin: 2rem; 
+    font-family: "Night in Tokyo";
+    font-size: 4.5rem;
+}
+
+/* CLASSES */
+
+.flex-center {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-rules {
+    padding: 2.5rem; 
+    background-color: white;
+    border: #424240 7px solid;
+    border-radius: 5px;
+}
+
+.main-rules img {
+    width: 5rem;
+    height: 5rem; 
+}
+
+.main-rules ul {
+    margin: 0; 
+    list-style-type: none;
+}
+
+.main-rules li {
+    padding: 1rem;
+}
