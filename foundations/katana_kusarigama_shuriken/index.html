@@ -14,13 +14,13 @@
 
 <body>
 
-    <header class="flex-center">
+    <header class="flex-column">
         <h1>Katana-Kusarigama-Shuriken</h1>
     </header>
 
-    <main class="flex-center">
+    <main class="flex-column">
 
-        <div class="main-rules flex-center">
+        <div class="main-container main-rules flex-column">
             <h2>Rules</h2>
 
             <p>First to 5 wins obtains the ultimate victory</p>
@@ -41,7 +41,82 @@
             </ul>
         </div>
 
-        <button type="submit">Start Game</button>
+        <button class="main-button" type="submit">Start Game</button>
+
+        <div class="flex-row flex-column-medium">
+            <div class="main-container main-score flex-column">
+                <h2>Current Score</h2>
+
+                <div class="flex-row">
+                    <div class="flex-column">
+                        <h3>User</h3>
+                        <p>0</p>
+                    </div>
+
+                    <div class="flex-column">
+                        <h3>CPU</h3>
+                        <p>0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-container main-weapons flex-column">
+                <h2>Previous Weapon</h2>
+
+                <div class="flex-row">
+                    <div class="flex-column">
+                        <h3>User</h3>
+                    </div>
+
+                    <div class="flex-column">
+                        <h3>CPU</h3>
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+        <div class="main-container main-player flex-column">
+            <h2>Choose your weapon</h2>
+
+            <ul class="flex-row flex-column-small">
+                <li class="flex-column">
+                    <img src="assets/icons/katana.svg" title="Icons made by Freepik (https://www.freepik.com) from www.flaticon.com" />
+                    <p>Katana</p>
+                </li>
+                <li class="flex-column">
+                    <img src="assets/icons/kusarigama.svg" title="Icons made by surang (https://www.flaticon.com/authors/surang) from www.flaticon.com" />
+                    <p>Kusarigama</p>
+                </li>
+                <li class="flex-column">
+                    <img src="assets/icons/shuriken.svg" title="Icons made by Freepik (https://www.freepik.com) from www.flaticon.com" />
+                    <p>Shuriken</p>
+                </li>
+            <ul>
+        </div>
+
+        <div class="main-container main-final flex-column">
+            <h2>Final Score</h2>
+
+            <div class="flex-row">
+                <div class="flex-column">
+                    <h3>User</h3>
+                    <p>0</p>
+                </div>
+
+                <div class="flex-column">
+                    <h3>CPU</h3>
+                    <p>0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-container main-message flex-column">
+            <p class="lose-message hidden">You watch the victor swiftly disappear into the cool, gray sky while you lay on the cold, hard ground, immobilized and writhing in pain. Soon, soon vengeance will be mine...</p>
+
+            <p class="win-message hidden">You stand triumphant over your defeated opponent. How dare he provoke the toughest and most formidable samurai in the land. The cool, grey sky feels refreshing as you swiftly disappear into the darkness...</p>
+        </div>
+
+        <button class="main-button" type="submit">Continue</button>
 
     </main>
 

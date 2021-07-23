@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-A-Sketch</title>
+    <meta name="author" content="David Brunner">
+    <meta name="keywords" content="Etch-A-Sketch, Drawing, Mini Project, HTML, CSS, JavaScript">
+    <meta name="description" content="An small mini Etch-A-Sketch project allowing users to draw on grid.">
+    <link rel="stylesheet" href="style.css">
+
+    <style></style>
+</head>
+
+<body>
+
+    <header class="flex-column">
+        <h1>Etch-A-Sketch</h1>
+    </header>
+
+    <main class="flex-column">
+
+        <section class="main-properties">
+
+            <div class="properties-grid">
+                <h2>Grid</h2>
+
+                <div>
+                    <label>Height: 
+                        <input class="input-grid-height" type="number" min="1" max="100" placeholder="Enter grid height"></input>
+                    </label>
+                </div>
+
+                <div>
+                    <label>Width: 
+                        <input class="input-grid-width" type="number" min="1" max="100" placeholder="Enter grid width"></input>
+                    </label>
+                </div>
+
+                <div>
+                    <label>Size: 
+                        <input class="input-grid-size" type="range" min="0" max="100" step="5" value="50">
+                    </label>
+                </div>
+
+                <div>
+                    <label>Background Color: 
+                        <input class="input-grid-background-color" type="color" value="#ffffff"></input>
+                    </label>
+                </div>
+
+                <div>
+                    <label>Show Border: 
+                        <input class="input-grid-border" type="checkbox" checked></input>
+                    </label>
+                </div>
+
+                <div class="flex-column">
+                    <button class="update-grid" type="submit">Update Grid</button>
+                    <button class="submit-grid" type="submit">Create New Grid</button>
+                </div>
+            </div>
+
+            <div class="properties-square">
+                <h2>Square</h2>
+
+                <div class="flex-row">
+                    <label for="input-size">Size:</label>
+                    <input type="range" min="1" max="100" value="50" id="input-square-size">
+                </div>
+
+                <div class="flex-row">
+                    <fieldset>
+                          <legend>Background Color: </legend>
+                          <label for="input-black">Black</label>
+                          <input id="input-black" type="checkbox" checked />
+
+                          <label for="input-color">Color</label>
+                          <input id="input-color" type="color" />
+                    </fieldset>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="main-grid"></section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
