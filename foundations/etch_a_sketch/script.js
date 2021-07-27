@@ -1,4 +1,4 @@
-
+/********* GRID  ****************/
 const gridContainer = document.querySelector('.main-grid');
 let gridHeight = 0; 
 let gridWidth = 0; 
@@ -13,8 +13,6 @@ const gridUpdate = document.querySelector('.update-grid');
 const gridSubmit = document.querySelector('.submit-grid'); 
 
 let heightChange, widthChange, backgroundColorChange; 
-
-let isMouseDown = false; 
 
 const createNewGrid = () => {
 	if (!heightChange || !widthChange) return; 
@@ -127,23 +125,92 @@ gridUpdate.addEventListener('click', updateGrid);
 gridSubmit.addEventListener('click', createNewGrid); 
 gridBorderInput.addEventListener('click', updateGridBorder); 
 
-const squareColor = 0; 
+
+/************ SQUARE ******************/
+let isControlDown = false; 
+
+const toolContainer = document.querySelector('.square-tool-container'); 
+
+let currentTool = 'draw'; 
+
+const colorContainer = document.querySelector('.square-color-container'); 
+const squareColorInput = document.querySelector('.input-square-color'); 
+
+let currentColor = 'black'; 
+let squareColor = '#000'; 
+
+toolContainer.addEventListener('click', (e) => {
+	if (e.target.classList.contains('square-tool')) {
+		currentTool = e.target.value; 
+	}
+}); 
+
+colorContainer.addEventListener('click', (e) => {
+	if (e.target.classList.contains('square-color')) {
+		currentColor = e.target.value; 
+		colorContainer.querySelectorAll('.square-color').forEach(input => input.checked = input === e.target);
+	}
+}); 
+
+const drawBlack = () => {
+	squareColor = '#000'; 
+}; 
+
+const drawRainbow = () => {
+	const colors = ['#F60000', '#FF8C00', '#FFEE00', '#4DE94C', '#3783FF', '#4815AA']; 
+
+	for (let i = 0; i < colors.length; i++) {
+		if (colors[i] === squareColor) {
+			squareColor = colors[i + 1]; 
+			break; 
+		}
+	}
+
+	if (!colors.includes(squareColor)) squareColor = colors[0]; 
+}; 
+
+const drawColor = () => {
+	squareColor = squareColorInput.value; 
+	console.log(squareColor);
+}; 
+
+const colorFunctions = {
+	'black': drawBlack, 
+	'rainbow': drawRainbow, 
+	'color': drawColor, 
+}; 
 
 const drawOnGrid = (e) => {
-	if (e.target.nodeName === 'SPAN') {
-		e.target.style.backgroundColor = '#000'; 
-	} 
+	colorFunctions[currentColor](); 
+	e.target.style.backgroundColor = squareColor; 
+}; 
+
+const eraseGrid = (e) => {
+	e.target.style.backgroundColor = '#fff'; 
+}; 
+
+const selectColorGrid = (e) => {
+	const newColor = e.target.style.backgroundColor
+		.split(/\D/)
+		.filter(s => s)
+		.map(color => Number(color).toString(16).padStart(2, 0))
+		.join('');
+
+	squareColor = squareColorInput.value = `#${newColor || 'FFFFFF'}`; 
+}; 
+
+const toolFunctions = {
+	'draw': drawOnGrid, 
+	'erase': eraseGrid, 
+	'select': selectColorGrid, 
 }; 
 
 gridContainer.addEventListener('mouseover', (e) => {
-	if (!isMouseDown) return; 
-	drawOnGrid(e); 
-})
+	e.preventDefault(); 
+	if (!isControlDown || e.target.nodeName !== 'SPAN') return; 
+	
+	toolFunctions[currentTool](e);  
+}); 
 
-document.addEventListener('mousedown', function(){
-    isMouseDown = true;
-});
-
-document.addEventListener('mouseup', function(){
-    isMouseDown = false;
-});
+document.addEventListener('keydown', (e) => isControlDown = e.ctrlKey || e.metaKey);
+document.addEventListener('keyup', () => isControlDown = false);

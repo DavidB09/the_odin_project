@@ -71,22 +71,31 @@
                     <input type="range" min="1" max="100" value="50" id="input-square-size">
                 </div>
 
-                <div class="flex-row">
-                    <fieldset>
-                            <legend>Background Color: </legend>
+                <h3>Tools</h3>
 
-                            <label>Black 
-                                <input id="input-color-black" type="radio" checked />
-                            </label>
+                <div class="flex-column square-tool-container">
+                    <button class="tool-draw square-tool" type="submit" value='draw'>Draw</button>
+                    <button class="tool-erase square-tool" type="submit" value='erase'>Erase</button>
+                    <button class="tool-darken square-tool" type="submit" value='darken'>Darken</button>
+                    <button class="tool-lighten square-tool" type="submit" value='lighten'>Lighten</button>
+                    <button class="tool-fill square-tool" type="submit" value='fill'>Fill</button>
+                    <button class="tool-select square-tool" type="submit" value='select'>Select</button>
+                </div>
 
-                            <label>Rainbow 
-                                <input class="input-color-rainbow" type="radio" />
-                            </label>
+                <div class="flex-row square-color-container">
+                    <label>Black 
+                        <input class="input-color-black square-color" type="radio" value='black' checked />
+                    </label>
 
-                            <label for="input-color">Color 
-                                <input class="input-color" type="color" />
-                            </label>
-                    </fieldset>
+                    <label>Rainbow 
+                        <input class="input-color-rainbow square-color" type="radio" value='rainbow' />
+                    </label>
+
+                    <label>Color 
+                        <input class="input-color-choice square-color" type="radio" value='color' />
+                    </label>
+
+                    <input class="input-square-color" type="color" />
                 </div>
 
             </div>
