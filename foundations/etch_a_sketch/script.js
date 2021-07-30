@@ -139,19 +139,6 @@ const squareColorInput = document.querySelector('.input-square-color');
 let currentColor = 'black'; 
 let squareColor = '#000'; 
 
-toolContainer.addEventListener('click', (e) => {
-	if (e.target.classList.contains('square-tool')) {
-		currentTool = e.target.value; 
-	}
-}); 
-
-colorContainer.addEventListener('click', (e) => {
-	if (e.target.classList.contains('square-color')) {
-		currentColor = e.target.value; 
-		colorContainer.querySelectorAll('.square-color').forEach(input => input.checked = input === e.target);
-	}
-}); 
-
 const drawBlack = () => {
 	squareColor = '#000'; 
 }; 
@@ -171,7 +158,6 @@ const drawRainbow = () => {
 
 const drawColor = () => {
 	squareColor = squareColorInput.value; 
-	console.log(squareColor);
 }; 
 
 const colorFunctions = {
@@ -179,6 +165,20 @@ const colorFunctions = {
 	'rainbow': drawRainbow, 
 	'color': drawColor, 
 }; 
+
+toolContainer.addEventListener('click', (e) => {
+	if (e.target.classList.contains('square-tool')) {
+		currentTool = e.target.value; 
+	}
+}); 
+
+colorContainer.addEventListener('click', (e) => {
+	if (e.target.classList.contains('square-color')) {
+		currentColor = e.target.value; 
+		colorFunctions[currentColor](); 
+		colorContainer.querySelectorAll('.square-color').forEach(input => input.checked = input === e.target);
+	}
+}); 
 
 const drawOnGrid = (e) => {
 	colorFunctions[currentColor](); 
@@ -190,7 +190,7 @@ const eraseGrid = (e) => {
 }; 
 
 const selectColorGrid = (e) => {
-	const newColor = e.target.style.backgroundColor
+	const newColor = window.getComputedStyle(e.target).getPropertyValue('background-color')
 		.split(/\D/)
 		.filter(s => s)
 		.map(color => Number(color).toString(16).padStart(2, 0))
@@ -199,9 +199,55 @@ const selectColorGrid = (e) => {
 	squareColor = squareColorInput.value = `#${newColor || 'FFFFFF'}`; 
 }; 
 
+const fillColorGrid = () => {
+	let changedElements = []; 
+
+	function findSibling(el, index, oldColor) {
+		let parent = el.parentNode; 
+		let currColor = window.getComputedStyle(el).getPropertyValue('background-color'); 
+
+		if (changedElements.some(changedEl => changedEl == el)) return; 
+		if (oldColor != currColor) return; 
+
+		changedElements.push(el); 
+
+		if (parent.nextElementSibling) {
+			let parentNextSiblingChildren = Array.from(parent.nextElementSibling.children); 
+			findSibling(parentNextSiblingChildren[index], index, oldColor); 
+		}
+
+		if (parent.previousElementSibling) {
+			let parentPrevSiblingChildren = Array.from(parent.previousElementSibling.children); 
+			findSibling(parentPrevSiblingChildren[index], index, oldColor); 
+		}
+
+		if (el.nextElementSibling) {
+			findSibling(el.nextElementSibling, index + 1, oldColor); 
+		}
+
+		if (el.previousElementSibling) {
+			findSibling(el.previousElementSibling, index - 1, oldColor);
+		}
+	}
+
+	function handleClick(e) {
+		if (e.target.nodeName !== 'SPAN') return;
+		gridContainer.onclick = ''; 
+
+		let elIndex = Array.from(e.target.parentNode.children).indexOf(e.target); 
+		let elColor = window.getComputedStyle(e.target).getPropertyValue('background-color'); 
+
+		findSibling(e.target, elIndex, elColor); 
+		changedElements.forEach(el => el.style.backgroundColor = squareColor); 
+	}
+
+	gridContainer.onclick = (e) => handleClick(e); 
+}; 
+
 const toolFunctions = {
 	'draw': drawOnGrid, 
 	'erase': eraseGrid, 
+	'fill': fillColorGrid, 
 	'select': selectColorGrid, 
 }; 
 
