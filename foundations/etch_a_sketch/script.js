@@ -139,6 +139,9 @@ const squareColorInput = document.querySelector('.input-square-color');
 let currentColor = 'black'; 
 let squareColor = '#000'; 
 
+let previousSquare; 
+let previousTool; 
+
 const drawBlack = () => {
 	squareColor = '#000'; 
 }; 
@@ -168,6 +171,7 @@ const colorFunctions = {
 
 toolContainer.addEventListener('click', (e) => {
 	if (e.target.classList.contains('square-tool')) {
+		previousTool = currentTool; 
 		currentTool = e.target.value; 
 	}
 }); 
@@ -180,13 +184,60 @@ colorContainer.addEventListener('click', (e) => {
 	}
 }); 
 
+const findNodeIndex = (square) => Array.from(square.parentNode.children).indexOf(square); 
+
+const findIndexNode = (xAxis, yAxis) => {
+	let currentParent = Array.from(gridContainer.children)[yAxis]; 
+
+	return Array.from(currentParent.children)[xAxis]; 
+}; 
+
+const findSquareLine = (firstSquare, secondSquare) => {
+	let squares = []; 
+	let startX = findNodeIndex(firstSquare); 
+	let startY = findNodeIndex(firstSquare.parentNode); 
+	let endX = findNodeIndex(secondSquare); 
+	let endY = findNodeIndex(secondSquare.parentNode); 
+
+	if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
+		if (startX > endX) [startX, startY, endX, endY] = [endX, endY, startX, startY]; 
+		let slope = (endY - startY) / (endX - startX);
+		for (let x = startX, y = startY; x <= endX; x++) {
+			squares.push(findIndexNode(x, Math.round(y))); 
+			y += slope; 
+		}
+	} else {
+		if (startY > endY) [startX, startY, endX, endY] = [endX, endY, startX, startY]; 
+		let slope = (endX - startX) / (endY - startY);
+		for (let x = startX, y = startY; y <= endY; y++) {
+			squares.push(findIndexNode(Math.round(x), y)); 
+			x += slope; 
+		}
+	}
+
+	return squares; 
+}
+
 const drawOnGrid = (e) => {
 	colorFunctions[currentColor](); 
-	e.target.style.backgroundColor = squareColor; 
+
+	if (!previousSquare) {
+		e.target.style.backgroundColor = squareColor; 
+		return; 
+	}; 
+
+	let line = findSquareLine(previousSquare, e.target); 
+	line.forEach(square => square.style.backgroundColor = squareColor); 
 }; 
 
 const eraseGrid = (e) => {
-	e.target.style.backgroundColor = '#fff'; 
+	if (!previousSquare) {
+		e.target.style.backgroundColor = '#fff'
+		return; 
+	}; 
+
+	let line = findSquareLine(previousSquare, e.target); 
+	line.forEach(square => square.style.backgroundColor = '#fff'); 
 }; 
 
 const selectColorGrid = (e) => {
@@ -238,10 +289,46 @@ const fillColorGrid = () => {
 		let elColor = window.getComputedStyle(e.target).getPropertyValue('background-color'); 
 
 		findSibling(e.target, elIndex, elColor); 
+		colorFunctions[currentColor](); 
 		changedElements.forEach(el => el.style.backgroundColor = squareColor); 
 	}
 
 	gridContainer.onclick = (e) => handleClick(e); 
+}; 
+
+
+const adjustBrightness = (percent, color) => {
+    let i = parseInt; 
+	let r = Math.round; 
+	let [a, b, c, d] = color.split(","); 
+	let P = percent < 0; 
+	let t = P ? 0 : 255 * percent; 
+	P = P ? 1 + percent: 1 - percent;
+    return "rgb" + (d ? "a(" : "(") + r(i(a[3] == "a" ? a.slice(5) : a.slice(4)) * P + t) + "," + r(i(b) * P + t) + "," + r(i(c) * P + t) + (d ? "," + d : ")");
+}; 
+
+const lightenColorGrid = (e) => {
+	let currColor = window.getComputedStyle(e.target).getPropertyValue('background-color'); 
+
+	if (!previousSquare) {
+		e.target.style.backgroundColor = adjustBrightness(0.2, currColor); 
+		return; 
+	}; 
+
+	let line = findSquareLine(previousSquare, e.target); 
+	line.forEach(square => square.style.backgroundColor = adjustBrightness(0.2, currColor)); 
+}; 
+
+const darkenColorGrid = (e) => {
+	let currColor = window.getComputedStyle(e.target).getPropertyValue('background-color'); 
+
+	if (!previousSquare) {
+		e.target.style.backgroundColor = adjustBrightness(-0.2, currColor); 
+		return; 
+	}; 
+
+	let line = findSquareLine(previousSquare, e.target); 
+	line.forEach(square => square.style.backgroundColor = adjustBrightness(-0.2, currColor)); 
 }; 
 
 const toolFunctions = {
@@ -249,14 +336,22 @@ const toolFunctions = {
 	'erase': eraseGrid, 
 	'fill': fillColorGrid, 
 	'select': selectColorGrid, 
+	'lighten': lightenColorGrid, 
+	'darken': darkenColorGrid, 
 }; 
 
 gridContainer.addEventListener('mouseover', (e) => {
 	e.preventDefault(); 
 	if (!isControlDown || e.target.nodeName !== 'SPAN') return; 
-	
-	toolFunctions[currentTool](e);  
+		
+	toolFunctions[currentTool](e);
+	previousSquare = e.target; 
 }); 
 
 document.addEventListener('keydown', (e) => isControlDown = e.ctrlKey || e.metaKey);
-document.addEventListener('keyup', () => isControlDown = false);
+document.addEventListener('keyup', (e) => {
+	if (!e.ctrlKey) {
+		isControlDown = false; 
+		previousSquare = undefined; 
+	}
+});
