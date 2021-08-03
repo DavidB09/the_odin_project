@@ -92,24 +92,24 @@ const updateGridBorder = () => {
 	document.querySelector('style').innerHTML = gridBorderInput.checked ? '' : '.main-grid, .grid-elem {border: none;}';
 }; 
 
-const testGridSize = (val) => val > 0 && val <= 100; 
+const testValue = (val, min, max) => val >= min && val <= max; 
 
 gridHeightInput.addEventListener('input', () => {
-	if (!testGridSize(gridHeightInput.value)) return; 
+	if (!testValue(gridHeightInput.value, 1, 100)) return; 
 
 	heightChange = true; 
 	gridHeight = +gridHeightInput.value; 
 }); 
 
 gridWidthInput.addEventListener('input', () => {
-	if (!testGridSize(gridWidthInput.value)) return; 
+	if (!testValue(gridWidthInput.value, 1, 100)) return; 
 
 	widthChange = true; 
 	gridWidth = +gridWidthInput.value; 
 }); 
 
 gridSizeInput.addEventListener('input', () => {
-	if (!testGridSize(gridSizeInput.value)) return; 
+	if (!testValue(gridSizeInput.value, 1, 100)) return; 
 
 	heightChange = widthChange = true; 
 	gridHeight = gridWidth = +gridSizeInput.value; 
@@ -184,39 +184,46 @@ colorContainer.addEventListener('click', (e) => {
 	}
 }); 
 
-const findNodeIndex = (square) => Array.from(square.parentNode.children).indexOf(square); 
+const getCoords = (point, grid) => {
+	let x = Array.from(point.parentNode.children).indexOf(point); 
+	let y = Array.from(grid.children).indexOf(point.parentNode); 
 
-const findIndexNode = (xAxis, yAxis) => {
-	let currentParent = Array.from(gridContainer.children)[yAxis]; 
-
-	return Array.from(currentParent.children)[xAxis]; 
+	return {x, y}; 
 }; 
 
-const findSquareLine = (firstSquare, secondSquare) => {
-	let squares = []; 
-	let startX = findNodeIndex(firstSquare); 
-	let startY = findNodeIndex(firstSquare.parentNode); 
-	let endX = findNodeIndex(secondSquare); 
-	let endY = findNodeIndex(secondSquare.parentNode); 
+const getColor = (point) => {
+	return window.getComputedStyle(point).getPropertyValue('background-color'); 
+}; 
 
-	if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
-		if (startX > endX) [startX, startY, endX, endY] = [endX, endY, startX, startY]; 
-		let slope = (endY - startY) / (endX - startX);
-		for (let x = startX, y = startY; x <= endX; x++) {
-			squares.push(findIndexNode(x, Math.round(y))); 
+const findLine = (point1, point2, grid) => {
+	const findPoint = (x, y) => {
+		let currentParent = Array.from(grid.children)[y]; 
+
+		return Array.from(currentParent.children)[x]; 
+	}; 
+
+	let points = []; 
+	let {x: x1, y: y1} = point1; 
+	let {x: x2, y: y2} = point2; 
+
+	if (Math.abs(x2 - x1) > Math.abs(y2 - y1)) {
+		if (x1 > x2) [x1, y1, x2, y2] = [x2, y2, x1, y1]; 
+		let slope = (y2 - y1) / (x2 - x1);
+		for (let x = x1, y = y1; x <= x2; x++) {
+			points.push(findPoint(x, Math.round(y))); 
 			y += slope; 
 		}
 	} else {
-		if (startY > endY) [startX, startY, endX, endY] = [endX, endY, startX, startY]; 
-		let slope = (endX - startX) / (endY - startY);
-		for (let x = startX, y = startY; y <= endY; y++) {
-			squares.push(findIndexNode(Math.round(x), y)); 
+		if (y1 > y2) [x1, y1, x2, y2] = [x2, y2, x1, y1]; 
+		let slope = (x2 - x1) / (y2 - y1);
+		for (let x = x1, y = y1; y <= y2; y++) {
+			points.push(findPoint(Math.round(x), y)); 
 			x += slope; 
 		}
 	}
 
-	return squares; 
-}
+	return points; 
+}; 
 
 const drawOnGrid = (e) => {
 	colorFunctions[currentColor](); 
@@ -226,7 +233,7 @@ const drawOnGrid = (e) => {
 		return; 
 	}; 
 
-	let line = findSquareLine(previousSquare, e.target); 
+	let line = findLine(getCoords(previousSquare, gridContainer), getCoords(e.target, gridContainer), gridContainer); 
 	line.forEach(square => square.style.backgroundColor = squareColor); 
 }; 
 
@@ -236,12 +243,12 @@ const eraseGrid = (e) => {
 		return; 
 	}; 
 
-	let line = findSquareLine(previousSquare, e.target); 
+	let line = findLine(getCoords(previousSquare, gridContainer), getCoords(e.target, gridContainer), gridContainer); 
 	line.forEach(square => square.style.backgroundColor = '#fff'); 
 }; 
 
 const selectColorGrid = (e) => {
-	const newColor = window.getComputedStyle(e.target).getPropertyValue('background-color')
+	const newColor = getColor(e.target)
 		.split(/\D/)
 		.filter(s => s)
 		.map(color => Number(color).toString(16).padStart(2, 0))
@@ -255,7 +262,7 @@ const fillColorGrid = () => {
 
 	function findSibling(el, index, oldColor) {
 		let parent = el.parentNode; 
-		let currColor = window.getComputedStyle(el).getPropertyValue('background-color'); 
+		let currColor = getColor(el); 
 
 		if (changedElements.some(changedEl => changedEl == el)) return; 
 		if (oldColor != currColor) return; 
@@ -285,10 +292,7 @@ const fillColorGrid = () => {
 		if (e.target.nodeName !== 'SPAN') return;
 		gridContainer.onclick = ''; 
 
-		let elIndex = Array.from(e.target.parentNode.children).indexOf(e.target); 
-		let elColor = window.getComputedStyle(e.target).getPropertyValue('background-color'); 
-
-		findSibling(e.target, elIndex, elColor); 
+		findSibling(e.target, getCoords(e.target, gridContainer).x, getColor(e.target)); 
 		colorFunctions[currentColor](); 
 		changedElements.forEach(el => el.style.backgroundColor = squareColor); 
 	}
@@ -298,37 +302,30 @@ const fillColorGrid = () => {
 
 
 const adjustBrightness = (percent, color) => {
-    let i = parseInt; 
-	let r = Math.round; 
-	let [a, b, c, d] = color.split(","); 
-	let P = percent < 0; 
-	let t = P ? 0 : 255 * percent; 
-	P = P ? 1 + percent: 1 - percent;
-    return "rgb" + (d ? "a(" : "(") + r(i(a[3] == "a" ? a.slice(5) : a.slice(4)) * P + t) + "," + r(i(b) * P + t) + "," + r(i(c) * P + t) + (d ? "," + d : ")");
+	let [red, green, blue] = color.split(/\D/).filter(i => i); 
+	let base = percent < 0 ? 0 : 255 * percent; 
+	let multiply = percent < 0 ? 1 + percent: 1 - percent;
+    return `rgb(${Math.round(+red * multiply + base)}, ${Math.round(+green * multiply + base)}, ${Math.round(+blue * multiply + base)})`;
 }; 
 
 const lightenColorGrid = (e) => {
-	let currColor = window.getComputedStyle(e.target).getPropertyValue('background-color'); 
-
 	if (!previousSquare) {
-		e.target.style.backgroundColor = adjustBrightness(0.2, currColor); 
+		e.target.style.backgroundColor = adjustBrightness(0.2, getColor(e.target)); 
 		return; 
 	}; 
 
-	let line = findSquareLine(previousSquare, e.target); 
-	line.forEach(square => square.style.backgroundColor = adjustBrightness(0.2, currColor)); 
+	let line = findLine(getCoords(previousSquare, gridContainer), getCoords(e.target, gridContainer), gridContainer);  
+	line.forEach(square => square.style.backgroundColor = adjustBrightness(0.2, getColor(square))); 
 }; 
 
 const darkenColorGrid = (e) => {
-	let currColor = window.getComputedStyle(e.target).getPropertyValue('background-color'); 
-
 	if (!previousSquare) {
-		e.target.style.backgroundColor = adjustBrightness(-0.2, currColor); 
+		e.target.style.backgroundColor = adjustBrightness(-0.2, getColor(e.target)); 
 		return; 
 	}; 
 
-	let line = findSquareLine(previousSquare, e.target); 
-	line.forEach(square => square.style.backgroundColor = adjustBrightness(-0.2, currColor)); 
+	let line = findLine(getCoords(previousSquare, gridContainer), getCoords(e.target, gridContainer), gridContainer); 
+	line.forEach(square => square.style.backgroundColor = adjustBrightness(-0.2, getColor(square))); 
 }; 
 
 const toolFunctions = {
