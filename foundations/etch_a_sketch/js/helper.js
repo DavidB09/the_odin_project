@@ -1,10 +1,10 @@
-export const createNewGridElem = () => {
+export const createGridElement = () => {
 	const spanElem = document.createElement('span'); 
 	spanElem.classList.add('grid-elem'); 
 	return spanElem;
 }; 
 
-export const createNewGridDivider = () => {
+export const createGridDivider = () => {
 	const divideElem = document.createElement('div'); 
 	divideElem.classList.add('grid-divider');
 	divideElem.classList.add('flex-row'); 
@@ -20,9 +20,7 @@ export const getCoords = (point, grid) => {
 	return {x, y}; 
 }; 
 
-export const getColor = (point) => {
-	return window.getComputedStyle(point).getPropertyValue('background-color'); 
-}; 
+export const getColor = (point) => window.getComputedStyle(point).getPropertyValue('background-color'); 
 
 export const findLine = (point1, point2, grid) => {
 	const findPoint = (x, y) => {
