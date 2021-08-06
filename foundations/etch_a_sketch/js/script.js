@@ -1,5 +1,5 @@
-import { createGridElement, createGridDivider, testValue } from "./js/helper.js";
-import { getCoords, getPoint, getColor, findLine, adjustBrightness } from "./js/helper.js";
+import { createGridElement, createGridDivider, testValue } from "./helper.js";
+import { getCoords, getPoint, getColor, findLine, adjustBrightness } from "./helper.js";
 
 const gridContainer = document.querySelector('.main-grid');
 let gridHeight = 0; 
