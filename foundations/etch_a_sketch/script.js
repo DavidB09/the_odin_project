@@ -1,11 +1,12 @@
 import { createGridElement, createGridDivider, testValue } from "./js/helper.js";
-import { getCoords, getColor, findLine, adjustBrightness } from "./js/helper.js";
+import { getCoords, getPoint, getColor, findLine, adjustBrightness } from "./js/helper.js";
 
 const gridContainer = document.querySelector('.main-grid');
 let gridHeight = 0; 
 let gridWidth = 0; 
 
 /********* GRID *********/
+
 const gridHeightInput = document.querySelector('.input-grid-height'); 
 const gridWidthInput = document.querySelector('.input-grid-width'); 
 const gridSizeInput = document.querySelector('.input-grid-size'); 
@@ -17,8 +18,8 @@ const gridSubmit = document.querySelector('.submit-grid');
 
 let heightChange, widthChange, backgroundColorChange; 
 
-const createNewGrid = () => {
-	if (!heightChange || !widthChange) return; 
+const createNewGrid = (isClear) => {
+	if ((!heightChange || !widthChange) && !isClear) return; 
 
 	gridContainer.innerHTML = ''; 
 	updateGridHeight(); 
@@ -115,20 +116,22 @@ gridBorderInput.addEventListener('click', updateGridBorder);
 
 
 /********* Square *********/
+
 let isControlDown = false; 
 
 const toolContainer = document.querySelector('.square-tool-container'); 
+let currentTool; 
 
-let currentTool = 'draw'; 
+const shapeContainer = document.querySelector('.square-shape-container'); 
+let currentShape; 
+
+let previousSquare; 
 
 const colorContainer = document.querySelector('.square-color-container'); 
 const squareColorInput = document.querySelector('.input-square-color'); 
 
 let currentColor = 'black'; 
 let squareColor = '#000'; 
-
-let previousSquare; 
-let previousTool; 
 
 const drawBlack = () => {
 	squareColor = '#000'; 
@@ -159,10 +162,17 @@ const colorFunctions = {
 
 toolContainer.addEventListener('click', (e) => {
 	if (e.target.classList.contains('square-tool')) {
-		previousTool = currentTool; 
 		currentTool = e.target.value; 
+		currentShape = ''; 
 	}
 }); 
+
+shapeContainer.addEventListener('click', (e) => {
+	if (e.target.classList.contains('square-shape')) {
+		currentShape = e.target.value; 
+		currentTool = ''; 
+	}
+});
 
 colorContainer.addEventListener('click', (e) => {
 	if (e.target.classList.contains('square-color')) {
@@ -276,12 +286,112 @@ const toolFunctions = {
 	'darken': darkenColorGrid, 
 }; 
 
+const drawRectangle = (e) => {
+	if (!previousSquare) {
+		previousSquare = e.target; 
+		document.querySelectorAll('.temp-rectangle').forEach(square => square.classList.remove('temp-rectangle')); 
+		return; 
+	}
+
+	document.querySelectorAll('.temp-rectangle').forEach(square => {
+		square.style.backgroundColor = gridBackgroundColorInput.value; 
+		square.classList.remove('temp-rectangle'); 
+	}); 
+
+	colorFunctions[currentColor](); 
+
+	let {x: x1, y: y1} = getCoords(previousSquare, gridContainer); 
+	let {x: x2, y: y2} = getCoords(e.target, gridContainer); 
+
+	let rectangle = []; 
+
+	for (let x = (x1 > x2 ? x2 : x1); x <= (x1 >= x2 ? x1 : x2); x++) {
+		rectangle.push(...findLine({x, y: y1}, {x, y: y1 + (y2 - y1)}, gridContainer)); 
+	}
+
+	rectangle.forEach(square => {
+		square.style.backgroundColor = squareColor; 
+		square.classList.add('temp-rectangle'); 
+	}); 
+}; 
+
+const drawCircle = (e) => {
+	if (!previousSquare) {
+		previousSquare = e.target; 
+		document.querySelectorAll('.temp-circle').forEach(square => square.classList.remove('temp-circle')); 
+		return; 
+	}
+
+	document.querySelectorAll('.temp-circle').forEach(square => {
+		square.style.backgroundColor = gridBackgroundColorInput.value; 
+		square.classList.remove('temp-circle'); 
+	}); 
+
+	colorFunctions[currentColor](); 
+
+	let {x: x1, y: y1} = getCoords(previousSquare, gridContainer); 
+	let {x: x2, y: y2} = getCoords(e.target, gridContainer); 
+
+	let circle = []; 
+
+	let radius = Math.ceil(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+	for (let dy = -radius; dy <= radius; dy++) {
+		for (let dx = -radius; dx <= radius; dx++) {
+			let dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+			if (dist > radius) continue;
+			let y = y1 + dy, x = x1 + dx;
+			if (y < 0 || y >= gridHeight || x < 0 || x >= gridWidth) continue;
+			circle.push(getPoint(x, y, gridContainer));
+		}
+	}
+
+	circle.forEach(square => {
+		square.style.backgroundColor = squareColor; 
+		square.classList.add('temp-circle'); 
+	}); 
+}; 
+
+const drawLine = (e) => {
+	if (!previousSquare) {
+		previousSquare = e.target; 
+		document.querySelectorAll('.temp-line').forEach(square => square.classList.remove('temp-line')); 
+		return; 
+	}
+
+	document.querySelectorAll('.temp-line').forEach(square => {
+		square.style.backgroundColor = gridBackgroundColorInput.value; 
+		square.classList.remove('temp-line'); 
+	}); 
+
+	colorFunctions[currentColor](); 
+
+	let {x: x1, y: y1} = getCoords(previousSquare, gridContainer); 
+	let {x: x2, y: y2} = getCoords(e.target, gridContainer); 
+
+	findLine({x: x1, y: y1}, {x: x2, y: y2}, gridContainer).forEach(square => {
+		square.style.backgroundColor = squareColor; 
+		square.classList.add('temp-line'); 
+	}); 
+}; 
+
+const shapeFunctions = {
+	'rectangle': drawRectangle, 
+	'circle': drawCircle,
+	'line': drawLine, 
+}; 
+
 gridContainer.addEventListener('mouseover', (e) => {
 	e.preventDefault(); 
 	if (!isControlDown || e.target.nodeName !== 'SPAN') return; 
-		
-	toolFunctions[currentTool](e);
-	previousSquare = e.target; 
+	
+	if (currentTool) {
+		toolFunctions[currentTool](e);
+		previousSquare = e.target; 
+	}
+
+	if (currentShape) {
+		shapeFunctions[currentShape](e); 
+	}
 }); 
 
 document.addEventListener('keydown', (e) => isControlDown = e.ctrlKey || e.metaKey);
@@ -291,3 +401,34 @@ document.addEventListener('keyup', (e) => {
 		previousSquare = undefined; 
 	}
 });
+
+/********* Actions *********/
+
+const saveButton = document.querySelector('.action-save'); 
+const clearButton = document.querySelector('.action-clear'); 
+
+saveButton.addEventListener('click', () => {
+	let size = 5; 
+
+	const canvas = document.createElement('canvas'); 
+	canvas.height = gridHeight * size; 
+	canvas.width = gridWidth * size; 
+	const context = canvas.getContext('2d'); 
+
+	for (let x = 0; x < gridWidth; x++) {
+		for (let y = 0; y < gridHeight; y++) {
+			context.fillStyle = getColor(getPoint(x, y, gridContainer)); 
+			context.fillRect(size * x, size * y, size, size);
+		}
+	}
+
+	let link = document.createElement('a'); 
+	link.href = canvas.toDataURL(); 
+	link.download = 'etchasketch.png'; 
+
+	document.body.appendChild(link);
+	link.click();
+	link.remove();
+}); 
+
+clearButton.addEventListener('click', createNewGrid);

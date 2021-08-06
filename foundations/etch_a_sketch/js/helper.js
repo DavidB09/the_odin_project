@@ -20,15 +20,14 @@ export const getCoords = (point, grid) => {
 	return {x, y}; 
 }; 
 
+export const getPoint = (x, y, grid) => {
+	let currentParent = Array.from(grid.children)[y]; 
+	return Array.from(currentParent.children)[x]; 
+}
+
 export const getColor = (point) => window.getComputedStyle(point).getPropertyValue('background-color'); 
 
 export const findLine = (point1, point2, grid) => {
-	const findPoint = (x, y) => {
-		let currentParent = Array.from(grid.children)[y]; 
-
-		return Array.from(currentParent.children)[x]; 
-	}; 
-
 	let points = []; 
 	let {x: x1, y: y1} = point1; 
 	let {x: x2, y: y2} = point2; 
@@ -37,14 +36,14 @@ export const findLine = (point1, point2, grid) => {
 		if (x1 > x2) [x1, y1, x2, y2] = [x2, y2, x1, y1]; 
 		let slope = (y2 - y1) / (x2 - x1);
 		for (let x = x1, y = y1; x <= x2; x++) {
-			points.push(findPoint(x, Math.round(y))); 
+			points.push(getPoint(x, Math.round(y), grid)); 
 			y += slope; 
 		}
 	} else {
 		if (y1 > y2) [x1, y1, x2, y2] = [x2, y2, x1, y1]; 
 		let slope = (x2 - x1) / (y2 - y1);
 		for (let x = x1, y = y1; y <= y2; y++) {
-			points.push(findPoint(Math.round(x), y)); 
+			points.push(getPoint(Math.round(x), y, grid)); 
 			x += slope; 
 		}
 	}

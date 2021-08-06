@@ -22,9 +22,9 @@
 
     <main class="flex-column">
 
-        <section class="main-properties">
+        <section class="main-options">
 
-            <div class="properties-grid">
+            <div class="options-grid">
                 <h2>Grid</h2>
 
                 <div>
@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="properties-square">
+            <div class="options-square">
                 <h2>Square</h2>
 
                 <div class="flex-row">
@@ -82,6 +82,14 @@
                     <button class="tool-select square-tool" type="submit" value='select'>Select</button>
                 </div>
 
+                <h3>Shapes</h3>
+                <div class="flex-column square-shape-container">
+                    <button class="tool-rectangle square-shape" type="submit" value='rectangle'>Rectangle</button>
+                    <button class="tool-circle square-shape" type="submit" value='circle'>Circle</button>
+                    <button class="tool-line square-shape" type="submit" value='line'>Line</button>
+                </div>
+
+
                 <div class="flex-row square-color-container">
                     <label>Black 
                         <input class="input-color-black square-color" type="radio" value='black' checked />
@@ -98,6 +106,11 @@
                     <input class="input-square-color" type="color" />
                 </div>
 
+            </div>
+
+            <div class="options">
+                <button class="action-save" type="submit" value="save">Save</button>
+                <button class="action-clear" type="submit" value="clear">Clear</button>
             </div>
 
         </section>
