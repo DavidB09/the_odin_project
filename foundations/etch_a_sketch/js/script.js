@@ -1,5 +1,5 @@
 import { createGridElement, createGridDivider, testValue } from "./helper.js";
-import { getCoords, getPoint, getColor, findLine, adjustBrightness } from "./helper.js";
+import { getCoords, getPoint, getColor, rgbToHex, findLine, adjustBrightness } from "./helper.js";
 
 const gridContainer = document.querySelector('.grid-container');
 let gridHeight = 0; 
@@ -11,12 +11,15 @@ const gridHeightInput = document.querySelector('.input-grid-height');
 const gridWidthInput = document.querySelector('.input-grid-width'); 
 const gridSizeInput = document.querySelector('.input-grid-size'); 
 const gridBackgroundColorInput = document.querySelector('.input-grid-background-color'); 
+const gridColorInput = document.querySelector('.input-square-color'); 
 const gridBorderInput = document.querySelector('.input-grid-border'); 
 
 const gridUpdate = document.querySelector('.update-grid'); 
 const gridSubmit = document.querySelector('.submit-grid'); 
 
-let heightChange, widthChange, backgroundColorChange; 
+let prevBackgroundColor; 
+
+let heightChange, widthChange; 
 
 const createNewGrid = (isClear) => {
 	if ((!heightChange || !widthChange) && !isClear) return; 
@@ -25,8 +28,9 @@ const createNewGrid = (isClear) => {
 	updateGridHeight(); 
 	updateGridWidth(); 
 	updateElementSize(); 
-	updateGridBackgroundColor(); 
-	updateGridBorder(); 
+	updateGridBackgroundColor(true); 
+
+	prevBackgroundColor = gridBackgroundColorInput.value; 
 }; 
 
 const updateGrid = () => {	
@@ -38,10 +42,8 @@ const updateGrid = () => {
 		updateElementSize(); 
 	}
 
-	if (backgroundColorChange) {
-		updateGridBackgroundColor(); 
-		backgroundColorChange = false; 
-	}
+	updateGridBackgroundColor(); 
+	prevBackgroundColor = gridBackgroundColorInput.value; 
 }; 
 
 const updateGridHeight = () => {
@@ -66,7 +68,7 @@ const updateGridWidth = () => {
 
 		while (currentWidth != gridWidth) {
 			if (currentWidth < gridWidth) {
-				divider.appendChild(createGridElement()); 
+				divider.appendChild(createGridElement(gridBackgroundColorInput.value)); 
 				currentWidth++; 
 			}
 	
@@ -88,12 +90,16 @@ const updateElementSize = () => {
 	}); 
 }; 
 
-const updateGridBackgroundColor = () => {
-	document.querySelectorAll('.grid-elem').forEach(el => el.style.backgroundColor = gridBackgroundColorInput.value)
+const updateGridBackgroundColor = (isNew) => {
+	document.querySelectorAll('.grid-elem').forEach(el => {
+		if (isNew || `#${rgbToHex(getColor(el))}` == prevBackgroundColor || !prevBackgroundColor)
+			el.style.backgroundColor = gridBackgroundColorInput.value
+	}); 
 }; 
 
 const updateGridBorder = () => {
-	document.querySelector('style').innerHTML = gridBorderInput.checked ? '' : '.grid-container, .grid-elem {border: none;}';
+	gridBorderInput.classList.toggle('selected'); 
+	document.querySelector('style').innerHTML = gridBorderInput.classList.contains('selected') ? '' : '.grid-container, .grid-elem {border: none;}';
 }; 
 
 gridHeightInput.addEventListener('input', () => {
@@ -119,15 +125,11 @@ gridSizeInput.addEventListener('input', () => {
 	gridHeightInput.placeholder = gridWidthInput.placeholder = `${gridSizeInput.value}`; 
 }); 
 
-gridBackgroundColorInput.addEventListener('input', () => {
-	backgroundColorChange = true; 
-}); 
-
 gridUpdate.addEventListener('click', updateGrid); 
 gridSubmit.addEventListener('click', createNewGrid); 
 gridBorderInput.addEventListener('click', updateGridBorder); 
 
-document.querySelectorAll('button').forEach(button => {
+document.querySelectorAll('button[type="submit"]').forEach(button => {
 	button.addEventListener('mouseenter', (e) => {
 		const currSpan = button.querySelector('span'); 
 		const {top, left} = button.getBoundingClientRect(); 
@@ -158,10 +160,9 @@ let currentShape;
 let previousSquare; 
 
 const colorContainer = document.querySelector('.square-color-container'); 
-const squareColorInput = document.querySelector('.input-square-color'); 
 
-let currentColor = 'black'; 
-let squareColor = '#000'; 
+let currentColor; 
+let squareColor; 
 
 const drawBlack = () => {
 	squareColor = '#000'; 
@@ -181,7 +182,7 @@ const drawRainbow = () => {
 }; 
 
 const drawColor = () => {
-	squareColor = squareColorInput.value; 
+	squareColor = gridColorInput.value; 
 }; 
 
 const colorFunctions = {
@@ -215,11 +216,15 @@ shapeContainer.addEventListener('click', (e) => {
 });
 
 colorContainer.addEventListener('click', (e) => {
-	if (e.target.classList.contains('square-color')) {
-		currentColor = e.target.value; 
-		colorFunctions[currentColor](); 
-		colorContainer.querySelectorAll('.square-color').forEach(input => input.checked = input === e.target);
-	}
+	let selectedButton = e.target.closest('.square-color'); 
+
+	if (!selectedButton) return; 
+
+	currentColor = selectedButton.value; 
+	colorFunctions[currentColor](); 
+
+	document.querySelectorAll('.square-color').forEach(button => button.classList.remove('selected')); 
+	selectedButton.classList.add('selected'); 
 }); 
 
 const drawOnGrid = (e) => {
@@ -236,22 +241,16 @@ const drawOnGrid = (e) => {
 
 const eraseGrid = (e) => {
 	if (!previousSquare) {
-		e.target.style.backgroundColor = '#fff'
+		e.target.style.backgroundColor = gridBackgroundColorInput.value; 
 		return; 
 	}; 
 
 	let line = findLine(getCoords(previousSquare, gridContainer), getCoords(e.target, gridContainer), gridContainer); 
-	line.forEach(square => square.style.backgroundColor = '#fff'); 
+	line.forEach(square => square.style.backgroundColor = gridBackgroundColorInput.value); 
 }; 
 
 const selectColorGrid = (e) => {
-	const newColor = getColor(e.target)
-		.split(/\D/)
-		.filter(s => s)
-		.map(color => Number(color).toString(16).padStart(2, 0))
-		.join('');
-
-	squareColor = squareColorInput.value = `#${newColor || 'FFFFFF'}`; 
+	squareColor = gridColorInput.value = `#${rgbToHex(getColor(e.target)) || 'FFFFFF'}`; 
 }; 
 
 const fillColorGrid = () => {
@@ -448,7 +447,7 @@ const saveButton = document.querySelector('.action-save');
 const clearButton = document.querySelector('.action-clear'); 
 
 saveButton.addEventListener('click', () => {
-	let size = 5; 
+	let size = 10; 
 
 	const canvas = document.createElement('canvas'); 
 	canvas.height = gridHeight * size; 
@@ -480,5 +479,18 @@ clearButton.addEventListener('click', createNewGrid);
 	widthChange = true; 
 	gridWidth = 50; 
 
+	gridSizeInput.value = 50; 
+	gridHeightInput.value = 50; 
+	gridWidthInput.value = 50; 
+
+	gridBackgroundColorInput.value = '#ffffff'; 
+	gridColorInput.value = '#0060df'; 
+
+
 	createNewGrid(); 
+	updateGridBorder(); 
+
+	currentColor = 'black'; 
+	drawBlack(); 
+	document.querySelector('.input-color-black').classList.add('selected'); 
 })(); 

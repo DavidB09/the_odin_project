@@ -1,6 +1,7 @@
-export const createGridElement = () => {
+export const createGridElement = (color) => {
 	const spanElem = document.createElement('span'); 
 	spanElem.classList.add('grid-elem'); 
+	spanElem.style.backgroundColor = color; 
 	return spanElem;
 }; 
 
@@ -26,6 +27,8 @@ export const getPoint = (x, y, grid) => {
 }
 
 export const getColor = (point) => window.getComputedStyle(point).getPropertyValue('background-color'); 
+
+export const rgbToHex = (rgb) => rgb.split(/\D/).filter(s => s).map(color => Number(color).toString(16).padStart(2, 0)).join('');
 
 export const findLine = (point1, point2, grid) => {
 	let points = []; 

@@ -23,6 +23,9 @@ body {
     width: 100vw; 
     margin: 0;
     background-color: #181818; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    color: #cf4646; 
 }
 
 header {
@@ -41,18 +44,23 @@ section {
 h1 {
     font-family: 'Pacifico', cursive;
     font-size: 7rem; 
-    color: #cf4646; 
 }
 
 h2 {
-    margin: 0; 
-    font-family: 'Montserrat', sans-serif;
+    margin: 0 0 1rem 0; 
     font-size: 3.5rem; 
     font-weight: bold;
-    color: #cf4646; 
 }
 
-button {
+/* h2:nth-of-type(2) {
+    margin-top: 2rem;
+} */
+
+h3 {
+    font-size: 2rem; 
+}
+
+button[type="submit"] {
     position: relative;
     padding: 1rem; 
     margin: 1rem; 
@@ -67,11 +75,11 @@ button {
     overflow: hidden;
 }
 
-button:hover {
+button[type="submit"]:hover {
     color: white; 
 }
 
-button span {
+button[type="submit"] span {
     position: absolute;
     display: block;
     width: 0; 
@@ -83,7 +91,7 @@ button span {
     z-index: -1;
 }
 
-button:hover span {
+button[type="submit"]:hover span {
     width: 400%; 
     height: 400%; 
 }
@@ -106,28 +114,39 @@ button:hover span {
     text-align: center;
 }
 
+.grid-options {
+    margin-right: 5rem; 
+    margin-bottom: 5rem;
+}
+.user-options {
+    margin-right: 5rem; 
+}
 
 .main-options {
-    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.drawing-options {
+    box-sizing: border-box;
+    height: 80rem; 
 }
 
 .options {
-    width: 25rem; 
+    box-sizing: border-box;
+    width: 30rem; 
     padding: 2.5rem; 
     background-color: #242322;
     border-radius: 5px;
     border: 2px solid #cf4646; 
 }
 
-.grid-options label {
+.grid-options label, .grid-options p {
     align-self: flex-start;
     display: flex;
     justify-content: center; 
     align-items: center;
-    padding: 0.5rem; 
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
-    color: #cf4646; 
+    margin: 0; 
+    padding: 1rem; 
 }
 
 .grid-options input {
@@ -158,10 +177,69 @@ button:hover span {
 }
 
 .selected-option {
-    color: white; 
+    color: white !important; 
 }
 
 .selected-option span {
-    width: 400%; 
-    height: 400%; 
+    width: 400% !important; 
+    height: 400% !important; 
+}
+
+input[type="number"]:focus {
+    outline: solid #0060df 2px; 
+    box-shadow: 0 0 6px 6px rgba(0, 60, 140, 0.5); 
+}
+
+input[type="color"] {
+    border: solid 0.3rem #f0f0f0;
+    border-radius: 2px;
+    height: 3rem; 
+    padding: 0;
+}
+
+.slider-button {
+    position: relative;
+    display: inline-block;
+    width: 5.5rem;
+    height: 3rem;
+    background-color: transparent;
+    border: none;
+}
+
+.slider {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background-color: #ccc;
+    border-radius: 34px; 
+}
+
+.slider .circle {
+    position: absolute; 
+    left: 3.5px; 
+    height: 2.4rem; 
+    width: 2.4rem;
+    background-color: #fff; 
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.selected .slider {
+    background-color: #0060df; 
+}
+
+.selected .circle {
+    transform: translateX(23px); 
+}
+
+.square-color-container p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 1rem;
 }

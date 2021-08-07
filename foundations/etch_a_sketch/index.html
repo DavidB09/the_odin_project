@@ -23,78 +23,107 @@
 
     <main class="flex-row">
 
-        <section class="main-options flex-column">
+        <section class="main-options flex-row">
 
-            <div class="grid-options options flex-column">
-                <h2>Grid</h2>
+            <div class="flex-column">
 
-                <label>Height:&nbsp;&nbsp;&nbsp; 
-                    <input class="input-grid-height" type="number" min="1" max="100" placeholder="Enter grid height" />
-                </label>
+                <div class="grid-options options flex-column">
+                    <h2>Grid</h2>
+    
+                    <label>Height:&nbsp;&nbsp;&nbsp; 
+                        <input class="input-grid-height" type="number" min="1" max="100" placeholder="Enter grid height" />
+                    </label>
+    
+                    <label>Width:&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input class="input-grid-width" type="number" min="1" max="100" placeholder="Enter grid width" />
+                    </label>
+    
+                    <label>Size:&nbsp;&nbsp;&nbsp; 
+                        <input class="input-grid-size" type="range" min="0" max="100" step="5" value="50" />
+                    </label>
+    
+                    <label>Background Color:&nbsp;&nbsp;&nbsp; 
+                        <input class="input-grid-background-color" type="color" value="#ffffff" />
+                    </label>
 
-                <label>Width:&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="input-grid-width" type="number" min="1" max="100" placeholder="Enter grid width" />
-                </label>
+                    <label>Square Color:&nbsp;&nbsp;&nbsp; 
+                        <input class="input-square-color" type="color" value="#000" />
+                    </label>
+    
+                    <p>Show Border:&nbsp;&nbsp;&nbsp; 
+                        <button class="input-grid-border slider-button">
+                            <span class="slider">
+                                <span class="circle"></span>
+                            </span>
+                        </button>
+                    </p>
+    
+                    <button class="update-grid" type="submit">Update Grid<span></span></button>
+                    <button class="submit-grid" type="submit">Create New Grid<span></span></button>
+                </div>
 
-                <label>Size:&nbsp;&nbsp;&nbsp; 
-                    <input class="input-grid-size" type="range" min="0" max="100" step="5" value="50" />
-                </label>
+                <div class="user-options options">
+                    <button class="action-save" type="submit" value="save">Save<span></span></button>
+                    <button class="action-clear" type="submit" value="clear">Clear<span></span></button>
+                </div>
 
-                <label>Background Color:&nbsp;&nbsp;&nbsp; 
-                    <input class="input-grid-background-color" type="color" value="#ffffff" />
-                </label>
-
-                <label>Show Border:&nbsp;&nbsp;&nbsp; 
-                    <input class="input-grid-border" type="checkbox" checked />
-                </label>
-
-                <button class="update-grid" type="submit">Update Grid<span></span></button>
-                <button class="submit-grid" type="submit">Create New Grid<span></span></button>
             </div>
 
-            <div class="options">
-                <h2>Square</h2>
+            <div class="drawing-options options">
+                <h2>Drawing</h2>
 
                 <h3>Tools</h3>
 
-                <div class="flex-column square-tool-container">
-                    <button class="tool-draw square-tool" type="submit" value='draw'>Draw<span></span></button>
-                    <button class="tool-erase square-tool" type="submit" value='erase'>Erase<span></span></button>
-                    <button class="tool-darken square-tool" type="submit" value='darken'>Darken<span></span></button>
-                    <button class="tool-lighten square-tool" type="submit" value='lighten'>Lighten<span></span></button>
-                    <button class="tool-fill square-tool" type="submit" value='fill'>Fill<span></span></button>
-                    <button class="tool-select square-tool" type="submit" value='select'>Select<span></span></button>
+                <div class="flex-row square-tool-container">
+                    <div class="flex-column">
+                        <button class="tool-draw square-tool" type="submit" value='draw'>Draw<span></span></button>
+                        <button class="tool-darken square-tool" type="submit" value='darken'>Darken<span></span></button>
+                        <button class="tool-fill square-tool" type="submit" value='fill'>Fill<span></span></button>
+                    </div>
+
+                    <div class="flex-column">
+                        <button class="tool-erase square-tool" type="submit" value='erase'>Erase<span></span></button>
+                        <button class="tool-lighten square-tool" type="submit" value='lighten'>Lighten<span></span></button>
+                        <button class="tool-select square-tool" type="submit" value='select'>Select<span></span></button>
+                    </div>
                 </div>
 
                 <h3>Shapes</h3>
+
                 <div class="flex-column square-shape-container">
                     <button class="tool-rectangle square-shape" type="submit" value='rectangle'>Rectangle<span></span></button>
                     <button class="tool-circle square-shape" type="submit" value='circle'>Circle<span></span></button>
                     <button class="tool-line square-shape" type="submit" value='line'>Line<span></span></button>
                 </div>
 
+                <h3>Colors</h3>
 
-                <div class="flex-row square-color-container">
-                    <label>Black 
-                        <input class="input-color-black square-color" type="radio" value='black' checked />
-                    </label>
+                <div class="flex-column square-color-container">
+                    <p>Black:&nbsp;&nbsp;&nbsp; 
+                        <button class="input-color-black square-color slider-button" value='black'>
+                            <span class="slider">
+                                <span class="circle"></span>
+                            </span>
+                        </button> 
+                    </p>
 
-                    <label>Rainbow 
-                        <input class="input-color-rainbow square-color" type="radio" value='rainbow' />
-                    </label>
+                    <p>Rainbow:&nbsp;&nbsp;&nbsp; 
+                        <button class="input-color-rainbow square-color slider-button" value='rainbow'>
+                            <span class="slider">
+                                <span class="circle"></span>
+                            </span>
+                        </button>  
+                    </p>
 
-                    <label>Color 
-                        <input class="input-color-choice square-color" type="radio" value='color' />
-                    </label>
-
-                    <input class="input-square-color" type="color" />
+                    <p>Color:&nbsp;&nbsp;&nbsp; 
+                        <button class="input-color-choice square-color slider-button" value='color'>
+                            <span class="slider">
+                                <span class="circle"></span>
+                            </span>
+                        </button>   
+                    </p>
                 </div>
 
-            </div>
-
-            <div class="options">
-                <button class="action-save" type="submit" value="save">Save<span></span></button>
-                <button class="action-clear" type="submit" value="clear">Clear<span></span></button>
             </div>
 
         </section>
