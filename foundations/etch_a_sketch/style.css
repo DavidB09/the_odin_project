@@ -14,33 +14,154 @@ html {
     src: url("./assets/fonts/manga-temple.regular.ttf") format("truetype");
 }
 
+/* COMMON ELEMENTS */
+
+body {
+    position: absolute;
+    top: 0;
+    height: 100vh; 
+    width: 100vw; 
+    margin: 0;
+    background-color: #181818; 
+}
+
+header {
+    margin-top: 5rem;  
+}
+
+main {
+    margin-top: 5rem;  
+}
+
+section {
+    height: 80rem; 
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 7rem; 
+    color: #cf4646; 
+}
+
+h2 {
+    margin: 0; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem; 
+    font-weight: bold;
+    color: #cf4646; 
+}
+
+button {
+    position: relative;
+    padding: 1rem; 
+    margin: 1rem; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    color: #cf4646; 
+    background-color: transparent;
+    border-radius: 1.5px;
+    border: 1px solid #cf4646; 
+    transition: color 0.4s ease-in-out;
+    z-index: 1;
+    overflow: hidden;
+}
+
+button:hover {
+    color: white; 
+}
+
+button span {
+    position: absolute;
+    display: block;
+    width: 0; 
+    height: 0; 
+    border-radius: 50%;
+    background-color: #cf4646; 
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+button:hover span {
+    width: 400%; 
+    height: 400%; 
+}
+
+/* CLASSES */
+
 .flex-column {
     display: flex; 
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
 .flex-row {
     display: flex; 
     flex-direction: row;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
+
+.main-options {
+    justify-content: space-between;
+}
+
+.options {
+    width: 25rem; 
+    padding: 2.5rem; 
+    background-color: #242322;
+    border-radius: 5px;
+    border: 2px solid #cf4646; 
+}
+
+.grid-options label {
+    align-self: flex-start;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 0.5rem; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    color: #cf4646; 
+}
+
+.grid-options input {
+    margin-right: 0.2rem;
+}
+
 .main-grid {
+    width: 80rem; 
+    margin-left: 5rem;
+    background-color: #242322;
+    border-radius: 5px;
+    border: 2px solid #cf4646; 
+    box-sizing: border-box;
+}
+
+.grid-container {
     display: grid;
+    box-sizing: border-box;
     border-bottom: 1px solid gray;
     border-right: 1px solid gray;
 }
 
 .grid-elem {
-    height: 10px;
-    width: 10px;
     box-sizing: border-box;
     background-color: #fff;
     border-top: 1px solid gray;
     border-left: 1px solid gray;
+}
+
+.selected-option {
+    color: white; 
+}
+
+.selected-option span {
+    width: 400%; 
+    height: 400%; 
 }

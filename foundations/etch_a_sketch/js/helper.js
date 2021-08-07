@@ -9,7 +9,7 @@ export const createGridDivider = () => {
 	divideElem.classList.add('grid-divider');
 	divideElem.classList.add('flex-row'); 
 	return divideElem; 
-}
+}; 
 
 export const testValue = (val, min, max) => val >= min && val <= max; 
 

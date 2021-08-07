@@ -1,7 +1,7 @@
 import { createGridElement, createGridDivider, testValue } from "./helper.js";
 import { getCoords, getPoint, getColor, findLine, adjustBrightness } from "./helper.js";
 
-const gridContainer = document.querySelector('.main-grid');
+const gridContainer = document.querySelector('.grid-container');
 let gridHeight = 0; 
 let gridWidth = 0; 
 
@@ -24,6 +24,7 @@ const createNewGrid = (isClear) => {
 	gridContainer.innerHTML = ''; 
 	updateGridHeight(); 
 	updateGridWidth(); 
+	updateElementSize(); 
 	updateGridBackgroundColor(); 
 	updateGridBorder(); 
 }; 
@@ -33,6 +34,8 @@ const updateGrid = () => {
 		updateGridHeight(); 
 		updateGridWidth(); 
 		heightChange = widthChange = false; 
+
+		updateElementSize(); 
 	}
 
 	if (backgroundColorChange) {
@@ -75,12 +78,22 @@ const updateGridWidth = () => {
 	}); 
 }; 
 
+const updateElementSize = () => {
+	let containerSize = window.getComputedStyle(document.querySelector('.main-grid')).getPropertyValue('height').replace('px', '');
+	let squareSize = (0.9 * +containerSize) / (gridHeight > gridWidth ?  gridHeight : gridWidth); 
+
+	document.querySelectorAll('.grid-elem').forEach(square => {
+		square.style.height = `${squareSize}px`; 
+		square.style.width = `${squareSize}px`; 
+	}); 
+}; 
+
 const updateGridBackgroundColor = () => {
-	gridContainer.style.backgroundColor = gridBackgroundColorInput.value; 
+	document.querySelectorAll('.grid-elem').forEach(el => el.style.backgroundColor = gridBackgroundColorInput.value)
 }; 
 
 const updateGridBorder = () => {
-	document.querySelector('style').innerHTML = gridBorderInput.checked ? '' : '.main-grid, .grid-elem {border: none;}';
+	document.querySelector('style').innerHTML = gridBorderInput.checked ? '' : '.grid-container, .grid-elem {border: none;}';
 }; 
 
 gridHeightInput.addEventListener('input', () => {
@@ -114,6 +127,23 @@ gridUpdate.addEventListener('click', updateGrid);
 gridSubmit.addEventListener('click', createNewGrid); 
 gridBorderInput.addEventListener('click', updateGridBorder); 
 
+document.querySelectorAll('button').forEach(button => {
+	button.addEventListener('mouseenter', (e) => {
+		const currSpan = button.querySelector('span'); 
+		const {top, left} = button.getBoundingClientRect(); 
+	
+		currSpan.style.top = `${e.clientY - top}px`; 
+		currSpan.style.left = `${e.clientX - left}px`; 
+	}); 
+	
+	button.addEventListener('mouseout', (e) => {
+		const currSpan = button.querySelector('span'); 
+		const {top, left} = button.getBoundingClientRect(); 
+	
+		currSpan.style.top = `${e.clientY - top}px`; 
+		currSpan.style.left = `${e.clientX - left}px`; 
+	}); 
+}); 
 
 /********* Square *********/
 
@@ -161,17 +191,27 @@ const colorFunctions = {
 }; 
 
 toolContainer.addEventListener('click', (e) => {
-	if (e.target.classList.contains('square-tool')) {
-		currentTool = e.target.value; 
-		currentShape = ''; 
-	}
+	let selectedButton = e.target.closest('.square-tool'); 
+
+	if (!selectedButton) return; 
+
+	currentTool = selectedButton.value; 
+	currentShape = ''; 
+
+	document.querySelectorAll('.selected-option').forEach(button => button.classList.remove('selected-option')); 
+	selectedButton.classList.add('selected-option'); 
 }); 
 
 shapeContainer.addEventListener('click', (e) => {
-	if (e.target.classList.contains('square-shape')) {
-		currentShape = e.target.value; 
-		currentTool = ''; 
-	}
+	let selectedButton = e.target.closest('.square-shape'); 
+
+	if (!selectedButton) return; 
+
+	currentShape = selectedButton.value; 
+	currentTool = ''; 
+
+	document.querySelectorAll('.selected-option').forEach(button => button.classList.remove('selected-option')); 
+	selectedButton.classList.add('selected-option'); 
 });
 
 colorContainer.addEventListener('click', (e) => {
@@ -432,3 +472,13 @@ saveButton.addEventListener('click', () => {
 }); 
 
 clearButton.addEventListener('click', createNewGrid);
+
+(function init() {
+	heightChange = true; 
+	gridHeight = 50; 
+
+	widthChange = true; 
+	gridWidth = 50; 
+
+	createNewGrid(); 
+})(); 

@@ -10,83 +10,67 @@
     <meta name="keywords" content="Etch-A-Sketch, Drawing, Mini Project, HTML, CSS, JavaScript">
     <meta name="description" content="An small mini Etch-A-Sketch project allowing users to draw on grid.">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Pacifico&display=swap" rel="stylesheet"> 
 
     <style></style>
 </head>
 
 <body>
 
-    <header class="flex-column">
+    <header class="flex-row">
         <h1>Etch-A-Sketch</h1>
     </header>
 
-    <main class="flex-column">
+    <main class="flex-row">
 
-        <section class="main-options">
+        <section class="main-options flex-column">
 
-            <div class="options-grid">
+            <div class="grid-options options flex-column">
                 <h2>Grid</h2>
 
-                <div>
-                    <label>Height: 
-                        <input class="input-grid-height" type="number" min="1" max="100" placeholder="Enter grid height" />
-                    </label>
-                </div>
+                <label>Height:&nbsp;&nbsp;&nbsp; 
+                    <input class="input-grid-height" type="number" min="1" max="100" placeholder="Enter grid height" />
+                </label>
 
-                <div>
-                    <label>Width: 
-                        <input class="input-grid-width" type="number" min="1" max="100" placeholder="Enter grid width" />
-                    </label>
-                </div>
+                <label>Width:&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input class="input-grid-width" type="number" min="1" max="100" placeholder="Enter grid width" />
+                </label>
 
-                <div>
-                    <label>Size: 
-                        <input class="input-grid-size" type="range" min="0" max="100" step="5" value="50" />
-                    </label>
-                </div>
+                <label>Size:&nbsp;&nbsp;&nbsp; 
+                    <input class="input-grid-size" type="range" min="0" max="100" step="5" value="50" />
+                </label>
 
-                <div>
-                    <label>Background Color: 
-                        <input class="input-grid-background-color" type="color" value="#ffffff" />
-                    </label>
-                </div>
+                <label>Background Color:&nbsp;&nbsp;&nbsp; 
+                    <input class="input-grid-background-color" type="color" value="#ffffff" />
+                </label>
 
-                <div>
-                    <label>Show Border: 
-                        <input class="input-grid-border" type="checkbox" checked />
-                    </label>
-                </div>
+                <label>Show Border:&nbsp;&nbsp;&nbsp; 
+                    <input class="input-grid-border" type="checkbox" checked />
+                </label>
 
-                <div class="flex-column">
-                    <button class="update-grid" type="submit">Update Grid</button>
-                    <button class="submit-grid" type="submit">Create New Grid</button>
-                </div>
+                <button class="update-grid" type="submit">Update Grid<span></span></button>
+                <button class="submit-grid" type="submit">Create New Grid<span></span></button>
             </div>
 
-            <div class="options-square">
+            <div class="options">
                 <h2>Square</h2>
-
-                <div class="flex-row">
-                    <label for="input-size">Size:</label>
-                    <input type="range" min="1" max="100" value="50" id="input-square-size">
-                </div>
 
                 <h3>Tools</h3>
 
                 <div class="flex-column square-tool-container">
-                    <button class="tool-draw square-tool" type="submit" value='draw'>Draw</button>
-                    <button class="tool-erase square-tool" type="submit" value='erase'>Erase</button>
-                    <button class="tool-darken square-tool" type="submit" value='darken'>Darken</button>
-                    <button class="tool-lighten square-tool" type="submit" value='lighten'>Lighten</button>
-                    <button class="tool-fill square-tool" type="submit" value='fill'>Fill</button>
-                    <button class="tool-select square-tool" type="submit" value='select'>Select</button>
+                    <button class="tool-draw square-tool" type="submit" value='draw'>Draw<span></span></button>
+                    <button class="tool-erase square-tool" type="submit" value='erase'>Erase<span></span></button>
+                    <button class="tool-darken square-tool" type="submit" value='darken'>Darken<span></span></button>
+                    <button class="tool-lighten square-tool" type="submit" value='lighten'>Lighten<span></span></button>
+                    <button class="tool-fill square-tool" type="submit" value='fill'>Fill<span></span></button>
+                    <button class="tool-select square-tool" type="submit" value='select'>Select<span></span></button>
                 </div>
 
                 <h3>Shapes</h3>
                 <div class="flex-column square-shape-container">
-                    <button class="tool-rectangle square-shape" type="submit" value='rectangle'>Rectangle</button>
-                    <button class="tool-circle square-shape" type="submit" value='circle'>Circle</button>
-                    <button class="tool-line square-shape" type="submit" value='line'>Line</button>
+                    <button class="tool-rectangle square-shape" type="submit" value='rectangle'>Rectangle<span></span></button>
+                    <button class="tool-circle square-shape" type="submit" value='circle'>Circle<span></span></button>
+                    <button class="tool-line square-shape" type="submit" value='line'>Line<span></span></button>
                 </div>
 
 
@@ -109,13 +93,15 @@
             </div>
 
             <div class="options">
-                <button class="action-save" type="submit" value="save">Save</button>
-                <button class="action-clear" type="submit" value="clear">Clear</button>
+                <button class="action-save" type="submit" value="save">Save<span></span></button>
+                <button class="action-clear" type="submit" value="clear">Clear<span></span></button>
             </div>
 
         </section>
 
-        <section class="main-grid flex-column"></section>
+        <section class="main-grid flex-row">
+            <div class="grid-container"></div>
+        </section>
 
     </main>
 
