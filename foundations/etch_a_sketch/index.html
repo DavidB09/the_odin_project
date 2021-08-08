@@ -17,8 +17,10 @@
 
 <body>
 
-    <header class="flex-row">
+    <header class="flex-column">
         <h1>Etch-A-Sketch</h1>
+
+        <p>Hold down CTRL or META key and move mouse over grid after selecting tool or shape.</p>
     </header>
 
     <main class="flex-row">
@@ -47,7 +49,7 @@
                     </label>
 
                     <label>Square Color:&nbsp;&nbsp;&nbsp; 
-                        <input class="input-square-color" type="color" value="#000" />
+                        <input class="input-grid-color" type="color" value="#000" />
                     </label>
     
                     <p>Show Border:&nbsp;&nbsp;&nbsp; 
@@ -62,7 +64,7 @@
                     <button class="submit-grid" type="submit">Create New Grid<span></span></button>
                 </div>
 
-                <div class="user-options options">
+                <div class="action-options options">
                     <button class="action-save" type="submit" value="save">Save<span></span></button>
                     <button class="action-clear" type="submit" value="clear">Clear<span></span></button>
                 </div>
@@ -74,53 +76,53 @@
 
                 <h3>Tools</h3>
 
-                <div class="flex-row square-tool-container">
+                <div class="flex-row drawing-tool-container">
                     <div class="flex-column">
-                        <button class="tool-draw square-tool" type="submit" value='draw'>Draw<span></span></button>
-                        <button class="tool-darken square-tool" type="submit" value='darken'>Darken<span></span></button>
-                        <button class="tool-fill square-tool" type="submit" value='fill'>Fill<span></span></button>
+                        <button class="tool-draw drawing-tool" type="submit" value='draw'>Draw<span></span></button>
+                        <button class="tool-darken drawing-tool" type="submit" value='darken'>Darken<span></span></button>
+                        <button class="tool-fill drawing-tool" type="submit" value='fill'>Fill<span></span></button>
                     </div>
 
                     <div class="flex-column">
-                        <button class="tool-erase square-tool" type="submit" value='erase'>Erase<span></span></button>
-                        <button class="tool-lighten square-tool" type="submit" value='lighten'>Lighten<span></span></button>
-                        <button class="tool-select square-tool" type="submit" value='select'>Select<span></span></button>
+                        <button class="tool-erase drawing-tool" type="submit" value='erase'>Erase<span></span></button>
+                        <button class="tool-lighten drawing-tool" type="submit" value='lighten'>Lighten<span></span></button>
+                        <button class="tool-select drawing-tool" type="submit" value='select'>Select<span></span></button>
                     </div>
                 </div>
 
                 <h3>Shapes</h3>
 
-                <div class="flex-column square-shape-container">
-                    <button class="tool-rectangle square-shape" type="submit" value='rectangle'>Rectangle<span></span></button>
-                    <button class="tool-circle square-shape" type="submit" value='circle'>Circle<span></span></button>
-                    <button class="tool-line square-shape" type="submit" value='line'>Line<span></span></button>
+                <div class="flex-column drawing-shape-container">
+                    <button class="tool-rectangle drawing-shape" type="submit" value='rectangle'>Rectangle<span></span></button>
+                    <button class="tool-circle drawing-shape" type="submit" value='circle'>Circle<span></span></button>
+                    <button class="tool-line drawing-shape" type="submit" value='line'>Line<span></span></button>
                 </div>
 
                 <h3>Colors</h3>
 
-                <div class="flex-column square-color-container">
+                <div class="flex-column drawing-color-container">
                     <p>Black:&nbsp;&nbsp;&nbsp; 
-                        <button class="input-color-black square-color slider-button" value='black'>
+                        <button class="input-color-black drawing-color slider-button" value='black'>
                             <span class="slider">
                                 <span class="circle"></span>
                             </span>
-                        </button> 
+                        </button>
                     </p>
 
                     <p>Rainbow:&nbsp;&nbsp;&nbsp; 
-                        <button class="input-color-rainbow square-color slider-button" value='rainbow'>
+                        <button class="input-color-rainbow drawing-color slider-button" value='rainbow'>
                             <span class="slider">
                                 <span class="circle"></span>
                             </span>
-                        </button>  
+                        </button>
                     </p>
 
                     <p>Color:&nbsp;&nbsp;&nbsp; 
-                        <button class="input-color-choice square-color slider-button" value='color'>
+                        <button class="input-color-choice drawing-color slider-button" value='color'>
                             <span class="slider">
                                 <span class="circle"></span>
                             </span>
-                        </button>   
+                        </button>
                     </p>
                 </div>
 

@@ -1,4 +1,4 @@
-import { createGridElement, createGridDivider, testValue } from "./helper.js";
+import { createGridPoint, createGridRow, testValue } from "./helper.js";
 import { getCoords, getPoint, getColor, rgbToHex, findLine, adjustBrightness } from "./helper.js";
 
 const gridContainer = document.querySelector('.grid-container');
@@ -11,7 +11,7 @@ const gridHeightInput = document.querySelector('.input-grid-height');
 const gridWidthInput = document.querySelector('.input-grid-width'); 
 const gridSizeInput = document.querySelector('.input-grid-size'); 
 const gridBackgroundColorInput = document.querySelector('.input-grid-background-color'); 
-const gridColorInput = document.querySelector('.input-square-color'); 
+const gridColorInput = document.querySelector('.input-grid-color'); 
 const gridBorderInput = document.querySelector('.input-grid-border'); 
 
 const gridUpdate = document.querySelector('.update-grid'); 
@@ -27,7 +27,7 @@ const createNewGrid = (isClear) => {
 	gridContainer.innerHTML = ''; 
 	updateGridHeight(); 
 	updateGridWidth(); 
-	updateElementSize(); 
+	updatePointSize(); 
 	updateGridBackgroundColor(true); 
 
 	prevBackgroundColor = gridBackgroundColorInput.value; 
@@ -39,7 +39,7 @@ const updateGrid = () => {
 		updateGridWidth(); 
 		heightChange = widthChange = false; 
 
-		updateElementSize(); 
+		updatePointSize(); 
 	}
 
 	updateGridBackgroundColor(); 
@@ -47,59 +47,59 @@ const updateGrid = () => {
 }; 
 
 const updateGridHeight = () => {
-	let currentHeight = gridContainer.querySelectorAll('.grid-divider').length; 
+	let currHeight = gridContainer.querySelectorAll('.grid-row').length; 
 
-	while (currentHeight != gridHeight) {
-		if (currentHeight < gridHeight) {
-			gridContainer.appendChild(createGridDivider()); 
-			currentHeight++; 
+	while (currHeight != gridHeight) {
+		if (currHeight < gridHeight) {
+			gridContainer.appendChild(createGridRow()); 
+			currHeight++; 
 		}
 
-		if (currentHeight > gridHeight) {
+		if (currHeight > gridHeight) {
 			gridContainer.removeChild(gridContainer.lastChild); 
-			currentHeight--; 
+			currHeight--; 
 		}
 	}
 }; 
 
 const updateGridWidth = () => {
-	gridContainer.querySelectorAll('.grid-divider').forEach(divider => {
-		let currentWidth = divider.querySelectorAll('.grid-elem').length; 
+	gridContainer.querySelectorAll('.grid-row').forEach(row => {
+		let currWidth = row.querySelectorAll('.grid-point').length; 
 
-		while (currentWidth != gridWidth) {
-			if (currentWidth < gridWidth) {
-				divider.appendChild(createGridElement(gridBackgroundColorInput.value)); 
-				currentWidth++; 
+		while (currWidth != gridWidth) {
+			if (currWidth < gridWidth) {
+				row.appendChild(createGridPoint(gridBackgroundColorInput.value)); 
+				currWidth++; 
 			}
 	
-			if (currentWidth > gridWidth) {
-				divider.removeChild(divider.lastChild); 
-				currentWidth--; 
+			if (currWidth > gridWidth) {
+				row.removeChild(row.lastChild); 
+				currWidth--; 
 			}
 		}
 	}); 
 }; 
 
-const updateElementSize = () => {
-	let containerSize = window.getComputedStyle(document.querySelector('.main-grid')).getPropertyValue('height').replace('px', '');
-	let squareSize = (0.9 * +containerSize) / (gridHeight > gridWidth ?  gridHeight : gridWidth); 
+const updatePointSize = () => {
+	const containerSize = window.getComputedStyle(document.querySelector('.main-grid')).getPropertyValue('height').replace('px', '');
+	const pointSize = (0.9 * +containerSize) / (gridHeight > gridWidth ?  gridHeight : gridWidth); 
 
-	document.querySelectorAll('.grid-elem').forEach(square => {
-		square.style.height = `${squareSize}px`; 
-		square.style.width = `${squareSize}px`; 
+	document.querySelectorAll('.grid-point').forEach(point => {
+		point.style.height = `${pointSize}px`; 
+		point.style.width = `${pointSize}px`; 
 	}); 
 }; 
 
 const updateGridBackgroundColor = (isNew) => {
-	document.querySelectorAll('.grid-elem').forEach(el => {
-		if (isNew || `#${rgbToHex(getColor(el))}` == prevBackgroundColor || !prevBackgroundColor)
-			el.style.backgroundColor = gridBackgroundColorInput.value
+	document.querySelectorAll('.grid-point').forEach(point => {
+		if (isNew || rgbToHex(getColor(point)) == prevBackgroundColor || !prevBackgroundColor)
+			point.style.backgroundColor = gridBackgroundColorInput.value; 
 	}); 
 }; 
 
 const updateGridBorder = () => {
-	gridBorderInput.classList.toggle('selected'); 
-	document.querySelector('style').innerHTML = gridBorderInput.classList.contains('selected') ? '' : '.grid-container, .grid-elem {border: none;}';
+	gridBorderInput.classList.toggle('selected-toggle'); 
+	document.querySelector('style').innerHTML = gridBorderInput.classList.contains('selected-toggle') ? '' : '.grid-container, .grid-point {border: none;}';
 }; 
 
 gridHeightInput.addEventListener('input', () => {
@@ -129,60 +129,41 @@ gridUpdate.addEventListener('click', updateGrid);
 gridSubmit.addEventListener('click', createNewGrid); 
 gridBorderInput.addEventListener('click', updateGridBorder); 
 
-document.querySelectorAll('button[type="submit"]').forEach(button => {
-	button.addEventListener('mouseenter', (e) => {
-		const currSpan = button.querySelector('span'); 
-		const {top, left} = button.getBoundingClientRect(); 
-	
-		currSpan.style.top = `${e.clientY - top}px`; 
-		currSpan.style.left = `${e.clientX - left}px`; 
-	}); 
-	
-	button.addEventListener('mouseout', (e) => {
-		const currSpan = button.querySelector('span'); 
-		const {top, left} = button.getBoundingClientRect(); 
-	
-		currSpan.style.top = `${e.clientY - top}px`; 
-		currSpan.style.left = `${e.clientX - left}px`; 
-	}); 
-}); 
-
-/********* Square *********/
+/********* Drawing *********/
 
 let isControlDown = false; 
 
-const toolContainer = document.querySelector('.square-tool-container'); 
-let currentTool; 
+let prevPoint; 
+let pointColor; 
 
-const shapeContainer = document.querySelector('.square-shape-container'); 
-let currentShape; 
+const toolContainer = document.querySelector('.drawing-tool-container'); 
+let currTool; 
 
-let previousSquare; 
+const shapeContainer = document.querySelector('.drawing-shape-container'); 
+let currShape; 
 
-const colorContainer = document.querySelector('.square-color-container'); 
-
-let currentColor; 
-let squareColor; 
+const colorContainer = document.querySelector('.drawing-color-container'); 
+let currColor; 
 
 const drawBlack = () => {
-	squareColor = '#000'; 
+	pointColor = '#000'; 
 }; 
 
 const drawRainbow = () => {
 	const colors = ['#F60000', '#FF8C00', '#FFEE00', '#4DE94C', '#3783FF', '#4815AA']; 
 
 	for (let i = 0; i < colors.length; i++) {
-		if (colors[i] === squareColor) {
-			squareColor = colors[i + 1]; 
+		if (colors[i] === pointColor) {
+			pointColor = colors[i + 1]; 
 			break; 
 		}
 	}
 
-	if (!colors.includes(squareColor)) squareColor = colors[0]; 
+	if (!colors.includes(pointColor)) pointColor = colors[0]; 
 }; 
 
 const drawColor = () => {
-	squareColor = gridColorInput.value; 
+	pointColor = gridColorInput.value; 
 }; 
 
 const colorFunctions = {
@@ -191,96 +172,88 @@ const colorFunctions = {
 	'color': drawColor, 
 }; 
 
-toolContainer.addEventListener('click', (e) => {
-	let selectedButton = e.target.closest('.square-tool'); 
-
-	if (!selectedButton) return; 
-
-	currentTool = selectedButton.value; 
-	currentShape = ''; 
-
-	document.querySelectorAll('.selected-option').forEach(button => button.classList.remove('selected-option')); 
-	selectedButton.classList.add('selected-option'); 
-}); 
-
-shapeContainer.addEventListener('click', (e) => {
-	let selectedButton = e.target.closest('.square-shape'); 
-
-	if (!selectedButton) return; 
-
-	currentShape = selectedButton.value; 
-	currentTool = ''; 
-
-	document.querySelectorAll('.selected-option').forEach(button => button.classList.remove('selected-option')); 
-	selectedButton.classList.add('selected-option'); 
-});
-
 colorContainer.addEventListener('click', (e) => {
-	let selectedButton = e.target.closest('.square-color'); 
+	const selectedButton = e.target.closest('.drawing-color'); 
 
 	if (!selectedButton) return; 
 
-	currentColor = selectedButton.value; 
-	colorFunctions[currentColor](); 
+	currColor = selectedButton.value; 
+	colorFunctions[currColor](); 
 
-	document.querySelectorAll('.square-color').forEach(button => button.classList.remove('selected')); 
-	selectedButton.classList.add('selected'); 
+	document.querySelectorAll('.drawing-color').forEach(button => button.classList.remove('selected-toggle')); 
+	selectedButton.classList.add('selected-toggle'); 
 }); 
 
-const drawOnGrid = (e) => {
-	colorFunctions[currentColor](); 
+const drawGrid = (e) => {
+	colorFunctions[currColor](); 
 
-	if (!previousSquare) {
-		e.target.style.backgroundColor = squareColor; 
+	if (!prevPoint) {
+		e.target.style.backgroundColor = pointColor; 
 		return; 
 	}; 
 
-	let line = findLine(getCoords(previousSquare, gridContainer), getCoords(e.target, gridContainer), gridContainer); 
-	line.forEach(square => square.style.backgroundColor = squareColor); 
+	const line = findLine(getCoords(prevPoint, gridContainer), getCoords(e.target, gridContainer), gridContainer); 
+	line.forEach(point => point.style.backgroundColor = pointColor); 
 }; 
 
 const eraseGrid = (e) => {
-	if (!previousSquare) {
+	if (!prevPoint) {
 		e.target.style.backgroundColor = gridBackgroundColorInput.value; 
 		return; 
 	}; 
 
-	let line = findLine(getCoords(previousSquare, gridContainer), getCoords(e.target, gridContainer), gridContainer); 
-	line.forEach(square => square.style.backgroundColor = gridBackgroundColorInput.value); 
+	const line = findLine(getCoords(prevPoint, gridContainer), getCoords(e.target, gridContainer), gridContainer); 
+	line.forEach(point => point.style.backgroundColor = gridBackgroundColorInput.value); 
 }; 
 
-const selectColorGrid = (e) => {
-	squareColor = gridColorInput.value = `#${rgbToHex(getColor(e.target)) || 'FFFFFF'}`; 
+const lightenGrid = (e) => {
+	if (!prevPoint) {
+		e.target.style.backgroundColor = adjustBrightness(0.2, getColor(e.target)); 
+		return; 
+	}; 
+
+	const line = findLine(getCoords(prevPoint, gridContainer), getCoords(e.target, gridContainer), gridContainer);  
+	line.forEach(point => point.style.backgroundColor = adjustBrightness(0.2, getColor(point))); 
 }; 
 
-const fillColorGrid = () => {
-	let changedElements = []; 
+const darkenGrid = (e) => {
+	if (!prevPoint) {
+		e.target.style.backgroundColor = adjustBrightness(-0.2, getColor(e.target)); 
+		return; 
+	}; 
 
-	function findSibling(el, index, oldColor) {
-		let parent = el.parentNode; 
-		let currColor = getColor(el); 
+	const line = findLine(getCoords(prevPoint, gridContainer), getCoords(e.target, gridContainer), gridContainer); 
+	line.forEach(point => point.style.backgroundColor = adjustBrightness(-0.2, getColor(point))); 
+}; 
 
-		if (changedElements.some(changedEl => changedEl == el)) return; 
+const fillGrid = () => {
+	let changedPoints = []; 
+
+	function findSibling(point, index, oldColor) {
+		const parent = point.parentNode; 
+		const currColor = getColor(point); 
+
+		if (changedPoints.some(changedPoint => changedPoint == point)) return; 
 		if (oldColor != currColor) return; 
 
-		changedElements.push(el); 
+		changedPoints.push(point); 
 
 		if (parent.nextElementSibling) {
-			let parentNextSiblingChildren = Array.from(parent.nextElementSibling.children); 
+			const parentNextSiblingChildren = Array.from(parent.nextElementSibling.children); 
 			findSibling(parentNextSiblingChildren[index], index, oldColor); 
 		}
 
 		if (parent.previousElementSibling) {
-			let parentPrevSiblingChildren = Array.from(parent.previousElementSibling.children); 
+			const parentPrevSiblingChildren = Array.from(parent.previousElementSibling.children); 
 			findSibling(parentPrevSiblingChildren[index], index, oldColor); 
 		}
 
-		if (el.nextElementSibling) {
-			findSibling(el.nextElementSibling, index + 1, oldColor); 
+		if (point.nextElementSibling) {
+			findSibling(point.nextElementSibling, index + 1, oldColor); 
 		}
 
-		if (el.previousElementSibling) {
-			findSibling(el.previousElementSibling, index - 1, oldColor);
+		if (point.previousElementSibling) {
+			findSibling(point.previousElementSibling, index - 1, oldColor);
 		}
 	}
 
@@ -289,58 +262,60 @@ const fillColorGrid = () => {
 		gridContainer.onclick = ''; 
 
 		findSibling(e.target, getCoords(e.target, gridContainer).x, getColor(e.target)); 
-		colorFunctions[currentColor](); 
-		changedElements.forEach(el => el.style.backgroundColor = squareColor); 
+		colorFunctions[currColor](); 
+		changedPoints.forEach(point => point.style.backgroundColor = pointColor); 
 	}
 
 	gridContainer.onclick = (e) => handleClick(e); 
 }; 
 
-const lightenColorGrid = (e) => {
-	if (!previousSquare) {
-		e.target.style.backgroundColor = adjustBrightness(0.2, getColor(e.target)); 
-		return; 
-	}; 
-
-	let line = findLine(getCoords(previousSquare, gridContainer), getCoords(e.target, gridContainer), gridContainer);  
-	line.forEach(square => square.style.backgroundColor = adjustBrightness(0.2, getColor(square))); 
-}; 
-
-const darkenColorGrid = (e) => {
-	if (!previousSquare) {
-		e.target.style.backgroundColor = adjustBrightness(-0.2, getColor(e.target)); 
-		return; 
-	}; 
-
-	let line = findLine(getCoords(previousSquare, gridContainer), getCoords(e.target, gridContainer), gridContainer); 
-	line.forEach(square => square.style.backgroundColor = adjustBrightness(-0.2, getColor(square))); 
+const selectGrid = (e) => {
+	gridColorInput.value = rgbToHex(getColor(e.target)) || '#FFFFFF'; 
 }; 
 
 const toolFunctions = {
-	'draw': drawOnGrid, 
+	'draw': drawGrid, 
 	'erase': eraseGrid, 
-	'fill': fillColorGrid, 
-	'select': selectColorGrid, 
-	'lighten': lightenColorGrid, 
-	'darken': darkenColorGrid, 
+	'lighten': lightenGrid, 
+	'darken': darkenGrid, 
+	'fill': fillGrid, 
+	'select': selectGrid, 
+}; 
+
+toolContainer.addEventListener('click', (e) => {
+	const selectedButton = e.target.closest('.drawing-tool'); 
+
+	if (!selectedButton) return; 
+
+	currTool = selectedButton.value; 
+	currShape = ''; 
+
+	document.querySelectorAll('.selected-button').forEach(button => button.classList.remove('selected-button')); 
+	selectedButton.classList.add('selected-button'); 
+}); 
+
+let prevDrawnShape = []; 
+
+const reverseDrawnShape = () => {
+	prevDrawnShape.forEach(point => {
+		const {currPoint, currColor} = point; 
+		currPoint.style.backgroundColor = currColor; 
+	}); 
+	prevDrawnShape = []; 
 }; 
 
 const drawRectangle = (e) => {
-	if (!previousSquare) {
-		previousSquare = e.target; 
-		document.querySelectorAll('.temp-rectangle').forEach(square => square.classList.remove('temp-rectangle')); 
+	if (!prevPoint) {
+		prevPoint = e.target; 
+		prevDrawnShape = []; 
 		return; 
 	}
 
-	document.querySelectorAll('.temp-rectangle').forEach(square => {
-		square.style.backgroundColor = gridBackgroundColorInput.value; 
-		square.classList.remove('temp-rectangle'); 
-	}); 
+	reverseDrawnShape(); 
+	colorFunctions[currColor](); 
 
-	colorFunctions[currentColor](); 
-
-	let {x: x1, y: y1} = getCoords(previousSquare, gridContainer); 
-	let {x: x2, y: y2} = getCoords(e.target, gridContainer); 
+	const {x: x1, y: y1} = getCoords(prevPoint, gridContainer); 
+	const {x: x2, y: y2} = getCoords(e.target, gridContainer); 
 
 	let rectangle = []; 
 
@@ -348,68 +323,61 @@ const drawRectangle = (e) => {
 		rectangle.push(...findLine({x, y: y1}, {x, y: y1 + (y2 - y1)}, gridContainer)); 
 	}
 
-	rectangle.forEach(square => {
-		square.style.backgroundColor = squareColor; 
-		square.classList.add('temp-rectangle'); 
+	rectangle.forEach(point => {
+		prevDrawnShape.push({currPoint: point, currColor: getColor(point)}); 
+		point.style.backgroundColor = pointColor; 
 	}); 
 }; 
 
 const drawCircle = (e) => {
-	if (!previousSquare) {
-		previousSquare = e.target; 
-		document.querySelectorAll('.temp-circle').forEach(square => square.classList.remove('temp-circle')); 
+	if (!prevPoint) {
+		prevPoint = e.target; 
+		prevDrawnShape = []; 
 		return; 
 	}
 
-	document.querySelectorAll('.temp-circle').forEach(square => {
-		square.style.backgroundColor = gridBackgroundColorInput.value; 
-		square.classList.remove('temp-circle'); 
-	}); 
+	reverseDrawnShape(); 
+	colorFunctions[currColor](); 
 
-	colorFunctions[currentColor](); 
-
-	let {x: x1, y: y1} = getCoords(previousSquare, gridContainer); 
-	let {x: x2, y: y2} = getCoords(e.target, gridContainer); 
+	const {x: x1, y: y1} = getCoords(prevPoint, gridContainer); 
+	const {x: x2, y: y2} = getCoords(e.target, gridContainer); 
 
 	let circle = []; 
 
-	let radius = Math.ceil(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+	const radius = Math.ceil(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
 	for (let dy = -radius; dy <= radius; dy++) {
 		for (let dx = -radius; dx <= radius; dx++) {
-			let dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-			if (dist > radius) continue;
-			let y = y1 + dy, x = x1 + dx;
+			const distance = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+			if (distance > radius) continue;
+
+			const y = y1 + dy, x = x1 + dx;
 			if (y < 0 || y >= gridHeight || x < 0 || x >= gridWidth) continue;
 			circle.push(getPoint(x, y, gridContainer));
 		}
 	}
 
-	circle.forEach(square => {
-		square.style.backgroundColor = squareColor; 
-		square.classList.add('temp-circle'); 
+	circle.forEach(point => {
+		prevDrawnShape.push({currPoint: point, currColor: getColor(point)}); 
+		point.style.backgroundColor = pointColor; 
 	}); 
 }; 
 
 const drawLine = (e) => {
-	if (!previousSquare) {
-		previousSquare = e.target; 
-		document.querySelectorAll('.temp-line').forEach(square => square.classList.remove('temp-line')); 
+	if (!prevPoint) {
+		prevPoint = e.target; 
+		prevDrawnShape = []; 
 		return; 
 	}
 
-	document.querySelectorAll('.temp-line').forEach(square => {
-		square.style.backgroundColor = gridBackgroundColorInput.value; 
-		square.classList.remove('temp-line'); 
-	}); 
+	reverseDrawnShape(); 
+	colorFunctions[currColor](); 
 
-	colorFunctions[currentColor](); 
+	const {x: x1, y: y1} = getCoords(prevPoint, gridContainer); 
+	const {x: x2, y: y2} = getCoords(e.target, gridContainer); 
 
-	let {x: x1, y: y1} = getCoords(previousSquare, gridContainer); 
-	let {x: x2, y: y2} = getCoords(e.target, gridContainer); 
-
-	findLine({x: x1, y: y1}, {x: x2, y: y2}, gridContainer).forEach(square => {
-		square.style.backgroundColor = squareColor; 
-		square.classList.add('temp-line'); 
+	findLine({x: x1, y: y1}, {x: x2, y: y2}, gridContainer).forEach(point => {
+		prevDrawnShape.push({currPoint: point, currColor: getColor(point)}); 
+		point.style.backgroundColor = pointColor; 
 	}); 
 }; 
 
@@ -419,25 +387,37 @@ const shapeFunctions = {
 	'line': drawLine, 
 }; 
 
+shapeContainer.addEventListener('click', (e) => {
+	const selectedButton = e.target.closest('.drawing-shape'); 
+
+	if (!selectedButton) return; 
+
+	currShape = selectedButton.value; 
+	currTool = ''; 
+
+	document.querySelectorAll('.selected-button').forEach(button => button.classList.remove('selected-button')); 
+	selectedButton.classList.add('selected-button'); 
+});
+
 gridContainer.addEventListener('mouseover', (e) => {
 	e.preventDefault(); 
 	if (!isControlDown || e.target.nodeName !== 'SPAN') return; 
 	
-	if (currentTool) {
-		toolFunctions[currentTool](e);
-		previousSquare = e.target; 
+	if (currTool) {
+		toolFunctions[currTool](e);
+		prevPoint = e.target; 
 	}
 
-	if (currentShape) {
-		shapeFunctions[currentShape](e); 
+	if (currShape) {
+		shapeFunctions[currShape](e); 
 	}
 }); 
 
 document.addEventListener('keydown', (e) => isControlDown = e.ctrlKey || e.metaKey);
 document.addEventListener('keyup', (e) => {
-	if (!e.ctrlKey) {
+	if (!e.ctrlKey || !e.metaKey) {
 		isControlDown = false; 
-		previousSquare = undefined; 
+		prevPoint = undefined; 
 	}
 });
 
@@ -447,7 +427,7 @@ const saveButton = document.querySelector('.action-save');
 const clearButton = document.querySelector('.action-clear'); 
 
 saveButton.addEventListener('click', () => {
-	let size = 10; 
+	const size = 10; 
 
 	const canvas = document.createElement('canvas'); 
 	canvas.height = gridHeight * size; 
@@ -461,7 +441,7 @@ saveButton.addEventListener('click', () => {
 		}
 	}
 
-	let link = document.createElement('a'); 
+	const link = document.createElement('a'); 
 	link.href = canvas.toDataURL(); 
 	link.download = 'etchasketch.png'; 
 
@@ -472,6 +452,21 @@ saveButton.addEventListener('click', () => {
 
 clearButton.addEventListener('click', createNewGrid);
 
+/********* Styling *********/
+
+document.querySelectorAll('button[type="submit"]').forEach(button => {
+	const updateSpanPos = (e) => {
+		const currSpan = button.querySelector('span'); 
+		const {top, left} = button.getBoundingClientRect(); 
+	
+		currSpan.style.top = `${e.clientY - top}px`; 
+		currSpan.style.left = `${e.clientX - left}px`; 
+	}; 
+
+	button.addEventListener('mouseenter', updateSpanPos); 
+	button.addEventListener('mouseout', updateSpanPos); 
+}); 
+
 (function init() {
 	heightChange = true; 
 	gridHeight = 50; 
@@ -479,18 +474,17 @@ clearButton.addEventListener('click', createNewGrid);
 	widthChange = true; 
 	gridWidth = 50; 
 
-	gridSizeInput.value = 50; 
 	gridHeightInput.value = 50; 
 	gridWidthInput.value = 50; 
+	gridSizeInput.value = 50; 
 
 	gridBackgroundColorInput.value = '#ffffff'; 
 	gridColorInput.value = '#0060df'; 
 
-
 	createNewGrid(); 
 	updateGridBorder(); 
 
-	currentColor = 'black'; 
+	currColor = 'black'; 
 	drawBlack(); 
-	document.querySelector('.input-color-black').classList.add('selected'); 
+	document.querySelector('.input-color-black').classList.add('selected-toggle'); 
 })(); 
