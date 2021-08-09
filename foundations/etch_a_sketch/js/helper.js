@@ -28,8 +28,6 @@ export const getPoint = (x, y, grid) => {
 
 export const getColor = (point) => window.getComputedStyle(point).getPropertyValue('background-color'); 
 
-export const rgbToHex = (rgb) => `#${rgb.split(/\D/).filter(s => s).map(color => Number(color).toString(16).padStart(2, 0)).join('')}`;
-
 export const findLine = (point1, point2, grid) => {
 	let line = []; 
 	let {x: x1, y: y1} = point1; 
@@ -54,6 +52,13 @@ export const findLine = (point1, point2, grid) => {
 	}
 
 	return line; 
+}; 
+
+export const rgbToHex = (rgb) => `#${rgb.split(/\D/).filter(s => s).map(color => Number(color).toString(16).padStart(2, 0)).join('')}`;
+
+export const generateRandomColor = () => {
+	const newRGBValue = () => Math.floor(Math.random() * 256); 
+	return `rgb(${newRGBValue()}, ${newRGBValue()}, ${newRGBValue()})`; 
 }; 
 
 export const adjustBrightness = (percent, color) => {

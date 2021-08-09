@@ -1,5 +1,5 @@
 import { createGridPoint, createGridRow, testValue } from "./helper.js";
-import { getCoords, getPoint, getColor, rgbToHex, findLine, adjustBrightness } from "./helper.js";
+import { getCoords, getPoint, getColor, findLine, rgbToHex, generateRandomColor, adjustBrightness } from "./helper.js";
 
 const gridContainer = document.querySelector('.grid-container');
 let gridHeight = 0; 
@@ -149,6 +149,14 @@ const drawBlack = () => {
 	pointColor = '#000'; 
 }; 
 
+const drawRandom = () => {
+	pointColor = rgbToHex(generateRandomColor()); 
+}; 
+
+const drawColor = () => {
+	pointColor = gridColorInput.value; 
+}; 
+
 const drawRainbow = () => {
 	const colors = ['#F60000', '#FF8C00', '#FFEE00', '#4DE94C', '#3783FF', '#4815AA']; 
 
@@ -162,14 +170,12 @@ const drawRainbow = () => {
 	if (!colors.includes(pointColor)) pointColor = colors[0]; 
 }; 
 
-const drawColor = () => {
-	pointColor = gridColorInput.value; 
-}; 
 
 const colorFunctions = {
 	'black': drawBlack, 
-	'rainbow': drawRainbow, 
+	'random': drawRandom, 
 	'color': drawColor, 
+	'rainbow': drawRainbow, 
 }; 
 
 colorContainer.addEventListener('click', (e) => {
