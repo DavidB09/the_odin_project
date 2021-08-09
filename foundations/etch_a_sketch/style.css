@@ -2,30 +2,17 @@ html {
     font-size: 62.5%; 
 }
 
-/* FONTS */
-
-@font-face {
-    font-family: "Night in Tokyo";
-    src: url("./assets/fonts/night-in-tokyo.bold.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "Manga Temple";
-    src: url("./assets/fonts/manga-temple.regular.ttf") format("truetype");
-}
-
 /* COMMON ELEMENTS */
 
 body {
     position: absolute;
-    top: 0;
     height: 100vh; 
     width: 100vw; 
-    margin: 0;
+    color: #cf4646; 
     background-color: #181818; 
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
-    color: #cf4646; 
+    font-size: 1.2rem;
+    overflow-x: hidden;
 }
 
 header {
@@ -33,46 +20,39 @@ header {
 }
 
 main {
-    margin-top: 5rem;  
-}
-
-section {
-    height: 80rem; 
-    box-sizing: border-box;
+    position: relative; 
+    width: 85%; 
+    margin: 10rem auto; 
+    align-items: flex-start;
 }
 
 h1 {
     font-family: 'Pacifico', cursive;
-    font-size: 7rem; 
+    font-size: 5rem; 
 }
 
 h2 {
     margin: 0 0 1rem 0; 
-    font-size: 3.5rem; 
-    font-weight: bold;
+    font-size: 2.5rem; 
 }
 
-/* h2:nth-of-type(2) {
-    margin-top: 2rem;
-} */
-
 h3 {
-    font-size: 2rem; 
+    font-size: 1.5rem; 
 }
 
 button[type="submit"] {
     position: relative;
-    padding: 1rem; 
     margin: 1rem; 
+    padding: 0.5rem; 
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: #cf4646; 
     background-color: transparent;
     border-radius: 1.5px;
     border: 1px solid #cf4646; 
     transition: color 0.4s ease-in-out;
-    z-index: 1;
     overflow: hidden;
+    z-index: 1;
 }
 
 button[type="submit"]:hover {
@@ -81,11 +61,10 @@ button[type="submit"]:hover {
 
 button[type="submit"] span {
     position: absolute;
-    display: block;
     width: 0; 
     height: 0; 
-    border-radius: 50%;
     background-color: #cf4646; 
+    border-radius: 50%;
     transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
     transform: translate(-50%, -50%);
     z-index: -1;
@@ -94,6 +73,18 @@ button[type="submit"] span {
 button[type="submit"]:hover span {
     width: 400%; 
     height: 400%; 
+}
+
+input[type="number"]:focus {
+    outline: solid #0060df 2px; 
+    box-shadow: 0 0 6px 6px rgba(0, 60, 140, 0.5); 
+}
+
+input[type="color"] {
+    height: 3rem; 
+    padding: 0;
+    border: solid 0.3rem #f0f0f0;
+    border-radius: 2px;
 }
 
 /* CLASSES */
@@ -114,31 +105,30 @@ button[type="submit"]:hover span {
     text-align: center;
 }
 
-.grid-options {
-    margin-right: 5rem; 
+.main-options {
+    align-items: center;
     margin-bottom: 5rem;
 }
 
-.action-options {
-    margin-right: 5rem; 
-}
-
-.main-options {
-    align-items: flex-start;
-}
-
-.drawing-options {
-    box-sizing: border-box;
-    height: 80rem; 
-}
-
 .options {
+    position: relative;
     box-sizing: border-box;
-    width: 30rem; 
+    width: auto; 
     padding: 2.5rem; 
     background-color: #242322;
     border-radius: 5px;
     border: 2px solid #cf4646; 
+}
+
+.grid-options {
+    margin-bottom: 5rem; 
+}
+
+.drawing-options {
+    box-sizing: border-box;
+    height: auto; 
+    order: -1; 
+    margin-bottom: 5rem;
 }
 
 .grid-options label, .grid-options p {
@@ -152,20 +142,32 @@ button[type="submit"]:hover span {
 
 .grid-options input {
     margin-right: 0.2rem;
+    padding: 0; 
+    font-size: 1.25rem;
+}
+
+.drawing-options p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 1rem;
 }
 
 .main-grid {
-    width: 80rem; 
-    margin-left: 5rem;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%; 
+    height: 0; 
+    padding: 50% 0; 
     background-color: #242322;
     border-radius: 5px;
     border: 2px solid #cf4646; 
-    box-sizing: border-box;
 }
 
 .grid-container {
-    display: grid;
     box-sizing: border-box;
+    display: grid;
     border-bottom: 1px solid gray;
     border-right: 1px solid gray;
 }
@@ -178,7 +180,7 @@ button[type="submit"]:hover span {
 }
 
 .selected-button {
-    color: white !important; 
+    color: #fff !important; 
 }
 
 .selected-button span {
@@ -186,23 +188,11 @@ button[type="submit"]:hover span {
     height: 400% !important; 
 }
 
-input[type="number"]:focus {
-    outline: solid #0060df 2px; 
-    box-shadow: 0 0 6px 6px rgba(0, 60, 140, 0.5); 
-}
-
-input[type="color"] {
-    border: solid 0.3rem #f0f0f0;
-    border-radius: 2px;
-    height: 3rem; 
-    padding: 0;
-}
-
 .slider-button {
     position: relative;
+    width: 4.5rem;
+    height: 1.25rem;
     display: inline-block;
-    width: 5.5rem;
-    height: 3rem;
     background-color: transparent;
     border: none;
 }
@@ -221,9 +211,9 @@ input[type="color"] {
 
 .slider .circle {
     position: absolute; 
-    left: 3.5px; 
-    height: 2.4rem; 
-    width: 2.4rem;
+    left: 0; 
+    height: 2rem; 
+    width: 2rem;
     background-color: #fff; 
     border-radius: 50%;
     transition: 0.3s;
@@ -234,37 +224,125 @@ input[type="color"] {
 }
 
 .selected-toggle .circle {
-    transform: translateX(23px); 
+    transform: translateX(25px); 
 }
 
-.drawing-color-container p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 1rem;
+.toggle-svg {
+    height: 2rem; 
+    width: 2rem; 
+    margin: 1rem; 
+    transition: all 0.3s ease-in-out;
 }
 
-@media (min-height: 20rem) {
-    main.flex-row {
-        position: relative; 
-        flex-direction: column;
-        width: 60%; 
-        margin: 10rem auto; 
+.toggle-svg path {
+    fill: #cf4646; 
+}
+
+.toggle-svg:hover path {
+    fill: #fff; 
+}
+
+.hidden-small {
+    display: none; 
+}
+
+@media (min-width: 700px) {
+    body {
+        font-size: 1.5rem;
+    }
+
+    main {
+        width: 75%; 
+    }
+
+    h1 {
+        font-size: 7rem; 
+    }
+
+    h2 {
+        font-size: 3.5rem; 
+    }
+
+    h3 {
+        font-size: 2rem; 
+    }
+
+    button[type="submit"] {
+        font-size: 1.5rem; 
+        padding: 1rem; 
     }
 
     .main-options {
+        flex-direction: row;
+        align-items: flex-start;
+        margin-bottom: 0;
+    }
+
+    .options {
+        width: 30rem; 
+    }
+
+    .grid-options {
+        margin-right: 5rem; 
         margin-bottom: 5rem;
     }
 
-    .main-grid {
-        position: relative;
-        width: 100%; 
-        height: 0; 
-        padding-top: 50%; 
-        padding-bottom: 50%; 
-        margin: 0;
-        box-sizing: border-box;
+    .action-options {
+        margin-right: 5rem; 
     }
-    
+
+    .drawing-options {
+        order: 2; 
+        height: 80rem; 
+    }
+
+    .grid-options input {
+        margin-right: 0.2rem;
+        padding: 0.1rem; 
+        font-size: 1.5rem;
+    }
+
+    .slider-button {
+        width: 5.5rem;
+        height: 3rem;
+    }
+
+    .slider .circle {
+        left: 3.5px; 
+        height: 2.4rem; 
+        width: 2.4rem;
+    }
+
+    .selected-toggle .circle {
+        transform: translateX(23px); 
+    }
+
+    .toggle-svg {
+        display: none;
+    }
+
+    .hidden-small {
+        display: flex;
+    }
+}
+
+@media (min-width: 1200px) {
+    main {
+        width: 50%; 
+    }
+}
+
+@media (min-width: 2000px) {
+    main {
+        width: 100vw; 
+        flex-direction: row !important;
+        align-items: flex-start !important;
+    }
+
+    .main-grid {
+        width: 80rem; 
+        height: 80rem; 
+        margin-left: 5rem;
+        padding: 0; 
+    }
 }

@@ -8,7 +8,7 @@
     <title>Etch-A-Sketch</title>
     <meta name="author" content="David Brunner">
     <meta name="keywords" content="Etch-A-Sketch, Drawing, Mini Project, HTML, CSS, JavaScript">
-    <meta name="description" content="An small mini Etch-A-Sketch project allowing users to draw on grid.">
+    <meta name="description" content="An mini Etch-A-Sketch project allowing users to draw on grid.">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Pacifico&display=swap" rel="stylesheet"> 
 
@@ -19,49 +19,60 @@
 
     <header class="flex-column">
         <h1>Etch-A-Sketch</h1>
-
         <p>Hold down CTRL or META key and move mouse over grid after selecting tool or shape.</p>
     </header>
 
-    <main class="flex-row">
+    <main class="flex-column">
 
-        <section class="main-options flex-row">
+        <section class="main-options flex-column">
 
             <div class="flex-column">
 
                 <div class="grid-options options flex-column">
                     <h2>Grid</h2>
-    
-                    <label>Height:&nbsp;&nbsp;&nbsp; 
-                        <input class="input-grid-height" type="number" min="1" max="100" placeholder="Enter grid height" />
-                    </label>
-    
-                    <label>Width:&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input class="input-grid-width" type="number" min="1" max="100" placeholder="Enter grid width" />
-                    </label>
-    
-                    <label>Size:&nbsp;&nbsp;&nbsp; 
-                        <input class="input-grid-size" type="range" min="0" max="100" step="5" value="50" />
-                    </label>
-    
-                    <label>Background Color:&nbsp;&nbsp;&nbsp; 
-                        <input class="input-grid-background-color" type="color" value="#ffffff" />
-                    </label>
 
-                    <label>Square Color:&nbsp;&nbsp;&nbsp; 
-                        <input class="input-grid-color" type="color" value="#000" />
-                    </label>
+                    <svg class="toggle-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 338.352 338.352" style="enable-background:new 0 0 338.352 338.352;" xml:space="preserve">
+                        <path d="M169.176,0C75.601,0,0,75.514,0,169.176s75.514,169.176,169.176,169.176s169.176-75.514,169.176-169.176
+                            S262.752,0,169.176,0z M169.176,315.731c-81.191,0-146.556-65.365-146.556-146.556S87.986,22.619,169.176,22.619
+                            s146.556,65.365,146.556,146.556S250.367,315.731,169.176,315.731z" />
+
+                        <path d="M231.187,162.382l-74.396-74.396c-4.472-4.472-11.267-4.472-15.825,0c-4.472,4.472-4.472,11.267,0,15.826l65.365,65.365
+                            l-65.365,65.365c-4.472,4.472-4.472,11.267,0,15.825c2.236,2.236,4.472,3.354,7.913,3.354c2.236,0,5.677-1.118,9.03-2.236
+                            l73.278-73.278c2.236-2.236,3.355-4.472,3.355-7.913C234.542,166.94,233.424,164.618,231.187,162.382z" />
+                    </svg>
+
+                    <div class="toggle-div flex-column">
+                        <label>Height:&nbsp;&nbsp;&nbsp; 
+                            <input class="input-grid-height" type="number" min="1" max="100" placeholder="Enter grid height" />
+                        </label>
+        
+                        <label>Width:&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="input-grid-width" type="number" min="1" max="100" placeholder="Enter grid width" />
+                        </label>
+        
+                        <label>Size:&nbsp;&nbsp;&nbsp; 
+                            <input class="input-grid-size" type="range" min="0" max="100" step="5" value="50" />
+                        </label>
+        
+                        <label>Background Color:&nbsp;&nbsp;&nbsp; 
+                            <input class="input-grid-background-color" type="color" value="#ffffff" />
+                        </label>
     
-                    <p>Show Border:&nbsp;&nbsp;&nbsp; 
-                        <button class="input-grid-border slider-button">
-                            <span class="slider">
-                                <span class="circle"></span>
-                            </span>
-                        </button>
-                    </p>
-    
-                    <button class="update-grid" type="submit">Update Grid<span></span></button>
-                    <button class="submit-grid" type="submit">Create New Grid<span></span></button>
+                        <label>Square Color:&nbsp;&nbsp;&nbsp; 
+                            <input class="input-grid-color" type="color" value="#000" />
+                        </label>
+        
+                        <p>Show Border:&nbsp;&nbsp;&nbsp; 
+                            <button class="input-grid-border slider-button">
+                                <span class="slider">
+                                    <span class="circle"></span>
+                                </span>
+                            </button>
+                        </p>
+        
+                        <button class="update-grid" type="submit">Update Grid<span></span></button>
+                        <button class="submit-grid" type="submit">Create New Grid<span></span></button>
+                    </div>
                 </div>
 
                 <div class="action-options options">
@@ -74,58 +85,69 @@
             <div class="drawing-options options">
                 <h2>Drawing</h2>
 
-                <h3>Tools</h3>
+                <svg class="toggle-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 338.352 338.352" style="enable-background:new 0 0 338.352 338.352;" xml:space="preserve">
+                    <path d="M169.176,0C75.601,0,0,75.514,0,169.176s75.514,169.176,169.176,169.176s169.176-75.514,169.176-169.176
+                        S262.752,0,169.176,0z M169.176,315.731c-81.191,0-146.556-65.365-146.556-146.556S87.986,22.619,169.176,22.619
+                        s146.556,65.365,146.556,146.556S250.367,315.731,169.176,315.731z"/>
 
-                <div class="flex-row drawing-tool-container">
-                    <div class="flex-column">
-                        <button class="tool-draw drawing-tool" type="submit" value='draw'>Draw<span></span></button>
-                        <button class="tool-darken drawing-tool" type="submit" value='darken'>Darken<span></span></button>
-                        <button class="tool-fill drawing-tool" type="submit" value='fill'>Fill<span></span></button>
+                    <path d="M231.187,162.382l-74.396-74.396c-4.472-4.472-11.267-4.472-15.825,0c-4.472,4.472-4.472,11.267,0,15.826l65.365,65.365
+                        l-65.365,65.365c-4.472,4.472-4.472,11.267,0,15.825c2.236,2.236,4.472,3.354,7.913,3.354c2.236,0,5.677-1.118,9.03-2.236
+                        l73.278-73.278c2.236-2.236,3.355-4.472,3.355-7.913C234.542,166.94,233.424,164.618,231.187,162.382z"/>
+                </svg>
+
+                <div class="toggle-div flex-column">
+                    <h3>Tools</h3>
+
+                    <div class="flex-row drawing-tool-container">
+                        <div class="flex-column">
+                            <button class="tool-draw drawing-tool" type="submit" value='draw'>Draw<span></span></button>
+                            <button class="tool-darken drawing-tool" type="submit" value='darken'>Darken<span></span></button>
+                            <button class="tool-fill drawing-tool" type="submit" value='fill'>Fill<span></span></button>
+                        </div>
+
+                        <div class="flex-column">
+                            <button class="tool-erase drawing-tool" type="submit" value='erase'>Erase<span></span></button>
+                            <button class="tool-lighten drawing-tool" type="submit" value='lighten'>Lighten<span></span></button>
+                            <button class="tool-select drawing-tool" type="submit" value='select'>Select<span></span></button>
+                        </div>
                     </div>
 
-                    <div class="flex-column">
-                        <button class="tool-erase drawing-tool" type="submit" value='erase'>Erase<span></span></button>
-                        <button class="tool-lighten drawing-tool" type="submit" value='lighten'>Lighten<span></span></button>
-                        <button class="tool-select drawing-tool" type="submit" value='select'>Select<span></span></button>
+                    <h3>Shapes</h3>
+
+                    <div class="flex-column drawing-shape-container">
+                        <button class="tool-rectangle drawing-shape" type="submit" value='rectangle'>Rectangle<span></span></button>
+                        <button class="tool-circle drawing-shape" type="submit" value='circle'>Circle<span></span></button>
+                        <button class="tool-line drawing-shape" type="submit" value='line'>Line<span></span></button>
+                    </div>
+
+                    <h3>Colors</h3>
+
+                    <div class="flex-column drawing-color-container">
+                        <p>Black:&nbsp;&nbsp;&nbsp; 
+                            <button class="input-color-black drawing-color slider-button" value='black'>
+                                <span class="slider">
+                                    <span class="circle"></span>
+                                </span>
+                            </button>
+                        </p>
+
+                        <p>Rainbow:&nbsp;&nbsp;&nbsp; 
+                            <button class="input-color-rainbow drawing-color slider-button" value='rainbow'>
+                                <span class="slider">
+                                    <span class="circle"></span>
+                                </span>
+                            </button>
+                        </p>
+
+                        <p>Color:&nbsp;&nbsp;&nbsp; 
+                            <button class="input-color-choice drawing-color slider-button" value='color'>
+                                <span class="slider">
+                                    <span class="circle"></span>
+                                </span>
+                            </button>
+                        </p>
                     </div>
                 </div>
-
-                <h3>Shapes</h3>
-
-                <div class="flex-column drawing-shape-container">
-                    <button class="tool-rectangle drawing-shape" type="submit" value='rectangle'>Rectangle<span></span></button>
-                    <button class="tool-circle drawing-shape" type="submit" value='circle'>Circle<span></span></button>
-                    <button class="tool-line drawing-shape" type="submit" value='line'>Line<span></span></button>
-                </div>
-
-                <h3>Colors</h3>
-
-                <div class="flex-column drawing-color-container">
-                    <p>Black:&nbsp;&nbsp;&nbsp; 
-                        <button class="input-color-black drawing-color slider-button" value='black'>
-                            <span class="slider">
-                                <span class="circle"></span>
-                            </span>
-                        </button>
-                    </p>
-
-                    <p>Rainbow:&nbsp;&nbsp;&nbsp; 
-                        <button class="input-color-rainbow drawing-color slider-button" value='rainbow'>
-                            <span class="slider">
-                                <span class="circle"></span>
-                            </span>
-                        </button>
-                    </p>
-
-                    <p>Color:&nbsp;&nbsp;&nbsp; 
-                        <button class="input-color-choice drawing-color slider-button" value='color'>
-                            <span class="slider">
-                                <span class="circle"></span>
-                            </span>
-                        </button>
-                    </p>
-                </div>
-
             </div>
 
         </section>

@@ -467,6 +467,14 @@ document.querySelectorAll('button[type="submit"]').forEach(button => {
 	button.addEventListener('mouseout', updateSpanPos); 
 }); 
 
+document.querySelectorAll('.toggle-svg').forEach(toggle => toggle.addEventListener('click', (e) => {
+	const svg = e.target.closest('.toggle-svg'); 
+	const toggleDiv = svg.parentNode.querySelector('.toggle-div'); 
+
+	toggleDiv.classList.toggle('hidden-small'); 
+	svg.style.transform = `rotate(${toggleDiv.classList.contains('hidden-small') ? '90' : '0'}deg)`; 
+})); 
+
 (function init() {
 	heightChange = true; 
 	gridHeight = 50; 
@@ -487,4 +495,6 @@ document.querySelectorAll('button[type="submit"]').forEach(button => {
 	currColor = 'black'; 
 	drawBlack(); 
 	document.querySelector('.input-color-black').classList.add('selected-toggle'); 
+
+	window.addEventListener('resize', updatePointSize); 
 })(); 
