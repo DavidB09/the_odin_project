@@ -7,3 +7,6 @@ A repo for The Odin Project mini projects created by David Brunner
 
 ### Katana-Kusarigama-Shuriken:
 [Link](https://the-odin-project-katana-kusarigama-shuriken.netlify.app/)
+
+### Etch-A-Sketch:
+[Link](https://the-odin-project-etch-a-sketch.netlify.app/)
