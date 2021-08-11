@@ -70,6 +70,8 @@ const handleNumber = (value) => {
     if (operand1 && operator && !operand2) currInput = ''; 
     if (currInput === '0') currInput =  ''; 
 
+    if (!isFinite(Number(currInput)) || isNaN(Number(currInput))) return;
+
     currInput += value; 
     handleOperand(); 
     updateCalculator(); 
