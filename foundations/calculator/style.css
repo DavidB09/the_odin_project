@@ -10,7 +10,7 @@ html {
     --color-green: #00d781; 
 }
 
-/* ELEMENT */
+/**** ELEMENT ****/
 
 body {
     margin: 0; 
@@ -113,7 +113,7 @@ button.blue:hover, button.blue:focus {
     border: 0.2rem solid var(--color-blue);
 }
 
-/* CLASS */
+/**** CLASS ****/
 
 .main-display {
     text-align: end;
@@ -159,7 +159,7 @@ button.blue:hover, button.blue:focus {
     font-size: 1.5rem; 
 }
 
-/* MEDIA QUERY */
+/**** MEDIA QUERY ****/
 
 @media (min-width: 1500px) {
     button {
