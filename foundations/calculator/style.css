@@ -152,6 +152,13 @@ button.blue:hover, button.blue:focus {
     grid-column-end: 3;
 }
 
+.main-instruction {
+    width: 65%;
+    margin-top: 5rem;
+    text-align: center;
+    font-size: 1.5rem; 
+}
+
 /* MEDIA QUERY */
 
 @media (min-width: 1500px) {
@@ -166,5 +173,10 @@ button.blue:hover, button.blue:focus {
     .main-value {
         margin-top: 2rem; 
         font-size: 3rem;
+    }
+
+    .main-instruction {
+        margin-top: 10rem; 
+        font-size: 2rem;
     }
 }

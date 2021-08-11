@@ -65,6 +65,7 @@ const handleOperator = (value) => {
 const handleEqual = () => {
     if (!operand2 || !operand1) return; 
     if (operand1 && operand2) runCalculation(); 
+    equationElem.textContent = `${equationElem.textContent} = ${currInput}`; 
     valueElem.textContent = currInput; 
 }; 
 
@@ -86,7 +87,7 @@ const undoCalculator = () => {
         operator = ''; 
         currInput = operand1; 
     } else if (operand1) {
-        operand1 = operand1.slice(0, operand1.length - 1);
+        operand1 = operand1.slice(0, operand1.length - 1) || '0';
         currInput = operand1; 
     }
     updateCalculator(); 
@@ -112,7 +113,7 @@ const handleInput = (value) => {
         handleEqual(); 
     } else if (value === '.') {
         handleDecimal(); 
-    } else if (value === 'u') {
+    } else if (value === 'backspace') {
         undoCalculator(); 
     } else if (value === 'c') {
         clearCalculator(); 
@@ -121,9 +122,9 @@ const handleInput = (value) => {
 
 buttons.forEach(button => button.addEventListener('click', () => handleInput(button.value))); 
 window.addEventListener('keydown', (e) => {
-    handleInput(e.key); 
+    handleInput(e.key.toLowerCase()); 
     buttons.forEach((button) => {
-        if (button.value === e.key) button.focus(); 
+        if (button.value === e.key.toLowerCase()) button.focus(); 
     }); 
 }); 
 
