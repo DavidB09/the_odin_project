@@ -1,15 +1,7 @@
-
 const equationElem = document.querySelector('.main-equation'); 
-const valueElem = document.querySelector('.main-value'); 
+const valueElem = document.querySelector('.main-value');
 
-const operatorElems = document.querySelectorAll('.operator'); 
-const numberElems = document.querySelectorAll('.number'); 
-
-const decimalBtn = document.querySelector('.decimal'); 
-const equalBtn = document.querySelector('.equal'); 
-
-const undoBtn = document.querySelector('.undo'); 
-const clearBtn = document.querySelector('.clear');
+const buttons = document.querySelectorAll('button'); 
 
 let operand1 = ''; 
 let operand2 = '';
@@ -37,29 +29,16 @@ const runCalculation = () => {
         case '-':
             total = Number(operand1) - Number(operand2);
             break;  
+        case '%':
+            total = Number(operand1) % Number(operand2); 
+            break; 
     }; 
 
-    operand1 = `${total}`; 
+    operand1 = `${Math.round(total * 10000000) / 10000000}`; 
     operand2 = ''; 
     operator = ''; 
     currInput = operand1; 
 }; 
-
-const handleOperator = (value) => {
-    if (operand1 && operand2) runCalculation(); 
-
-    operator = value; 
-    updateCalculator(); 
-}; 
-
-const handleEqual = () => {
-    if (operand1 && operand2) runCalculation(); 
-    if (!/[=]/g.test(equationElem.textContent)) equationElem.textContent += ` = ${currInput}`; 
-    valueElem.textContent = currInput; 
-}; 
-
-operatorElems.forEach(operator => operator.addEventListener('click', () => handleOperator(operator.value))); 
-equalBtn.addEventListener('click', handleEqual); 
 
 const handleOperand = () => {
     if (!operator) operand1 = currInput; 
@@ -77,6 +56,18 @@ const handleNumber = (value) => {
     updateCalculator(); 
 }; 
 
+const handleOperator = (value) => {
+    if (operand1 && operand2) runCalculation(); 
+    operator = value; 
+    updateCalculator(); 
+}; 
+
+const handleEqual = () => {
+    if (!operand2 || !operand1) return; 
+    if (operand1 && operand2) runCalculation(); 
+    valueElem.textContent = currInput; 
+}; 
+
 const handleDecimal = () => {
     if (operand1 && operator && !operand2) currInput = ''; 
     if (/[.]/g.test(currInput)) return; 
@@ -84,17 +75,6 @@ const handleDecimal = () => {
     if (!currInput) currInput = '0.'; 
     else currInput += '.'; 
     handleOperand();
-    updateCalculator(); 
-}; 
-
-numberElems.forEach(number => number.addEventListener('click', () => handleNumber(number.value))); 
-decimalBtn.addEventListener('click', handleDecimal); 
-
-const clearCalculator = () => {
-    operand1 = '0'; 
-    operand2 = '';
-    operator = ''; 
-    currInput = '0'; 
     updateCalculator(); 
 }; 
 
@@ -112,5 +92,39 @@ const undoCalculator = () => {
     updateCalculator(); 
 }; 
 
-clearBtn.addEventListener('click', clearCalculator);
-undoBtn.addEventListener('click', undoCalculator); 
+const clearCalculator = () => {
+    operand1 = '0'; 
+    operand2 = '';
+    operator = ''; 
+    currInput = '0'; 
+    updateCalculator(); 
+}; 
+
+const handleInput = (value) => {
+    const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']; 
+    const operators = ['*', '/', '+', '-', '%']; 
+
+    if (numbers.includes(value)) {
+        handleNumber(value); 
+    } else if (operators.includes(value)) {
+        handleOperator(value); 
+    } else if (value === '=') {
+        handleEqual(); 
+    } else if (value === '.') {
+        handleDecimal(); 
+    } else if (value === 'u') {
+        undoCalculator(); 
+    } else if (value === 'c') {
+        clearCalculator(); 
+    }
+}
+
+buttons.forEach(button => button.addEventListener('click', () => handleInput(button.value))); 
+window.addEventListener('keydown', (e) => {
+    handleInput(e.key); 
+    buttons.forEach((button) => {
+        if (button.value === e.key) button.focus(); 
+    }); 
+}); 
+
+clearCalculator(); 
