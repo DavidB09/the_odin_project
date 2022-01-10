@@ -1,4 +1,5 @@
 html {
+    min-height: 100%; 
     font-size: 62.5%; 
 }
 
@@ -21,15 +22,15 @@ html {
 /**** ELEMENT ****/
 
 body {
-    height: 110vh; 
+    height: 100%; 
     width: auto; 
-    overflow-x: hidden;
     background-image: url("./assets/images/japan_background.jpg"); 
     background-position: bottom left;
     background-size: cover;
     background-repeat: no-repeat;
     font-size: 1.25rem; 
     font-family: "Manga Temple";
+    overflow-x: hidden;
 }
 
 h1 {
@@ -104,15 +105,17 @@ ul {
 }
 
 .main-container {
+    width: 80%; 
+    min-width: 20rem; 
+    margin: 2rem 0; 
     background-color: #fff;
     border: var(--main-color) 7px solid;
     border-radius: 5px;
-    margin: 2rem;
 }
 
 .main-button {
     position: relative; 
-    margin-top: 2.5rem; 
+    margin: 2.5rem; 
     padding: 2.5rem; 
     background-color: #fff;
     font-size: 1.25rem; 
@@ -154,16 +157,12 @@ ul {
 }
 
 .main-rules img {
-    width: 4rem;
     height: 4rem; 
+    width: 4rem;
 }
 
 .main-rules li {
     padding: 1rem;
-}
-
-.main-player {
-    padding: 2rem;
 }
 
 .main-player li {
@@ -171,8 +170,8 @@ ul {
 }
 
 .main-player img {
-    width: 6rem;
     height: 6rem; 
+    width: 6rem;
     -webkit-filter: grayscale(100%); 
             filter: grayscale(100%);
 }
@@ -184,7 +183,7 @@ ul {
 }
 
 .main-score, .main-weapons {
-    height:  20rem;
+    height: auto; 
 }
 
 .main-score h2, .main-weapons h2 {
@@ -195,23 +194,14 @@ ul {
     font-size: 1.5rem;
 }
 
-.main-score div, .main-weapons div {
-    padding: 0 2rem;
-    height:  auto;
-}
-
 .main-weapons img {
-    width:  3rem;
     height: 3rem;
+    width:  3rem;
 }
 
 .main-score .flex-column *, .main-weapons .flex-column * {
-    margin-top: 1rem;
     height: 100%;
-}
-
-.main-final div {
-    padding: 0 2rem;
+    margin: 1rem;
 }
 
 .main-final h2 {
@@ -220,6 +210,15 @@ ul {
 
 .main-final h3 {
     font-size: 1.75rem;
+}
+
+.main-score .flex-row, .main-weapons .flex-row, .main-final .flex-row {
+    margin-bottom: 2rem; 
+}
+
+.main-score div, .main-weapons div, .main-final div {
+    padding: 0 2rem;
+    height:  auto;
 }
 
 .main-message {
@@ -249,22 +248,32 @@ ul {
                 flex-direction: row;
     }
 
+    .main-container {
+        width: auto; 
+    }
+
     .main-button {
         font-size: 1.5rem;
     }
 
     .main-rules img {
-        width: 4.5rem;
         height: 4.5rem; 
+        width: 4.5rem;
+    }
+
+    .main-player {
+        padding: 2rem; 
     }
 
     .main-player img {
-        width: 7rem;
         height: 7rem; 
+        width: 7rem;
     }
 
     .main-score, .main-weapons {
-        height: 20rem;
+        height: auto; 
+        min-height: 20rem;
+        width: 35rem; 
     }
 
     .main-score h2, .main-weapons h2 {
@@ -280,16 +289,14 @@ ul {
     }
 
     .main-weapons img {
-        width:  4rem;
         height: 4rem;
+        width:  4rem;
     }
-
 }
 
 @media (min-width: 900px) {
     body {
         font-size: 2rem;
-        height: 100vh; 
     }
 
     h1 {
@@ -307,18 +314,22 @@ ul {
                 flex-direction: row;
     }
 
+    .main-container {
+        margin: 2rem; 
+    }
+
     .main-button {
         font-size: 2rem;
     }
 
     .main-rules img {
-        width: 5rem;
         height: 5rem; 
+        width: 5rem;
     }
 
     .main-player img {
-        width: 8rem;
         height: 8rem; 
+        width: 8rem;
     }
 
     .main-score, .main-weapons {
@@ -338,8 +349,8 @@ ul {
     }
 
     .main-weapons img {
-        width:  4rem;
         height: 4rem;
+        width:  4rem;
     }
 
     .main-message {
