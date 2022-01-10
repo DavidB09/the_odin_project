@@ -14,6 +14,7 @@ body {
     position: absolute;
     height: 100vh; 
     width: 100vw; 
+    margin: 0; 
     color: var(--main-color); 
     background-color: #181818; 
     font-family: var(--main-font); 
@@ -35,9 +36,9 @@ main {
 }
 
 h1 {
+    margin: 5rem; 
     font-family: 'Pacifico', cursive;
     font-size: 5rem; 
-    margin: 5rem; 
 }
 
 h2 {
@@ -76,8 +77,8 @@ button[type="submit"]:hover {
 
 button[type="submit"] span {
     position: absolute;
-    width: 0; 
     height: 0; 
+    width: 0; 
     background-color: var(--main-color); 
     border-radius: 50%;
     -webkit-transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
@@ -117,12 +118,12 @@ input[type="color"] {
     -webkit-box-direction: normal; 
         -ms-flex-direction: column; 
             flex-direction: column;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     text-align: center;
 }
 
@@ -134,12 +135,12 @@ input[type="color"] {
     -webkit-box-direction: normal; 
         -ms-flex-direction: row; 
             flex-direction: row;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     text-align: center;
 }
 
@@ -181,12 +182,12 @@ input[type="color"] {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center; 
     -webkit-box-align: center; 
         -ms-flex-align: center; 
             align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center; 
     margin: 0; 
     padding: 1rem; 
 }
@@ -201,12 +202,12 @@ input[type="color"] {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin: 0;
     padding: 1rem;
 }
@@ -215,8 +216,8 @@ input[type="color"] {
     position: relative;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
-    width: 100%; 
     height: 0; 
+    width: 100%; 
     padding: 50% 0; 
     background-color: #242322;
     border-radius: 5px;
@@ -245,15 +246,15 @@ input[type="color"] {
 }
 
 .selected-button span {
-    width: 400% !important; 
     height: 400% !important; 
+    width: 400% !important; 
 }
 
 .slider-button {
     position: relative;
-    width: 4.5rem;
-    height: 1.25rem;
     display: inline-block;
+    height: 1.25rem;
+    width: 4.5rem;
     background-color: transparent;
     border: none;
 }
@@ -429,8 +430,8 @@ input[type="color"] {
     }
 
     .main-grid {
-        width: 80rem; 
         height: 80rem; 
+        width: 80rem; 
         margin-left: 5rem;
         padding: 0; 
     }

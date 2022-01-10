@@ -9,8 +9,8 @@ let operator = '';
 let currInput = ''; 
 
 const updateCalculator = () => {
-    equationElem.textContent = `${operand1} ${operator} ${operand2}`.trim(); 
-    valueElem.textContent = currInput; 
+    equationElem.textContent = `${operand1} ${operator} ${operand2}`.trim(); //Displays the current equation
+    valueElem.textContent = currInput; //Displays the current input
 }; 
 
 const runCalculation = () => {
@@ -34,46 +34,46 @@ const runCalculation = () => {
             break; 
     }; 
 
-    operand1 = `${Math.round(total * 10000000) / 10000000}`; 
+    operand1 = `${Math.round((total + Number.EPSILON) * 10000000) / 10000000}`; //Rounds the total of the calculation to seven possible decimal places
     operand2 = ''; 
     operator = ''; 
-    currInput = operand1; 
+    currInput = operand1;
 }; 
 
 const handleOperand = () => {
-    if (!operator) operand1 = currInput; 
+    if (!operator) operand1 = currInput; //Sets current input to the first operand if no operator exists
     else operand2 = currInput; 
 }; 
 
 const handleNumber = (value) => {
-    if (operand1 && operator && !operand2) currInput = ''; 
-    if (currInput === '0') currInput =  ''; 
+    if (operand1 && operator && !operand2) currInput = ''; //Resets current input to hide the operator
+    if (currInput === '0') currInput =  ''; //Resets current input to hide the zero
 
-    if (!isFinite(Number(currInput)) || isNaN(Number(currInput))) return;
+    if (!isFinite(Number(currInput)) || isNaN(Number(currInput))) return; //Checks whether the current input is a valid number
 
-    currInput += value; 
+    currInput += value; //Displays the current number input
     handleOperand(); 
     updateCalculator(); 
 }; 
 
 const handleOperator = (value) => {
-    if (operand1 && operand2) runCalculation(); 
+    if (operand1 && operand2) runCalculation(); //Runs calculator to find the result of the previous equation
     operator = value; 
     updateCalculator(); 
 }; 
 
 const handleEqual = () => {
-    if (!operand2 || !operand1) return; 
+    if (!operand2 || !operand1) return; //Returns if equation isn't valid
     if (operand1 && operand2) runCalculation(); 
-    equationElem.textContent = `${equationElem.textContent} = ${currInput}`; 
-    valueElem.textContent = currInput; 
+    equationElem.textContent = `${equationElem.textContent} = ${currInput}`; //Updates display to show the result
+    valueElem.textContent = currInput;
 }; 
 
 const handleDecimal = () => {
-    if (operand1 && operator && !operand2) currInput = ''; 
-    if (/[.]/g.test(currInput)) return; 
+    if (operand1 && operator && !operand2) currInput = ''; //Resets the current input to hide the operator
+    if (/[.]/g.test(currInput)) return; //Returns if a decimal already exists in the current operand
 
-    if (!currInput) currInput = '0.'; 
+    if (!currInput) currInput = '0.'; //Adds a zero infront of the decimal
     else currInput += '.'; 
     handleOperand();
     updateCalculator(); 
@@ -81,14 +81,14 @@ const handleDecimal = () => {
 
 const undoCalculator = () => {
     if (operand2) {
-        operand2 = operand2.slice(0, operand2.length - 1);
-        currInput = operand2; 
+        operand2 = operand2.slice(0, operand2.length - 1); //Removes the last part of the second operand
+        currInput = operand2;
     } else if (operator) {
-        operator = ''; 
-        currInput = operand1; 
+        operator = '';  //Removes the operator
+        currInput = operand1;
     } else if (operand1) {
-        operand1 = operand1.slice(0, operand1.length - 1) || '0';
-        currInput = operand1; 
+        operand1 = operand1.slice(0, operand1.length - 1) || '0'; //Removes the last part of the first operand or zero if no number exists
+        currInput = operand1;
     }
     updateCalculator(); 
 }; 
@@ -124,7 +124,7 @@ buttons.forEach(button => button.addEventListener('click', () => handleInput(but
 window.addEventListener('keydown', (e) => {
     handleInput(e.key.toLowerCase()); 
     buttons.forEach((button) => {
-        if (button.value === e.key.toLowerCase()) button.focus(); 
+        if (button.value === e.key.toLowerCase()) button.focus(); //Focuses the button that corresponds to the current keyboard number input
     }); 
 }); 
 
