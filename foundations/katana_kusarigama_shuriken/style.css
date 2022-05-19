@@ -120,7 +120,8 @@ ul {
     background-color: #fff;
     font-size: 1.25rem; 
     font-family: "Manga Temple";
-    border: var(--main-color) 5px solid;
+    outline: var(--main-color) 5px solid;
+    border: none;
     border-radius: 2px;
     overflow: hidden;
     cursor: pointer;

@@ -105,8 +105,8 @@ class TicTacToe {
         cpuScore.innerText = this.currentCPUScore; 
 
         this.weaponContainer.querySelectorAll('img').forEach(image => image.parentNode.removeChild(image)); //Removes weapon images for user and cpu
-        let cpuWeapon; 
-        let userWeapon
+        let cpuWeapon;
+        let userWeapon; 
 
         //Checks whether it is the start of a new game
         if (this.currentCPUWeapon === -1) return; 
