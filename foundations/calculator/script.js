@@ -82,7 +82,7 @@ const handleDecimal = () => {
 const undoCalculator = () => {
     if (operand2) {
         operand2 = operand2.slice(0, operand2.length - 1); //Removes the last part of the second operand
-        currInput = operand2;
+        currInput = operand2 || operand1;
     } else if (operator) {
         operator = '';  //Removes the operator
         currInput = operand1;
