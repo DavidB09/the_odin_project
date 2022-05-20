@@ -21,8 +21,8 @@ let prevBackgroundColor;
 
 let heightChange, widthChange; 
 
-const createNewGrid = (isClear) => {
-    if ((!heightChange || !widthChange) && !isClear) return;
+const createNewGrid = (isClick) => {
+    if ((!heightChange || !widthChange) && !isClick) return; //Returns if no change or not result of button click (aka first page load)
 
     gridContainer.innerHTML = ''; 
     updateGridHeight(); 
@@ -93,7 +93,7 @@ const updatePointSize = () => {
 const updateGridBackgroundColor = (isNew) => {
     document.querySelectorAll('.grid-point').forEach(point => {
         if (isNew || rgbToHex(getColor(point)) == prevBackgroundColor || !prevBackgroundColor)
-            point.style.backgroundColor = gridBackgroundColorInput.value; 
+            point.style.backgroundColor = gridBackgroundColorInput.value;
     }); 
 }; 
 
@@ -163,7 +163,6 @@ const drawRainbow = () => {
     for (let i = 0; i < colors.length; i++) {
         if (colors[i] === pointColor) {
             pointColor = colors[i + 1]; 
-            console.log(pointColor, colors[i], i);
             break; 
         }
     }
@@ -503,4 +502,4 @@ document.querySelectorAll('.toggle-svg').forEach(toggle => toggle.addEventListen
     document.querySelector('.input-color-black').classList.add('selected-toggle'); 
 
     window.addEventListener('resize', updatePointSize); 
-})(); 
+})();

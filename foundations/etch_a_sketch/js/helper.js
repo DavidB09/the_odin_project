@@ -66,4 +66,4 @@ export const adjustBrightness = (percent, color) => {
     let base = percent < 0 ? 0 : 255 * percent; 
     let multiply = percent < 0 ? 1 + percent: 1 - percent;
     return `rgb(${Math.round(+red * multiply + base)}, ${Math.round(+green * multiply + base)}, ${Math.round(+blue * multiply + base)})`;
-}; 
+};
