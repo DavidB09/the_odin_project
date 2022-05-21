@@ -1,0 +1,24 @@
+
+/**** ELEMENT ****/
+
+:root {
+    --light-color: #F9FAF8;
+    --dark-color: #1F2937;
+    --gray-color: #E5E7EB;
+    --blue-color: #3882F6;
+}
+
+
+
+
+/**** CLASS ****/
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column; 
+}
