@@ -8,8 +8,31 @@
     --blue-color: #3882F6;
 }
 
+body {
+    margin: 0;
+    background-color: var(--light-color);
+    font-family: Hero;
+    font-size: 18px;
+}
 
+header {
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    color: var(--light-color);
+    background-color: var(--dark-color);
+    font-size: 24px;
+}
 
+nav {
+    color: var(--gray-color);
+    font-size: 18px;
+}
+
+footer {
+    color: var(--light-color);
+    background-color: var(--dark-color);
+}
 
 /**** CLASS ****/
 
@@ -22,3 +45,47 @@
     display: flex;
     flex-direction: column; 
 }
+
+.container-intro {
+    background-color: var(--dark-color);
+}
+
+.container-intro h1 {
+    color: var(--light-color);
+    font-size: 48px;
+    font-weight: extra bold;
+}
+
+.container-intro p {
+    color: var(--gray-color);
+}
+
+.container-intro button {
+    color: var(--light-color);
+    font-weight: bold;
+}
+
+.container-info h1 {
+    color: var(--dark-color);
+    font-size: 36px;
+    font-weight: extra bold;
+}
+
+.container-quote {
+    background-color: var(--gray-color);
+    font-size: 36px;
+    font-weight: light;
+}
+
+.container-action h1 {
+    color: var(--light-color);
+}
+
+.container-action p {
+    color: var(--gray-color);
+}
+
+.container-action button {
+    color: var(--light-color);
+}
+
