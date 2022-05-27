@@ -19,7 +19,6 @@ body {
 header {
     align-items: center;
     justify-content: space-between;
-    width: 60%;
     padding-top: 25px; 
     margin: 0 auto;
     color: var(--light-color);
@@ -28,12 +27,13 @@ header {
 }
 
 nav {
+    margin-top: 20px;
     color: var(--light-gray);
     font-size: 18px;
 }
 
 nav a {
-    margin: 0px 15px;
+    margin: 5px 15px;
     cursor: pointer;
     transition: color .4s;
 }
@@ -50,6 +50,28 @@ footer {
 footer p {
     margin: 0px;
     padding: 15px 0px;
+}
+
+@media (min-width: 800px) {
+    header.flex-column {
+        flex-direction: row;
+        width: 80%;
+    }
+
+    nav.flex-column {
+        flex-direction: row;
+        margin-top: 0px;
+    }
+
+    nav a {
+        margin: 0px 15px;
+    }
+}
+
+@media (min-width: 1100px) {
+    header.flex-column {
+        width: 60%;
+    }
 }
 
 /**** CLASS ****/
@@ -73,15 +95,15 @@ footer p {
 }
 
 .container-intro div {
-    width: 45%;
-    height: 200px;
+    align-items: center;
 }
 
 .container-intro img {
-    width: 45%;
+    width: 100%;
     height: 200px;
     align-items: center;
     justify-content: center;
+    margin-top: 50px;
     color: var(--light-color);
     background-color: var(--dark-gray);
 }
@@ -112,6 +134,29 @@ footer p {
 
 .container-intro button:hover {
     background-color: #1f5fc5;
+}
+
+@media (min-width: 800px) {
+    .container-intro.flex-column {
+        flex-direction: row;
+        width: 80%;
+    }
+
+    .container-intro div {
+        align-items: start;
+        width: 45%;
+    }
+
+    .container-intro img {
+        width: 45%;
+        margin-top: 0px;
+    }
+}
+
+@media (min-width: 1100px) {
+    .container-intro.flex-column {
+        width: 60%;
+    }
 }
 
 .container-info {
@@ -153,7 +198,7 @@ footer p {
 }
 
 .container-quote blockquote {
-    width: 60%;
+    width: 50%;
     text-align: right;
     padding: 35px 0px;
 }
@@ -177,7 +222,6 @@ footer p {
 .container-action button {
     width: 100px;
     height: 25px;
-    margin-left: 100px;
     color: var(--light-color);
     background-color: var(--light-blue);
     border: 1px var(--light-color) solid;
@@ -192,8 +236,8 @@ footer p {
 
 .container-action > div {
     align-items: center;
-    justify-content: center;
-    width: 75%;
+    justify-content: space-around;
+    width: 60%;
     margin: 100px 0px;
     padding: 35px 0px;
     background-color: var(--light-blue);
