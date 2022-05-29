@@ -240,6 +240,7 @@ footer p {
 .container-action button {
     width: 100px;
     height: 25px;
+    margin-top: 25px;
     color: var(--light-color);
     background-color: var(--light-blue);
     border: 1px var(--light-color) solid;
@@ -255,9 +256,21 @@ footer p {
 .container-action > div {
     align-items: center;
     justify-content: space-around;
+    text-align: center;
     width: 60%;
     margin: 100px 0px;
     padding: 35px 0px;
     background-color: var(--light-blue);
     border-radius: 5px;
+}
+
+@media (min-width: 800px) {
+    .container-action button {
+        margin-top: 0px;
+    }
+
+    .container-action > div.flex-column {
+        flex-direction: row;
+        text-align: start;
+    }
 }
