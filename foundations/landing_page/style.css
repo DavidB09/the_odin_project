@@ -12,8 +12,8 @@
 body {
     margin: 0;
     background-color: var(--dark-blue);
-    font-family: Hero;
-    font-size: 18px;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    font-size: 15px;
 }
 
 header {
@@ -23,13 +23,13 @@ header {
     margin: 0 auto;
     color: var(--light-color);
     background-color: var(--dark-blue);
-    font-size: 24px;
+    font-size: 20px;
 }
 
 nav {
     margin-top: 20px;
     color: var(--light-gray);
-    font-size: 18px;
+    font-size: 15px;
 }
 
 nav a {
@@ -53,14 +53,20 @@ footer p {
 }
 
 @media (min-width: 800px) {
+    body {
+        font-size: 16px;
+    }
+
     header.flex-column {
         flex-direction: row;
         width: 80%;
+        font-size: 22px;
     }
 
     nav.flex-column {
         flex-direction: row;
         margin-top: 0px;
+        font-size: 16px;
     }
 
     nav a {
@@ -69,8 +75,17 @@ footer p {
 }
 
 @media (min-width: 1100px) {
+    body {
+        font-size: 18px;
+    }
+
     header.flex-column {
         width: 60%;
+        font-size: 24px;
+    }
+
+    nav.flex-column {
+        font-size: 18px;
     }
 }
 
@@ -111,7 +126,7 @@ footer p {
 .container-intro h1 {
     margin: 0px;
     color: var(--light-color);
-    font-size: 48px;
+    font-size: 36px;
     font-weight: extra bold;
 }
 
@@ -121,8 +136,8 @@ footer p {
 }
 
 .container-intro button {
-    width: 100px;
-    padding: 5px;
+    width: 85px;
+    height: 25px;
     margin-top: 10px;
     color: var(--light-color);
     background-color: var(--light-blue);
@@ -147,15 +162,33 @@ footer p {
         width: 45%;
     }
 
+    .container-intro h1 {
+        font-size: 40px
+    }
+
     .container-intro img {
         width: 45%;
         margin-top: 0px;
+    }
+
+    .container-intro button {
+        height: 30px;
+        width: 100px;
+        font-size: 17px;
     }
 }
 
 @media (min-width: 1100px) {
     .container-intro.flex-column {
         width: 60%;
+    }
+
+    .container-intro h1 {
+        font-size: 48px
+    }
+
+    .container-intro button {
+        font-size: 17px;
     }
 }
 
@@ -166,18 +199,18 @@ footer p {
     background-color: var(--light-color);
 }
 
-.container-info h1 {
-    color: var(--dark-blue);
-    font-size: 36px;
-    font-weight: extra bold;
-}
-
 .container-info div {
     display: grid;
-    grid-template-columns: 100px 100px;
+    grid-template-columns: 90px 90px;
     grid-template-rows: 50% 50%;
     column-gap: 50px;
     row-gap: 10px;
+}
+
+.container-info h1 {
+    color: var(--dark-blue);
+    font-size: 28px;
+    font-weight: extra bold;
 }
 
 .container-info p {
@@ -194,7 +227,7 @@ footer p {
 
 .container-info .illustration {
     width: 100%;
-    height: 100px;
+    height: 90px;
     border: 3px var(--light-blue) solid;
     border-radius: 10px;
 }
@@ -205,33 +238,68 @@ footer p {
         grid-template-rows: 100%;
         column-gap: 75px
     }
+
+    .container-info h1 {
+        font-size: 30px;
+    }
+
+    .container-info .illustration {
+        height: 100px;
+    }
+}
+
+@media (min-width: 1100px) {
+    .container-info div {
+        grid-template-columns: repeat(4, 110px);
+        column-gap: 85px;
+    }
+
+    .container-info h1 {
+        font-size: 36px;
+    }
+
+    .container-info .illustration {
+        height: 110px;
+    }
 }
 
 .container-quote {
     align-items: center;
     justify-content: center;
     background-color: var(--light-gray);
-    font-size: 28px;
+    font-size: 20px;
     font-weight: light;
 }
 
 .container-quote blockquote {
     width: 80%;
     padding: 35px 0px;
+    font-style: italic;
 }
 
-.container-quote cite {
+.container-quote p {
     display: block;
     text-align: center;
+    font-style: normal;
 }
 
 @media (min-width: 800px) {
+    .container-quote {
+        font-size: 24px;
+    }
+
     .container-quote blockquote {
         width: 50%;
     }
 
-    .container-quote cite {
+    .container-quote p {
         text-align: right;
+    }
+}
+
+@media (min-width: 1100px) {
+    .container-quote {
+        font-size: 28px;
     }
 }
 
@@ -248,11 +316,11 @@ footer p {
 
 .container-action p {
     color: var(--light-gray);
-    margin: 0px;
+    margin: 0px 20px;
 }
 
 .container-action button {
-    width: 100px;
+    width: 85px;
     height: 25px;
     margin-top: 25px;
     color: var(--light-color);
@@ -271,7 +339,7 @@ footer p {
     align-items: center;
     justify-content: space-around;
     text-align: center;
-    width: 60%;
+    width: 65%;
     margin: 100px 0px;
     padding: 35px 0px;
     background-color: var(--light-blue);
@@ -281,10 +349,30 @@ footer p {
 @media (min-width: 800px) {
     .container-action button {
         margin-top: 0px;
+        font-size: 17px;
+        height: 30px;
+        width: 90px;
+    }
+
+    .container-action p {
+        margin: 0px;
     }
 
     .container-action > div.flex-column {
         flex-direction: row;
+        width: 75%;
         text-align: start;
+    }
+}
+
+@media (min-width: 1100px) {
+    .container-action button {
+        font-size: 19px;
+        height: 35px;
+        width: 100px;
+    }
+
+    .container-action > div.flex-column {
+        width: 70%;
     }
 }
