@@ -11,17 +11,13 @@
 body {
     margin: 0px;
     color: var(--white);
-    background-color: var(--lightRed);
+    background: linear-gradient(180deg, var(--lightRed), var(--darkRed)) fixed;
     font-family: var(--paragraph);
     text-align: center;
 }
 
 header {
     padding: 35px 0px;
-}
-
-header p {
-    font-size: 20px;
 }
 
 main {
@@ -36,7 +32,21 @@ h1 {
 }
 
 h2 {
+    margin-top: 0px;
     font-family: var(--header);
+}
+
+p {
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:focus {
+    color: inherit;
 }
 
 /**** CLASS ****/
@@ -47,18 +57,13 @@ h2 {
     justify-content: center;
     width: 25%;
     color: var(--white);
-    font-size: 18px;
     border: 15px solid var(--white);
     border-radius: 15px;
     transition: all 0.4s;
 }
 
-.container-overlay {
-    padding: 15px;
-    background-color: rgba(53, 7, 7, 0.7); 
-    text-align: center;
-    opacity: 0;
-    transition: all 0.4s;
+.container-recipe p {
+    font-size: 18px;
 }
 
 .container-recipe:hover {
@@ -66,11 +71,27 @@ h2 {
     box-shadow: 0px 0px 10px var(--white);
 }
 
+.container-overlay {
+    padding: 40px;
+    background-color: rgba(53, 7, 7, 0.7); 
+    text-align: center;
+    opacity: 0;
+    transition: all 0.4s;
+}
+
 .container-recipe:hover .container-overlay {
     opacity: 1;
 }
 
-.container-recipe:hover .container-overlay * {
+.container-recipe:hover .container-overlay > p {
+    animation: slide-up 0.7s;
+}
+
+.container-recipe:hover .container-overlay h2 {
+    animation: slide-up 0.7s;
+}
+
+.container-recipe:hover .container-info {
     animation: slide-up 0.7s;
 }
 
@@ -87,16 +108,35 @@ h2 {
 }
 
 .container-info {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px;
+    margin-top: 35px;
+    background-color: var(--darkRed);
+    border: 5px double var(--white);
+    border-radius: 50px;
+}
+
+.container-info div {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .container-info p {
-    margin: 25px 15px;
+    margin: 0px;
 }
 
-.container-ingredients {
-    display: none;
+.container-info .fa {
+    font-size: 24px;
+    margin-right: 7px;
+}
+
+.container-info .divider {
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .alplermagronen {

@@ -10,17 +10,31 @@
     <meta name="keywords" content="Recipes, Älplermagronen">
     <meta name="description" content="A non-responsive page containing the recipe for Älplermagronen.">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="recipe.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
+    <div class="background">
+
+    <a class="origin-link" href="https://dobbernationloves.com/food-drink/alplermagronen-cheesy-swiss-alpine-macaroni-recipe/" target="_blank">
+        <img alt="plate of Älplermagronen" src="assets/alplermagronen.jpeg" />
+    </a>
+
     <header>
         <h1>Älplermagronen</h1>
         <p>Commonly served during the cold winter season, this amazing pasta dish combines macaroni with diced potatoes, creamy Gruyere cheese sauce, and sweet applesauce!</p>
 
-        <div>
-            <p>Servings: 6</p>
-            <p>Time: 1 hour</p>
+        <div class="container-info">
+            <div>
+                <i class="fa fa-cutlery"></i>
+                <p>6 servings</p>
+            </div>
+            <p class="divider">|</p>
+            <div>
+                <i class="fa fa-clock-o"></i>
+                <p>1 hour</p>
+            </div>
         </div>
     </header>
 
@@ -60,15 +74,14 @@
         <section>
             <h2>Nutrition</h2>
 
-            <ul>
-                <li>Calories: 708kcal</li>
-                <li>Carbohydrates: 56.9g</li>
-                <li>Protein: 30.7g</li>
-                <li>Fat: 39.7g</li>
-                <li>Saturated Fat: 21.1g</li>
-                <li>Cholesterol: 158mg</li>
-                <li>Sodium: 674mg | Potassium: 679mg | Fiber: 4.5g | Sugar: 13.9g | Calcium: 583mg | Iron: 3mg</li>
-            </ul>
+            <div class="grid-container">
+                <p>Calories:</p><p>708kcal</p> <p>Sodium:</p><p>674mg</p>
+                <p>Carbohydrates:</p><p>56.9g</p> <p>Potassium:</p><p>679mg</p>
+                <p>Protein:</p><p>30.7g</p> <p>Fiber:</p><p>4.5g</p>
+                <p>Fat:</p><p>39.7g</p> <p>Sugar:</p><p>13.9g</p>
+                <p>Saturated Fat:</p><p>21.1g</p> <p>Calcium:</p><p>583mg</p>
+                <p>Cholesterol:</p><p>158mg</p> <p>Iron:</p><p>3mg</p>
+            </div>
         </section>
     </main>
 
@@ -77,6 +90,8 @@
 
         <p>Copyright &copy; The Odin Project</p>
     </footer>
+
+    </div>
 </body>
 
 </html>
