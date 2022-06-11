@@ -89,7 +89,7 @@ li {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: underline;
     color: inherit;
 }
 
@@ -171,7 +171,6 @@ a:focus {
     display: grid;
     grid-auto-flow: row;
     grid-template-columns: auto 35% auto 1fr;
-    grid-template-rows: repeat(6, 1fr);
     justify-items: start;
 }
 

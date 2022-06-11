@@ -22,8 +22,15 @@ header {
 
 main {
     display: flex;
-    align-items: center;
     justify-content: center;
+}
+
+footer {
+    margin: 100px 0px 25px 0px;
+}
+
+article {
+    margin-right: 25px;
 }
 
 h1 {
@@ -32,7 +39,7 @@ h1 {
 }
 
 h2 {
-    margin-top: 0px;
+    margin: 35px 0px 10px 0px;
     font-family: var(--header);
 }
 
@@ -52,10 +59,8 @@ a:focus {
 /**** CLASS ****/
 
 .container-recipe {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 25%;
+    height: 300px;
     color: var(--white);
     border: 15px solid var(--white);
     border-radius: 15px;
@@ -71,23 +76,28 @@ a:focus {
     box-shadow: 0px 0px 10px var(--white);
 }
 
-.container-overlay {
-    padding: 40px;
+.overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+    padding: 0px 40px;
     background-color: rgba(53, 7, 7, 0.7); 
     text-align: center;
     opacity: 0;
     transition: all 0.4s;
 }
 
-.container-recipe:hover .container-overlay {
+.container-recipe:hover .overlay {
     opacity: 1;
 }
 
-.container-recipe:hover .container-overlay > p {
+.container-recipe:hover .overlay > p {
     animation: slide-up 0.7s;
 }
 
-.container-recipe:hover .container-overlay h2 {
+.container-recipe:hover .overlay h2 {
     animation: slide-up 0.7s;
 }
 
@@ -108,12 +118,14 @@ a:focus {
 }
 
 .container-info {
-    position: relative;
+    position: absolute;
+    bottom: 10%; 
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 10px;
-    margin-top: 35px;
+    width: 65%;
+    padding: 10px 30px;
+    margin-top: 25px;
     background-color: var(--darkRed);
     border: 5px double var(--white);
     border-radius: 50px;
@@ -137,6 +149,13 @@ a:focus {
 .container-info .divider {
     font-size: 25px;
     font-weight: bold;
+}
+
+.birchermuesli {
+    background: url(assets/birchermuesli.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .alplermagronen {

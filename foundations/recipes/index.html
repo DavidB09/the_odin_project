@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipes</title>
+    <title>Swiss Recipes</title>
     <meta name="author" content="David Brunner">
     <meta name="keywords" content="Recipes, Mini Project, HTML/CSS">
     <meta name="description" content="A non-responsive page containing three meal recipes.">
@@ -21,9 +21,27 @@
     </header>
 
     <main>
+        <article class="container-recipe birchermuesli">
+            <a class="overlay" href="birchermuesli.html" target="_blank">
+                <h2>Birchermüesli</h2>
+                <p>A perfect way to start the morning, this healthy breakfast cereal includes fresh fruit and yogurt!</p>
+
+                <div class="container-info">
+                    <div>
+                        <i class="fa fa-cutlery"></i>
+                        <p>1 serving</p>
+                    </div>
+                    <p class="divider">|</p>
+                    <div>
+                        <i class="fa fa-clock-o"></i>
+                        <p>1 hour</p>
+                    </div>
+                </div>
+            </a>
+        </article>
+
         <article class="container-recipe alplermagronen">
-            <a href="alplermagronen.html" target="_blank">
-            <div class="container-overlay">
+            <a class="overlay" href="alplermagronen.html" target="_blank">
                 <h2>Älplermagronen</h2>
                 <p>Commonly served during the cold winter season, this amazing pasta dish combines macaroni with diced potatoes, creamy Gruyere cheese sauce, and sweet applesauce!</p>
 
@@ -38,7 +56,6 @@
                         <p>1 hour</p>
                     </div>
                 </div>
-            </div>
             </a>
         </article>
     </main>
