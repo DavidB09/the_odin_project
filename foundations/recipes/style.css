@@ -14,6 +14,7 @@ body {
     background: linear-gradient(180deg, var(--lightRed), var(--darkRed)) fixed;
     font-family: var(--paragraph);
     text-align: center;
+    overflow-x: hidden;
 }
 
 header {
@@ -160,6 +161,13 @@ a:focus {
 
 .alplermagronen {
     background: url(assets/alplermagronen.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.raclette {
+    background: url(assets/raclette.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

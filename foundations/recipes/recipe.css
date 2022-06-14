@@ -50,7 +50,7 @@ ol li {
     line-height: 30px;
 }
 
-h1 {
+h1, h2 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,10 +74,10 @@ h2 {
     color: var(--darkRed);
     font-family: var(--header);
     font-size: 32px;
-    border-top: 25px solid var(--white);
-    border-bottom: 25px solid var(--white);
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
+    border-top: 30px solid var(--white);
+    border-bottom: 30px solid var(--white);
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
 }
 
 p {
