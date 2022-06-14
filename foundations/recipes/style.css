@@ -18,25 +18,23 @@ body {
 }
 
 header {
-    padding: 35px 0px;
+    margin: 75px 20px 50px 20px;
 }
 
 main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 footer {
     margin: 100px 0px 25px 0px;
 }
 
-article {
-    margin-right: 25px;
-}
-
 h1 {
     font-family: var(--header);
-    font-size: 48px;
+    font-size: 36px;
 }
 
 h2 {
@@ -45,7 +43,7 @@ h2 {
 }
 
 p {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 a {
@@ -57,11 +55,44 @@ a:focus {
     color: inherit;
 }
 
+@media (min-width: 600px) {
+    header {
+        margin: 100px 35px 100px 35px;
+    }
+
+    h1 {
+        font-size: 48px;
+    }
+
+    h2 {
+        font-size: 36px;
+    }
+
+    p {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1200px) {
+    main {
+        flex-direction: row;
+    }
+
+    h1 {
+        font-size: 55px;
+    }
+
+    p {
+        font-size: 22px;
+    }
+}
+
 /**** CLASS ****/
 
 .container-recipe {
-    width: 25%;
-    height: 300px;
+    height: 400px;
+    width: 70%;
+    margin: 35px 0;
     color: var(--white);
     border: 15px solid var(--white);
     border-radius: 15px;
@@ -69,12 +100,12 @@ a:focus {
 }
 
 .container-recipe p {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .container-recipe:hover {
     transform: scale(1.05);
-    box-shadow: 0px 0px 10px var(--white);
+    box-shadow: 0 0 10px var(--white);
 }
 
 .overlay {
@@ -83,7 +114,7 @@ a:focus {
     align-items: center;
     justify-content: start;
     height: 100%;
-    padding: 0px 40px;
+    padding: 0 25px;
     background-color: rgba(53, 7, 7, 0.7); 
     text-align: center;
     opacity: 0;
@@ -120,13 +151,13 @@ a:focus {
 
 .container-info {
     position: absolute;
-    bottom: 10%; 
+    bottom: 6%;
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     width: 65%;
-    padding: 10px 30px;
-    margin-top: 25px;
+    padding: 5px 15px;
     background-color: var(--darkRed);
     border: 5px double var(--white);
     border-radius: 50px;
@@ -139,17 +170,11 @@ a:focus {
 }
 
 .container-info p {
-    margin: 0px;
+    margin: 10px 10px;
 }
 
 .container-info .fa {
     font-size: 24px;
-    margin-right: 7px;
-}
-
-.container-info .divider {
-    font-size: 25px;
-    font-weight: bold;
 }
 
 .birchermuesli {
@@ -171,4 +196,45 @@ a:focus {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+
+@media (min-width: 500px) {
+    .container-recipe {
+        width: 60%;
+        max-width: 500px;
+        height: 350px;
+    }
+
+    .container-recipe p {
+        font-size: 18px;
+    }
+
+    .overlay {
+        padding: 0px 40px;
+    }
+
+    .container-info {
+        bottom: 10%; 
+        flex-direction: row;
+        justify-content: space-evenly;
+        padding: 10px 30px;
+    }
+
+    .container-info p {
+        margin: 0 10px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-recipe {
+        width: 28%;
+        height: 350px;
+        margin: 0 15px;
+    }
+}
+
+@media (min-width: 1500px) {
+    .container-recipe p {
+        font-size: 20px;
+    }
 }
