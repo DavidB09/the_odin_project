@@ -5,6 +5,9 @@ A repo for The Odin Project mini projects created by David Brunner
 ### Google Homepage:
 [Link](https://the-odin-project-google-homepage.netlify.app)
 
+### Recipes:
+[Link](https://the-odin-project-recipe.netlify.app/)
+
 ### Katana-Kusarigama-Shuriken:
 [Link](https://the-odin-project-katana-kusarigama-shuriken.netlify.app/)
 
@@ -13,6 +16,3 @@ A repo for The Odin Project mini projects created by David Brunner
 
 ### Calculator:
 [Link](https://the-odin-project-calculator.netlify.app/)
-
-### Recipes:
-[Link](https://the-odin-project-recipe.netlify.app/)
