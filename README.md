@@ -11,5 +11,8 @@ A repo for The Odin Project mini projects created by David Brunner
 ### Etch-A-Sketch:
 [Link](https://the-odin-project-etch-a-sketch.netlify.app/)
 
-### Calculator 
+### Calculator:
 [Link](https://the-odin-project-calculator.netlify.app/)
+
+### Recipes:
+[Link](https://the-odin-project-recipe.netlify.app/)
