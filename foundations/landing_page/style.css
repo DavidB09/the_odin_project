@@ -57,8 +57,8 @@ footer p {
 
     header.flex-column {
         flex-direction: row;
-        width: 80%;
-        max-width: 1400px;
+        width: 75%;
+        max-width: 1300px;
         font-size: 22px;
     }
 
@@ -155,8 +155,8 @@ footer p {
 @media (min-width: 800px) {
     .container-intro.flex-column {
         flex-direction: row;
-        width: 80%;
-        max-width: 1400px;
+        width: 75%;
+        max-width: 1300px;
     }
 
     .container-intro div {
@@ -349,8 +349,8 @@ footer p {
 @media (min-width: 800px) {
     .container-action > div.flex-column {
         flex-direction: row;
-        width: 80%;
-        max-width: 1400px;
+        width: 75%;
+        max-width: 1300px;
         text-align: start;
     }
 
