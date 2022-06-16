@@ -8,6 +8,9 @@ A repo for The Odin Project mini projects created by David Brunner
 ### Recipes:
 [Link](https://the-odin-project-recipe.netlify.app/)
 
+### Landing Page: 
+[Link](https://the-odin-project-landing-page.netlify.app/)
+
 ### Katana-Kusarigama-Shuriken:
 [Link](https://the-odin-project-katana-kusarigama-shuriken.netlify.app/)
 
