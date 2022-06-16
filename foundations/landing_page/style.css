@@ -1,6 +1,3 @@
-
-/**** ELEMENT ****/
-
 :root {
     --light-color: #F9FAF8;
     --light-gray: #d0d2d7;
@@ -8,6 +5,8 @@
     --dark-blue: #1F2937;
     --light-blue: #3882F6;
 }
+
+/**** ELEMENT ****/
 
 body {
     margin: 0;
@@ -27,13 +26,13 @@ header {
 }
 
 nav {
-    margin-top: 20px;
+    gap: 15px;
+    margin-top: 30px;
     color: var(--light-gray);
     font-size: 15px;
 }
 
 nav a {
-    margin: 5px 15px;
     cursor: pointer;
     transition: color .4s;
 }
@@ -48,8 +47,7 @@ footer {
 }
 
 footer p {
-    margin: 0px;
-    padding: 15px 0px;
+    margin: 20px 0;
 }
 
 @media (min-width: 800px) {
@@ -60,17 +58,19 @@ footer p {
     header.flex-column {
         flex-direction: row;
         width: 80%;
+        max-width: 1400px;
         font-size: 22px;
     }
 
     nav.flex-column {
         flex-direction: row;
-        margin-top: 0px;
+        gap: 25px;
+        margin-top: 0;
         font-size: 16px;
     }
 
-    nav a {
-        margin: 0px 15px;
+    footer p {
+        margin: 30px 0;
     }
 }
 
@@ -80,7 +80,6 @@ footer p {
     }
 
     header.flex-column {
-        width: 60%;
         font-size: 24px;
     }
 
@@ -104,13 +103,14 @@ footer p {
 .container-intro {
     align-items: center;
     justify-content: space-between; 
-    width: 60%;
+    width: 65%;
     margin: 0 auto;
-    padding: 50px 0px 100px 0px;
+    padding: 50px 0 100px 0;
 }
 
 .container-intro div {
     align-items: center;
+    gap: 10px;
 }
 
 .container-intro img {
@@ -118,26 +118,27 @@ footer p {
     height: 200px;
     align-items: center;
     justify-content: center;
+    text-align: center;
     margin-top: 50px;
     color: var(--light-color);
     background-color: var(--dark-gray);
 }
 
 .container-intro h1 {
-    margin: 0px;
+    margin: 0;
     color: var(--light-color);
     font-size: 36px;
     font-weight: extra bold;
 }
 
 .container-intro p {
-    margin: 10px 0px;
+    margin: 0;
     color: var(--light-gray);
 }
 
 .container-intro button {
     width: 85px;
-    height: 25px;
+    height: 30px;
     margin-top: 10px;
     color: var(--light-color);
     background-color: var(--light-blue);
@@ -155,6 +156,7 @@ footer p {
     .container-intro.flex-column {
         flex-direction: row;
         width: 80%;
+        max-width: 1400px;
     }
 
     .container-intro div {
@@ -172,17 +174,13 @@ footer p {
     }
 
     .container-intro button {
-        height: 30px;
+        height: 32px;
         width: 100px;
-        font-size: 17px;
+        font-size: 15px;
     }
 }
 
 @media (min-width: 1100px) {
-    .container-intro.flex-column {
-        width: 60%;
-    }
-
     .container-intro h1 {
         font-size: 48px
     }
@@ -195,6 +193,7 @@ footer p {
 .container-info {
     align-items: center;
     justify-content: center;
+    text-align: center;
     padding-bottom: 100px;
     background-color: var(--light-color);
 }
@@ -214,7 +213,7 @@ footer p {
 }
 
 .container-info p {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .container-info .container-illustration {
@@ -222,12 +221,11 @@ footer p {
     flex-direction: column;
     align-items: center;
     color: var(--dark-gray);
-    text-align: center;
 }
 
 .container-info .illustration {
-    width: 100%;
     height: 90px;
+    width: 100%;
     border: 3px var(--light-blue) solid;
     border-radius: 10px;
 }
@@ -272,13 +270,13 @@ footer p {
 }
 
 .container-quote blockquote {
-    width: 80%;
-    padding: 35px 0px;
+    width: 75%;
+    margin: 35px 0;
     font-style: italic;
 }
 
 .container-quote p {
-    display: block;
+    margin-bottom: 0;
     text-align: center;
     font-style: normal;
 }
@@ -290,6 +288,8 @@ footer p {
 
     .container-quote blockquote {
         width: 50%;
+        max-width: 800px;
+        margin: 45px 0;
     }
 
     .container-quote p {
@@ -309,32 +309,6 @@ footer p {
     background-color: var(--light-color);
 }
 
-.container-action h2 {
-    margin: 5px 0px;
-    color: var(--light-color);
-}
-
-.container-action p {
-    color: var(--light-gray);
-    margin: 0px 20px;
-}
-
-.container-action button {
-    width: 85px;
-    height: 25px;
-    margin-top: 25px;
-    color: var(--light-color);
-    background-color: var(--light-blue);
-    border: 1px var(--light-color) solid;
-    border-radius: 5px;
-    transition: all .4s;
-}
-
-.container-action button:hover {
-    background-color: var(--light-color);
-    color: var(--light-blue);
-}
-
 .container-action > div {
     align-items: center;
     justify-content: space-around;
@@ -346,33 +320,61 @@ footer p {
     border-radius: 5px;
 }
 
+.container-action h2 {
+    margin: 5px 10px;
+    color: var(--light-color);
+}
+
+.container-action p {
+    color: var(--light-gray);
+    margin: 0px 20px;
+}
+
+.container-action button {
+    width: 85px;
+    height: 30px;
+    margin-top: 25px;
+    color: var(--light-color);
+    background-color: var(--light-blue);
+    border: 1.5px var(--light-color) solid;
+    border-radius: 5px;
+    transition: all .4s;
+}
+
+.container-action button:hover {
+    background-color: var(--light-color);
+    color: var(--light-blue);
+}
+
 @media (min-width: 800px) {
-    .container-action button {
-        margin-top: 0px;
-        font-size: 17px;
-        height: 30px;
-        width: 90px;
+    .container-action > div.flex-column {
+        flex-direction: row;
+        width: 80%;
+        max-width: 1400px;
+        text-align: start;
+    }
+
+    .container-action h2 {
+        margin-left: 0;
     }
 
     .container-action p {
-        margin: 0px;
+        margin: 0;
     }
 
-    .container-action > div.flex-column {
-        flex-direction: row;
-        width: 75%;
-        text-align: start;
+    .container-action button {
+        margin-top: 0px;
+        font-size: 17px;
+        height: 35px;
+        width: 90px;
     }
 }
 
 @media (min-width: 1100px) {
     .container-action button {
         font-size: 19px;
-        height: 35px;
+        height: 45px;
         width: 100px;
-    }
-
-    .container-action > div.flex-column {
-        width: 70%;
+        border: 1.8px var(--light-color) solid;
     }
 }
