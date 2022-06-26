@@ -54,47 +54,6 @@ header p {
     margin: 0 5rem; 
 }
 
-button[type="submit"] {
-    position: relative;
-    margin: 1rem; 
-    padding: 0.5rem; 
-    font-family: var(--main-font); 
-    font-size: 1.25rem;
-    color: var(--main-color); 
-    background-color: transparent;
-    border-radius: 1.5px;
-    border: 1px solid var(--main-color); 
-    -webkit-transition: color 0.4s ease-in-out; 
-    -o-transition: color 0.4s ease-in-out; 
-    transition: color 0.4s ease-in-out;
-    overflow: hidden;
-    z-index: 1;
-}
-
-button[type="submit"]:hover {
-    color: white; 
-}
-
-button[type="submit"] span {
-    position: absolute;
-    height: 0; 
-    width: 0; 
-    background-color: var(--main-color); 
-    border-radius: 50%;
-    -webkit-transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-    -o-transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-    -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-    z-index: -1;
-}
-
-button[type="submit"]:hover span {
-    width: 400%; 
-    height: 400%; 
-}
-
 input[type="number"]:focus {
     outline: solid var(--input-color) 2px; 
     -webkit-box-shadow: 0 0 6px 6px rgba(0, 60, 140, 0.5); 
@@ -250,6 +209,48 @@ input[type="color"] {
     width: 400% !important; 
 }
 
+.hover-button {
+    position: relative;
+    margin: 1rem; 
+    padding: 0.5rem; 
+    font-family: var(--main-font); 
+    font-size: 1.25rem;
+    color: var(--main-color); 
+    background-color: transparent;
+    border-radius: 1.5px;
+    border: none;
+    outline: 1px solid var(--main-color); 
+    -webkit-transition: color 0.4s ease-in-out; 
+    -o-transition: color 0.4s ease-in-out; 
+    transition: color 0.4s ease-in-out;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.hover-button:hover {
+    color: white; 
+}
+
+.hover-button span {
+    position: absolute;
+    height: 0; 
+    width: 0; 
+    background-color: var(--main-color); 
+    border-radius: 50%;
+    -webkit-transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    -o-transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.hover-button:hover span {
+    width: 400%; 
+    height: 400%; 
+}
+
 .slider-button {
     position: relative;
     display: inline-block;
@@ -341,11 +342,6 @@ input[type="color"] {
         font-size: 2rem; 
     }
 
-    button[type="submit"] {
-        font-size: 1.5rem; 
-        padding: 1rem; 
-    }
-
     .main-options {
         -webkit-box-orient: horizontal;
         -webkit-box-direction: normal;
@@ -381,6 +377,11 @@ input[type="color"] {
         margin-right: 0.2rem;
         padding: 0.1rem; 
         font-size: 1.5rem;
+    }
+
+    .hover-button {
+        font-size: 1.5rem; 
+        padding: 1rem; 
     }
 
     .slider-button {

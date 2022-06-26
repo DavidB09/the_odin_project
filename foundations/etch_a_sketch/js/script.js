@@ -459,7 +459,7 @@ clearButton.addEventListener('click', createNewGrid);
 
 /**** STYLING ****/
 
-document.querySelectorAll('button[type="submit"]').forEach(button => {
+document.querySelectorAll('.hover-button').forEach(button => {
     const updateSpanPos = (e) => {
         const currSpan = button.querySelector('span'); 
         const {top, left} = button.getBoundingClientRect(); 
