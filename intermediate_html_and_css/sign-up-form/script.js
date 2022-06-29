@@ -1,26 +1,6 @@
 //// RESET FORM ON PAGE RELOAD ////
 window.onload = () => document.getElementById('form-sign-up').reset();
 
-//// FORM INPUT STYLING ////
-(function showDivBackground() {
-    const inputElem = [...document.querySelectorAll('form input:not(#password)')]; //Select all input element except password input
-
-    inputElem.forEach(input => {
-        input.addEventListener('focus', () => {
-            input.closest('div').classList.add('focus-div');
-            input.parentElement.querySelector('label').classList.add('focus-label');
-        });
-
-        input.addEventListener('blur', () => {
-            input.closest('div').classList.remove('focus-div');
-
-            if (!input.value) {
-                input.parentElement.querySelector('label').classList.remove('focus-label');
-            }
-        });
-    });
-})();
-
 //// VALIDITY STYLING ////
 const showInvalid = (element, msg) => {
     element.closest('div').classList.add('invalid-div');
@@ -33,11 +13,39 @@ const removeInvalid = (element) => {
     element.setCustomValidity('');
 }
 
+//// FORM INPUT STYLING ////
+(function showDivBackground() {
+    const inputElem = [...document.querySelectorAll('form input')];
+
+    inputElem.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.closest('div').classList.add('focus-div');
+            input.parentElement.querySelector('label').classList.add('focus-label');
+        });
+
+        input.addEventListener('blur', () => {
+            input.closest('div').classList.remove('focus-div');
+
+            if (!input.value) {
+                input.parentElement.querySelector('label').classList.remove('focus-label');
+                removeInvalid(input);
+            }
+        });
+
+        input.addEventListener('input', removeInvalid.bind(null, input));
+    });
+})();
+
+//// INPUT CONSTANTS ////
+const firstNameInput = document.getElementById('first-name');
+const lastNameInput = document.getElementById('last-name');
+const emailInput = document.getElementById('email');
+const phoneInput = document.getElementById('phone');
+const passwordInput = document.getElementById('password');
+const passwordConfirm = document.getElementById('confirm-password'); 
+
 //// EMAIL VALIDATION ////
 (function validateEmail() {
-    const emailInput = document.getElementById('email');
-
-    emailInput.addEventListener('focus', removeInvalid.bind(null, emailInput));
     emailInput.addEventListener('blur', () => {
         if (!emailInput.checkValidity() && emailInput.value) {
             showInvalid(emailInput, 'Please enter email (ex: JohnBrown@provider'); 
@@ -47,8 +55,8 @@ const removeInvalid = (element) => {
 
 //// PHONE NUMBER VALIDATION ////
 (function validatePhone() {
-    const phoneInput = document.getElementById('phone');
-    phoneInput.setCustomValidity('Please enter numeric phone number (ex: 123-456-7890)');
+    const valid = phoneInput.parentElement.querySelector('.valid');
+    valid.style.display = 'none';
 
     let currInput = ['(', '_', '_', '_', ')', ' ', '_', '_', '_', '-', '_', '_', '_', '_'];
     let i = 1;
@@ -56,6 +64,7 @@ const removeInvalid = (element) => {
     const checkIfBorder = (index) => /\s|[)(-]/.test(currInput[index]);
     const handleKeyBoardInput = (e) => {
         e.preventDefault();
+        removeInvalid(phoneInput);
 
         i = phoneInput.selectionStart;
 
@@ -127,6 +136,8 @@ const removeInvalid = (element) => {
                 }
             }
         }
+
+        valid.style.display = !phoneInput.validity.patternMismatch ? 'inline-block' : 'none'; 
     };
 
     phoneInput.parentElement.addEventListener('click', () => {
@@ -138,8 +149,8 @@ const removeInvalid = (element) => {
     });
 
     phoneInput.addEventListener('focus', () => {
-        removeInvalid(phoneInput);
         phoneInput.value = currInput.join('');
+        valid.style.display = !phoneInput.validity.patternMismatch ? 'inline-block' : 'none'; 
         window.addEventListener('keydown', handleKeyBoardInput);
     });
 
@@ -147,7 +158,6 @@ const removeInvalid = (element) => {
         if (phoneInput.value == '(___) ___-____') {
             phoneInput.value = '';
             phoneInput.parentElement.querySelector('label').classList.remove('focus-label');
-            phoneInput.setCustomValidity('Please enter numeric phone number (ex: 123-456-7890)');
         } else if (!phoneInput.checkValidity()) {
             showInvalid(phoneInput, 'Please enter numeric phone number (ex: 123-456-7890)'); 
         }
@@ -155,29 +165,26 @@ const removeInvalid = (element) => {
     });
 })();
 
-//// VALIDATE PASSWORD ////
+//// PASSWORD VALIDATION ////
 (function validatePassword() {
-    const passwordInput = document.getElementById('password');
-    const passwordConfirm = document.getElementById('confirm-password'); 
-    const toggle = document.querySelector('.toggle');
     const container = passwordInput.closest('div'); 
-
-    let toggleCoords = toggle.getBoundingClientRect();
-    let containerCoords = container.getBoundingClientRect();
-
+    const toggle = document.querySelector('.toggle');
     toggle.style.display = 'none';
 
     container.addEventListener('click', (e) => {
-        passwordInput.focus();
+        e.stopPropagation();
         toggle.style.display = 'block';
+        let toggleCoords = toggle.getBoundingClientRect();
 
         if (e.clientX > toggleCoords.x && e.clientX < toggleCoords.x + toggleCoords.width
             && e.clientY > toggleCoords.y && e.clientY < toggleCoords.y + toggleCoords.height) {
-            passwordInput.setAttribute('type', passwordInput.getAttribute('type') == 'password' ? 'text' : 'password');
+                passwordInput.setAttribute('type', passwordInput.getAttribute('type') == 'password' ? 'text' : 'password');
         }
     });
 
     window.addEventListener('click', (e) => {
+        let containerCoords = container.getBoundingClientRect();
+
         if (e.clientX < containerCoords.x || e.clientX > containerCoords.x + containerCoords.width
             || e.clientY < containerCoords.y || e.clientY > toggleCoords.y + containerCoords.height) {
             
@@ -191,15 +198,48 @@ const removeInvalid = (element) => {
         }
     });
 
-    passwordInput.addEventListener('focus', () => {
-        container.classList.add('focus-div');
-        container.querySelector('label').classList.add('focus-label');
-    });
-
-    passwordConfirm.addEventListener('focus', removeInvalid.bind(null, passwordConfirm)); 
     passwordConfirm.addEventListener('blur', () => {
         if (passwordConfirm.value && passwordConfirm.value != passwordInput.value) {
             showInvalid(passwordConfirm, 'Please enter same password');
         }
     });
 })();
+
+//// FORM VALIDATION ////
+document.querySelector('button[type="submit"').addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!firstNameInput.checkValidity()) {
+        showInvalid(firstNameInput, 'Please enter first name');
+        return;
+    }
+
+    if (!lastNameInput.checkValidity()) {
+        showInvalid(lastNameInput, 'Please enter last name');
+        return;
+    }
+
+    if (!emailInput.checkValidity()) {
+        showInvalid(emailInput, 'Please enter email (ex: johnbrown@provider)');
+        return;
+    }
+
+    if (!phoneInput.checkValidity()) {
+        showInvalid(phoneInput, 'Please enter numeric phone number (ex: 123-456-7890)');
+        return;
+    }
+
+    if (!passwordInput.value) {
+        showInvalid(passwordInput, 'Please enter password');
+        passwordInput.closest('div').click();
+        return;
+    }
+
+    if (!passwordConfirm.value || passwordConfirm.value != passwordInput.value) {
+        showInvalid(passwordConfirm, 'Please confirm password');
+        return;
+    }
+    
+    document.querySelector('form').submit();
+});
