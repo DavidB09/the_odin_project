@@ -11,6 +11,7 @@
 }
 
 /**** ELEMENT ****/
+
 body {
     margin: 0;
     font-family: var(--main-font);
@@ -35,7 +36,7 @@ section:first-child {
     align-items: center;
     height: 100%;
     width: 100%;
-    background: url(test.jpg);
+    background: url("assets/images/background.jpg");
     background-repeat: no-repeat;
     background-position: top right;
     color: #fff;
@@ -175,12 +176,7 @@ section:last-child .optional {
     font-size: 1.2rem;
 }
 
-section:last-child .required {
-    font-size: 2rem;
-    color: red;
-}
-
-section:last-child .password-toggle {
+section:last-child .toggle {
     position: absolute;
     right: 1.5rem;
     bottom: 0rem;
@@ -189,10 +185,6 @@ section:last-child .password-toggle {
     fill: rgb(117, 117, 117);
     cursor: pointer;
 }
-
-/* section:last-child input:not(:focus) + .password-toggle {
-    display: none;
-} */
 
 section:last-child h2 {
     font-size: 2.5rem;

@@ -1,33 +1,56 @@
 //// RESET FORM ON PAGE RELOAD ////
 window.onload = () => document.getElementById('form-sign-up').reset();
 
+//// FORM INPUT STYLING ////
+(function showDivBackground() {
+    const inputElem = [...document.querySelectorAll('form input:not(#password)')]; //Select all input element except password input
+
+    inputElem.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.closest('div').classList.add('focus-div');
+            input.parentElement.querySelector('label').classList.add('focus-label');
+        });
+
+        input.addEventListener('blur', () => {
+            input.closest('div').classList.remove('focus-div');
+
+            if (!input.value) {
+                input.parentElement.querySelector('label').classList.remove('focus-label');
+            }
+        });
+    });
+})();
+
+//// VALIDITY STYLING ////
+const showInvalid = (element, msg) => {
+    element.closest('div').classList.add('invalid-div');
+    element.setCustomValidity(msg);
+    element.reportValidity();
+}
+
+const removeInvalid = (element) => {
+    element.closest('div').classList.remove('invalid-div');
+    element.setCustomValidity('');
+}
+
 //// EMAIL VALIDATION ////
-
 (function validateEmail() {
-    const emailInput = document.querySelector('input[type="email"]');
+    const emailInput = document.getElementById('email');
 
-    emailInput.addEventListener('focus', (e) => {
-        emailInput.closest('div').classList.remove('invalid-div');
-        emailInput.setCustomValidity("");
-    })
-
-    emailInput.addEventListener('blur', (e) => {
+    emailInput.addEventListener('focus', removeInvalid.bind(null, emailInput));
+    emailInput.addEventListener('blur', () => {
         if (!emailInput.checkValidity() && emailInput.value) {
-            emailInput.closest('div').classList.add('invalid-div');
-            emailInput.setCustomValidity("Please enter email (ex: JohnBrown@provider");
-            emailInput.reportValidity();
+            showInvalid(emailInput, 'Please enter email (ex: JohnBrown@provider'); 
         }
     });
 })();
 
 //// PHONE NUMBER VALIDATION ////
-
 (function validatePhone() {
-    const phoneInput = document.querySelector('input[type="tel"]');
-    phoneInput.value = "";
-    phoneInput.setCustomValidity("Please enter numeric phone number (ex: 123-456-7890)");
+    const phoneInput = document.getElementById('phone');
+    phoneInput.setCustomValidity('Please enter numeric phone number (ex: 123-456-7890)');
 
-    let currInput = ["(", "_", "_", "_", ")", " ", "_", "_", "_", "-", "_", "_", "_", "_"];
+    let currInput = ['(', '_', '_', '_', ')', ' ', '_', '_', '_', '-', '_', '_', '_', '_'];
     let i = 1;
 
     const checkIfBorder = (index) => /\s|[)(-]/.test(currInput[index]);
@@ -36,22 +59,49 @@ window.onload = () => document.getElementById('form-sign-up').reset();
 
         i = phoneInput.selectionStart;
 
-        if (e.key == "Backspace" || e.key == "Delete") {
+        if (e.key == 'ArrowLeft') {
             if (checkIfBorder(i - 1)) {
-                if (currInput[i - 1] == " ") {
-                    currInput[i - 3] = "_";
-                    phoneInput.value = currInput.join("");
+                if (currInput[i - 1] == ' ') {
                     phoneInput.selectionEnd = phoneInput.selectionStart = i -= 3;
                 }
-                else if (currInput[i - 1] == "-") {
-                    currInput[i - 2] = "_";
-                    phoneInput.value = currInput.join("");
+                else if (currInput[i - 1] == '-') {
+                    phoneInput.selectionEnd = phoneInput.selectionStart = i -= 2;
+                }
+            } else {
+                phoneInput.selectionEnd = phoneInput.selectionStart = i -= 1;
+            }
+        }
+
+        if (e.key == 'ArrowRight') {
+            if (checkIfBorder(i + 1)) {
+                if (currInput[i + 1] == ')') {
+                    phoneInput.selectionEnd = phoneInput.selectionStart = i += 3;
+                }
+                else if (currInput[i + 1] == '-') {
+                    phoneInput.selectionEnd = phoneInput.selectionStart = i += 2;
+                }
+            } 
+            else if (i + 1 < currInput.length) {
+                phoneInput.selectionEnd = phoneInput.selectionStart = i += 1;
+            }
+        }
+
+        if (e.key == 'Backspace' || e.key == 'Delete') {
+            if (checkIfBorder(i - 1)) {
+                if (currInput[i - 1] == ' ') {
+                    currInput[i - 3] = '_';
+                    phoneInput.value = currInput.join('');
+                    phoneInput.selectionEnd = phoneInput.selectionStart = i -= 3;
+                }
+                else if (currInput[i - 1] == '-') {
+                    currInput[i - 2] = '_';
+                    phoneInput.value = currInput.join('');
                     phoneInput.selectionEnd = phoneInput.selectionStart = i -= 2;
                 }
             }
             else if (/\d/.test(currInput[i - 1])) {
-                currInput[i - 1] = "_";
-                phoneInput.value = currInput.join("");
+                currInput[i - 1] = '_';
+                phoneInput.value = currInput.join('');
                 phoneInput.selectionEnd = phoneInput.selectionStart = i -= 1;
             }
             else {
@@ -60,15 +110,15 @@ window.onload = () => document.getElementById('form-sign-up').reset();
         }
 
         if (/\d/.test(e.key)) {
-            if (currInput[i] == "_" || /\d/.test(currInput[i])) {
+            if (currInput[i] == '_' || /\d/.test(currInput[i])) {
                 currInput.splice(i, 1, e.key);
-                phoneInput.value = currInput.join("");
+                phoneInput.value = currInput.join('');
 
                 if (checkIfBorder(i + 1)) {
-                    if (currInput[i + 1] == ")") {
+                    if (currInput[i + 1] == ')') {
                         phoneInput.selectionEnd = phoneInput.selectionStart = i += 3;
                     }
-                    else if (currInput[i + 1] == "-") {
+                    else if (currInput[i + 1] == '-') {
                         phoneInput.selectionEnd = phoneInput.selectionStart = i += 2;
                     }
                 } 
@@ -77,57 +127,53 @@ window.onload = () => document.getElementById('form-sign-up').reset();
                 }
             }
         }
-    }; 
+    };
 
-    phoneInput.addEventListener('click', () => {
-        if (!checkIfBorder(phoneInput.selectionStart)) {
-            i = phoneInput.selectionEnd = phoneInput.selectionStart;
+    phoneInput.parentElement.addEventListener('click', () => {
+        if (checkIfBorder(phoneInput.selectionStart)) {
+            phoneInput.selectionEnd = phoneInput.selectionStart = i;
             return;
         }
-        phoneInput.selectionEnd = phoneInput.selectionStart = i;
-    }); 
+        i = phoneInput.selectionEnd = phoneInput.selectionStart;
+    });
 
     phoneInput.addEventListener('focus', () => {
-        phoneInput.closest('div').classList.remove('invalid-div');
-        phoneInput.setCustomValidity("");
-    
-        phoneInput.value = currInput.join("");
+        removeInvalid(phoneInput);
+        phoneInput.value = currInput.join('');
         window.addEventListener('keydown', handleKeyBoardInput);
     });
 
     phoneInput.addEventListener('blur', () => {
-        if (phoneInput.value == "(___) ___-____") {
-            phoneInput.value = "";
-            phoneInput.setCustomValidity("Please enter numeric phone number (ex: 123-456-7890)");
+        if (phoneInput.value == '(___) ___-____') {
+            phoneInput.value = '';
+            phoneInput.parentElement.querySelector('label').classList.remove('focus-label');
+            phoneInput.setCustomValidity('Please enter numeric phone number (ex: 123-456-7890)');
         } else if (!phoneInput.checkValidity()) {
-            phoneInput.closest('div').classList.add('invalid-div');
-            phoneInput.setCustomValidity("Please enter numeric phone number (ex: 123-456-7890)");
-            phoneInput.reportValidity();
+            showInvalid(phoneInput, 'Please enter numeric phone number (ex: 123-456-7890)'); 
         }
         window.removeEventListener('keydown', handleKeyBoardInput);
-    }); 
+    });
 })();
 
 //// VALIDATE PASSWORD ////
-
 (function validatePassword() {
-    const showToggle = document.querySelector('.password-toggle');
-    const passwordInput = document.querySelector('#password');
-    const passwordConfirm = document.querySelector('#confirm-password'); 
-    const container = passwordInput.closest("div"); 
+    const passwordInput = document.getElementById('password');
+    const passwordConfirm = document.getElementById('confirm-password'); 
+    const toggle = document.querySelector('.toggle');
+    const container = passwordInput.closest('div'); 
 
-    let toggleCoords = showToggle.getBoundingClientRect();
+    let toggleCoords = toggle.getBoundingClientRect();
     let containerCoords = container.getBoundingClientRect();
 
-    showToggle.style.display = 'none';
+    toggle.style.display = 'none';
 
     container.addEventListener('click', (e) => {
         passwordInput.focus();
-        showToggle.style.display = 'block';
+        toggle.style.display = 'block';
 
         if (e.clientX > toggleCoords.x && e.clientX < toggleCoords.x + toggleCoords.width
             && e.clientY > toggleCoords.y && e.clientY < toggleCoords.y + toggleCoords.height) {
-            passwordInput.setAttribute('type', passwordInput.getAttribute('type') == "password" ? "text" : "password");
+            passwordInput.setAttribute('type', passwordInput.getAttribute('type') == 'password' ? 'text' : 'password');
         }
     });
 
@@ -136,54 +182,24 @@ window.onload = () => document.getElementById('form-sign-up').reset();
             || e.clientY < containerCoords.y || e.clientY > toggleCoords.y + containerCoords.height) {
             
             if (!passwordInput.value) {
-                container.querySelector('label').classList = '';
-                showToggle.style.display = 'none';
+                container.querySelector('label').classList.remove('focus-label');
+                toggle.style.display = 'none';
             }
 
-            container.classList = '';
+            container.classList.remove('focus-div');
             passwordInput.blur();
         }
-    }); 
-
-    passwordInput.addEventListener('focus', () => {
-        container.classList = 'focus-div';
-        container.querySelector('label').classList = 'focus-label';
     });
 
-    passwordConfirm.addEventListener('focus', () => {
-        passwordConfirm.closest('div').classList.remove('invalid-div');
-        passwordConfirm.setCustomValidity("");
-    })
+    passwordInput.addEventListener('focus', () => {
+        container.classList.add('focus-div');
+        container.querySelector('label').classList.add('focus-label');
+    });
 
+    passwordConfirm.addEventListener('focus', removeInvalid.bind(null, passwordConfirm)); 
     passwordConfirm.addEventListener('blur', () => {
-        if (!passwordConfirm.value) return;
-
-        if (passwordConfirm.value != passwordInput.value) {
-            passwordConfirm.closest('div').classList.add('invalid-div');
-            passwordConfirm.setCustomValidity("Please enter same password");
-            passwordConfirm.reportValidity();
+        if (passwordConfirm.value && passwordConfirm.value != passwordInput.value) {
+            showInvalid(passwordConfirm, 'Please enter same password');
         }
-    })
-
-})();
-
-//// FORM INPUT STYLING ////
-
-(function showDivBackground() {
-    const inputElem = [...document.querySelectorAll('form input:not(#password)')];
-
-    inputElem.forEach(input => {
-        input.addEventListener('focus', () => {
-            input.closest('div').classList.add('focus-div');
-            input.parentElement.querySelector('label').classList.add('focus-label');
-        });
-
-        input.addEventListener('blur', (e) => {
-            input.closest('div').classList.remove('focus-div');
-
-            if (!input.value) {
-                input.parentElement.querySelector('label').classList.remove('focus-label');
-            }
-        });
     });
 })();

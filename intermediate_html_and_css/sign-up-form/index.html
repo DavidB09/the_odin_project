@@ -10,14 +10,13 @@
     <meta name="description" content="A sign-up page for fake online service.">
 
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 </head>
 
 <body>
     <main>
         <section>
             <div>
-                <img src="odin-lined.png" alt="The Odin Project Logo" />
+                <img src="assets/images/logo.png" alt="The Odin Project Logo" />
                 <h1>Odin</h1>
             </div>
 
@@ -35,32 +34,23 @@
 
                 <form id="form-sign-up" action="#" method="post">
                     <div>
-                        <input id="first-name" type="text" required />
-                        <label for="first-name">
-                            First Name
-                            <span class="required">*</span>
-                        </label>
+                        <input id="first-name" type="text" autocomplete="given-name" required/>
+                        <label for="first-name">First Name</label>
                     </div>
 
                     <div>
-                        <input id="last-name" type="text" required />
-                        <label for="last-name">
-                            Last Name
-                            <span class="required">*</span>
-                        </label>
+                        <input id="last-name" type="text" autocomplete="family-name" required/>
+                        <label for="last-name">Last Name</label>
                     </div>
 
                     <div>
-                        <input id="email" type="email" required />
+                        <input id="email" type="email" autocomplete="off" required/>
                         <span class="valid">✓</span>
-                        <label for="email">
-                            Email
-                            <span class="required">*</span>
-                        </label>
+                        <label for="email">Email</label>
                     </div>
 
                     <div>
-                        <input id="phone" type="tel" pattern="^[(]\d{3}[)]\s\d{3}-\d{4}$" />
+                        <input id="phone" type="tel" autocomplete="tel" pattern="^[(]\d{3}[)]\s\d{3}-\d{4}$"/>
                         <span class="valid">✓</span>
                         <label for="phone">
                             Phone Number
@@ -69,20 +59,14 @@
                     </div>
 
                     <div>
-                        <input id="password" type="password" required />
-                        <svg class="password-toggle" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path d="M12.015 7c4.751 0 8.063 3.012 9.504 4.636-1.401 1.837-4.713 5.364-9.504 5.364-4.42 0-7.93-3.536-9.478-5.407 1.493-1.647 4.817-4.593 9.478-4.593zm0-2c-7.569 0-12.015 6.551-12.015 6.551s4.835 7.449 12.015 7.449c7.733 0 11.985-7.449 11.985-7.449s-4.291-6.551-11.985-6.551zm-.015 3c-2.209 0-4 1.792-4 4 0 2.209 1.791 4 4 4s4-1.791 4-4c0-2.208-1.791-4-4-4z"/></svg>
-                        <label for="password">
-                            Password
-                            <span class="required">*</span>
-                        </label>
+                        <input id="password" type="password" required/>
+                        <svg class="toggle" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path d="M12.015 7c4.751 0 8.063 3.012 9.504 4.636-1.401 1.837-4.713 5.364-9.504 5.364-4.42 0-7.93-3.536-9.478-5.407 1.493-1.647 4.817-4.593 9.478-4.593zm0-2c-7.569 0-12.015 6.551-12.015 6.551s4.835 7.449 12.015 7.449c7.733 0 11.985-7.449 11.985-7.449s-4.291-6.551-11.985-6.551zm-.015 3c-2.209 0-4 1.792-4 4 0 2.209 1.791 4 4 4s4-1.791 4-4c0-2.208-1.791-4-4-4z"/></svg>
+                        <label for="password">Password</label>
                     </div>
 
                     <div>
                         <input id="confirm-password" type="password" required/>
-                        <label for="confirm-password">
-                            Confirm Password
-                            <span class="required">*</span>
-                        </label>
+                        <label for="confirm-password">Confirm Password</label>
                     </div>
                 </form>
             </div>
