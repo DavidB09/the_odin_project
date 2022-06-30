@@ -23,32 +23,37 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
     background: linear-gradient(to bottom, #e8a66d, #e07773 20%, #6b4a77 30%, #005575 35%, #013356 50%, #00233f 70%, #030a19 85%);
+}
+
+@media (min-width: 750px) {
+    main {
+        background: url("assets/images/background.jpg");
+        background-repeat: no-repeat;
+        background-position: top right;
+        background-size: cover;
+    }
+}
+
+@media (min-width: 1250px) {
+    main {
+        flex-direction: row;
+        background: none;
+    }
 }
 
 /**** FIRST SECTION ****/
 
 section:first-child {
-    /* position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* background: url("assets/images/background.jpg");
-    background-repeat: no-repeat;
-    background-position: top right;
-    background-size: cover; */
     color: #fff;
+    text-align: center;
 }
 
 section:first-child > div {
-    /* position: absolute;
-    top: 5rem; */
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -57,11 +62,7 @@ section:first-child > div {
 }
 
 section:first-child p {
-    /* position: absolute;
-    bottom: 5rem; */
     display: none;
-    margin: 0 auto;
-    font-size: 1.8rem;
 }
 
 section:first-child a {
@@ -70,6 +71,57 @@ section:first-child a {
 
 section:first-child img {
     height: 12rem;
+}
+
+@media (min-width: 750px) {
+    section:first-child > div {
+        gap: 3rem;
+        font-size: 6rem;
+    }
+
+    section:first-child img {
+        height: 15rem;
+    }
+}
+
+@media (min-width: 1250px) {
+    section:first-child {
+        height: 100vh;
+        width: min(35%, 60rem);
+        background: url("assets/images/background.jpg");
+        background-repeat: no-repeat;
+        background-position: top center;
+        background-size: cover;
+    }
+
+    section:first-child > div {
+        justify-content: center;
+        width: 100%;
+        padding: 3rem 0;
+        background-color: rgba(0, 0, 0, 0.35);
+    }
+
+    section:first-child h1 {
+        margin: 0;
+    }
+
+    section:first-child p {
+        position: absolute;
+        bottom: 5rem;
+        display: block;
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 1500px) {
+    section:first-child > div {
+        gap: 4rem;
+        font-size: 8rem;
+    }
+
+    section:first-child img {
+        height: 17rem;
+    }
 }
 
 /**** LAST SECTION ****/
@@ -82,21 +134,55 @@ section:last-child {
     width: 85%;
     background-color: #f9fbfe;
     border-radius: 2rem;
-    z-index: 2;
 }
 
 section:last-child > div {
     padding-left: 2.5rem;
 }
 
+@media (min-width: 1250px) {
+    section:last-child {
+        height: 100vh;
+        width: 100%;
+        margin: 0;
+    }
+
+    section:last-child > div {
+        padding: 1rem 4rem;
+    }
+}
+
+@media (min-width: 1500px) {
+    section:last-child > div {
+        padding: 1rem 7rem;
+    }
+}
+
 section:last-child > div:first-child {
-    height: 30%;
     font-size: 1.7rem;
     font-weight: 600;
 }
 
 section:last-child div:first-child p {
     width: 85%;
+}
+
+@media (min-width: 750px) {
+    section:last-child > div:first-child {
+        font-size: 1.8rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    section:last-child > div:first-child {
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 1250px) {
+    section:last-child > div:first-child {
+        font-size: 2.2rem;
+    }
 }
 
 section:last-child > div:nth-child(2) {
@@ -107,8 +193,7 @@ section:last-child form {
     display: grid;
     grid-template-columns: repeat(1, 85%);
     grid-auto-flow: row;
-    column-gap: 10rem;
-    row-gap: 3rem;
+    row-gap: 2rem;
 }
 
 section:last-child form div {
@@ -155,7 +240,7 @@ section:last-child input:focus {
 section:last-child label {
     position: absolute;
     bottom: .3rem;
-    left: .5rem;
+    left: .8rem;
     width: 100%;
     font-size: 1.8rem;
     text-transform: uppercase;
@@ -164,7 +249,6 @@ section:last-child label {
 
 section:last-child .focus-label {
     font-size: 1.3rem;
-    left: .8rem;
     bottom: 3.3rem;
 }
 
@@ -201,7 +285,6 @@ section:last-child .toggle {
     bottom: 0;
     display: inline-block;
     height: 2rem;
-    font-size: 2rem;
     fill: rgb(117, 117, 117);
     cursor: pointer;
 }
@@ -216,6 +299,109 @@ section:last-child .optional {
 
 section:last-child h2 {
     font-size: 2.4rem;
+}
+
+@media (min-width: 750px) {
+    section:last-child form {
+        grid-template-columns: repeat(2, min(45%, 45rem));
+        grid-auto-flow: row;
+        column-gap: 3rem;
+        row-gap: 3rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    section:last-child input {
+        width: 88%;
+        font-size: 1.8rem;
+    }
+
+    section:last-child input[type="tel"] {
+        font-size: 1.8rem;
+    }
+    
+    section:last-child label {
+        font-size: 1.9rem;
+    }
+
+    section:last-child input:valid + .valid {
+        font-size: 2rem;
+    }
+
+    section:last-child .toggle {
+        height: 2.2rem;
+    }
+
+    section:last-child .optional {
+        font-size: 1.2rem;
+    }
+    
+    section:last-child h2 {
+        font-size: 2.6rem;
+    }
+}
+
+@media (min-width: 1250px) {
+    section:last-child form div {
+        height: 6.5rem;
+    }
+
+    section:last-child input {
+        bottom: .35rem;
+        left: .85rem;
+        font-size: 2rem;
+    }
+
+    section:last-child input[type="tel"] {
+        font-size: 2rem;
+    }
+    
+    section:last-child label {
+        bottom: .35rem;
+        left: .85rem;
+        font-size: 2.1rem;
+    }
+
+    section:last-child .focus-label {
+        font-size: 1.4rem;
+        bottom: 3.8rem;
+    }
+
+    section:last-child input:valid + .valid {
+        right: .8rem;
+        bottom: .35rem;
+        font-size: 2.2rem;
+    }
+
+    section:last-child .invalid-div .invalid {
+        right: .55rem;
+        bottom: .55rem;
+        height: 2.1rem;
+    }
+
+    section:last-child .toggle {
+        right: .55rem;
+        bottom: .15rem;
+        height: 2.5rem;
+    }
+
+    section:last-child .optional {
+        font-size: 1.35rem;
+    }
+    
+    section:last-child h2 {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 1500px) {
+    section:last-child h2 {
+        font-size: 3.2rem;
+    }
+
+    section:last-child .toggle {
+        right: .6rem;
+    }
 }
 
 section:last-child > div:last-child {
@@ -255,4 +441,50 @@ section:last-child a:only-child {
     color: var(--main-color);
     font-weight: 700;
     text-decoration: none;
+}
+
+@media (min-width: 750px) {
+    section:last-child > div:last-child {
+        margin-top: 3.5rem;
+        font-size: 1.8rem;
+    }
+
+    section:last-child button {
+        font-size: 2rem;
+    }
+
+    section:last-child div:last-child p:first-child {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    section:last-child > div:last-child {
+        margin-top: 3.5rem;
+        font-size: 2rem;
+    }
+
+    section:last-child button {
+        font-size: 2.2rem;
+    }
+
+    section:last-child div:last-child p:first-child {
+        font-size: 1.6rem;
+    }
+}
+
+@media (min-width: 1250px) {
+    section:last-child > div:last-child {
+        margin-top: 1rem;
+        font-size: 2.2rem;
+    }
+
+    section:last-child button {
+        font-size: 2.4rem;
+        padding: 1.5rem 3.5rem;
+    }
+
+    section:last-child div:last-child p:first-child {
+        font-size: 1.8rem;
+    }
 }

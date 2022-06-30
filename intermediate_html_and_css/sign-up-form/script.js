@@ -104,8 +104,8 @@ const passwordConfirm = document.getElementById('confirm-password');
             }
         }
 
-        //Check if delete input
-        if (e.key == 'Backspace' || e.key == 'Delete') {
+        //Check if backspace input
+        if (e.key == 'Backspace') {
             //Check if not editable and move character selection accordingly
             if (checkNotEditable(i - 1)) {
                 if (currInput[i - 1] == ' ') {
@@ -126,6 +126,16 @@ const passwordConfirm = document.getElementById('confirm-password');
             }
             else {
                 phoneInput.selectionEnd = phoneInput.selectionStart = i -= 1;
+            }
+        }
+
+        //Check if delete input
+        if (e.key == 'Delete') {
+            //Check if digit and remove accordingly
+            if (/\d/.test(currInput[i])) {
+                currInput[i] = '_';
+                phoneInput.value = currInput.join('');
+                phoneInput.selectionEnd = phoneInput.selectionStart = i;
             }
         }
 
@@ -207,7 +217,7 @@ const passwordConfirm = document.getElementById('confirm-password');
 
         //Check if click was outside of container
         if (e.clientX < containerCoords.x || e.clientX > containerCoords.x + containerCoords.width
-            || e.clientY < containerCoords.y || e.clientY > toggleCoords.y + containerCoords.height) {
+            || e.clientY < containerCoords.y || e.clientY > containerCoords.y + containerCoords.height) {
 
             //Check if label not focus
             if (!passwordInput.value) {
