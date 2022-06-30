@@ -18,11 +18,13 @@ const removeInvalid = (element) => {
     const inputElem = [...document.querySelectorAll('form input')];
 
     inputElem.forEach(input => {
+        //Add focus on div and label
         input.addEventListener('focus', () => {
             input.closest('div').classList.add('focus-div');
             input.parentElement.querySelector('label').classList.add('focus-label');
         });
 
+        //Remove focus on div and possible label
         input.addEventListener('blur', () => {
             input.closest('div').classList.remove('focus-div');
 
@@ -32,6 +34,7 @@ const removeInvalid = (element) => {
             }
         });
 
+        //Remove invalid styling
         input.addEventListener('input', removeInvalid.bind(null, input));
     });
 })();
@@ -58,18 +61,22 @@ const passwordConfirm = document.getElementById('confirm-password');
     const valid = phoneInput.parentElement.querySelector('.valid');
     valid.style.display = 'none';
 
+    //Initialize phone input and character selection
     let currInput = ['(', '_', '_', '_', ')', ' ', '_', '_', '_', '-', '_', '_', '_', '_'];
     let i = 1;
 
-    const checkIfBorder = (index) => /\s|[)(-]/.test(currInput[index]);
+    //Check if character is not editable ex: \s, (, ), -
+    const checkNotEditable = (index) => /\s|[)(-]/.test(currInput[index]); 
     const handleKeyBoardInput = (e) => {
         e.preventDefault();
         removeInvalid(phoneInput);
 
-        i = phoneInput.selectionStart;
+        i = phoneInput.selectionStart; //Update current character selection
 
+        //Check if move right input
         if (e.key == 'ArrowLeft') {
-            if (checkIfBorder(i - 1)) {
+            //Check if not editable and move character selection accordingly
+            if (checkNotEditable(i - 1)) {
                 if (currInput[i - 1] == ' ') {
                     phoneInput.selectionEnd = phoneInput.selectionStart = i -= 3;
                 }
@@ -81,8 +88,10 @@ const passwordConfirm = document.getElementById('confirm-password');
             }
         }
 
+        //Check if move right input
         if (e.key == 'ArrowRight') {
-            if (checkIfBorder(i + 1)) {
+            //Check if not editable and move character selection accordingly
+            if (checkNotEditable(i + 1)) {
                 if (currInput[i + 1] == ')') {
                     phoneInput.selectionEnd = phoneInput.selectionStart = i += 3;
                 }
@@ -95,8 +104,10 @@ const passwordConfirm = document.getElementById('confirm-password');
             }
         }
 
+        //Check if delete input
         if (e.key == 'Backspace' || e.key == 'Delete') {
-            if (checkIfBorder(i - 1)) {
+            //Check if not editable and move character selection accordingly
+            if (checkNotEditable(i - 1)) {
                 if (currInput[i - 1] == ' ') {
                     currInput[i - 3] = '_';
                     phoneInput.value = currInput.join('');
@@ -108,7 +119,7 @@ const passwordConfirm = document.getElementById('confirm-password');
                     phoneInput.selectionEnd = phoneInput.selectionStart = i -= 2;
                 }
             }
-            else if (/\d/.test(currInput[i - 1])) {
+            else if (/\d/.test(currInput[i - 1])) { //Check if digit and remove accordingly
                 currInput[i - 1] = '_';
                 phoneInput.value = currInput.join('');
                 phoneInput.selectionEnd = phoneInput.selectionStart = i -= 1;
@@ -118,12 +129,15 @@ const passwordConfirm = document.getElementById('confirm-password');
             }
         }
 
+        //Check if digit input
         if (/\d/.test(e.key)) {
+            //Check if character editable
             if (currInput[i] == '_' || /\d/.test(currInput[i])) {
                 currInput.splice(i, 1, e.key);
                 phoneInput.value = currInput.join('');
 
-                if (checkIfBorder(i + 1)) {
+                //Check if not editable and move character selection accordingly
+                if (checkNotEditable(i + 1)) {
                     if (currInput[i + 1] == ')') {
                         phoneInput.selectionEnd = phoneInput.selectionStart = i += 3;
                     }
@@ -137,31 +151,34 @@ const passwordConfirm = document.getElementById('confirm-password');
             }
         }
 
-        valid.style.display = !phoneInput.validity.patternMismatch ? 'inline-block' : 'none'; 
+        valid.style.display = !phoneInput.validity.patternMismatch ? 'inline-block' : 'none'; //Show if valid
     };
 
     phoneInput.parentElement.addEventListener('click', () => {
-        if (checkIfBorder(phoneInput.selectionStart)) {
-            phoneInput.selectionEnd = phoneInput.selectionStart = i;
+        //Check if click was not on editable character
+        if (checkNotEditable(phoneInput.selectionStart)) {
+            phoneInput.selectionEnd = phoneInput.selectionStart = i; //Reset character selection
             return;
         }
-        i = phoneInput.selectionEnd = phoneInput.selectionStart;
+        i = phoneInput.selectionEnd = phoneInput.selectionStart; //Update character selection
     });
 
     phoneInput.addEventListener('focus', () => {
+        //Update shown value, show if valid, add keyboard input
         phoneInput.value = currInput.join('');
         valid.style.display = !phoneInput.validity.patternMismatch ? 'inline-block' : 'none'; 
         window.addEventListener('keydown', handleKeyBoardInput);
     });
 
     phoneInput.addEventListener('blur', () => {
+        //Check if no keyboard input
         if (phoneInput.value == '(___) ___-____') {
             phoneInput.value = '';
             phoneInput.parentElement.querySelector('label').classList.remove('focus-label');
         } else if (!phoneInput.checkValidity()) {
             showInvalid(phoneInput, 'Please enter numeric phone number (ex: 123-456-7890)'); 
         }
-        window.removeEventListener('keydown', handleKeyBoardInput);
+        window.removeEventListener('keydown', handleKeyBoardInput); //Stop keyboard input
     });
 })();
 
@@ -173,9 +190,12 @@ const passwordConfirm = document.getElementById('confirm-password');
 
     container.addEventListener('click', (e) => {
         e.stopPropagation();
-        toggle.style.display = 'block';
-        let toggleCoords = toggle.getBoundingClientRect();
 
+        //Remove toggle if not focused or no input
+        let toggleCoords = toggle.getBoundingClientRect();
+        toggle.style.display = container.classList.contains('focus-div') || passwordInput.value ? 'block' : 'none';
+
+        //Check if click on toggle
         if (e.clientX > toggleCoords.x && e.clientX < toggleCoords.x + toggleCoords.width
             && e.clientY > toggleCoords.y && e.clientY < toggleCoords.y + toggleCoords.height) {
                 passwordInput.setAttribute('type', passwordInput.getAttribute('type') == 'password' ? 'text' : 'password');
@@ -185,9 +205,11 @@ const passwordConfirm = document.getElementById('confirm-password');
     window.addEventListener('click', (e) => {
         let containerCoords = container.getBoundingClientRect();
 
+        //Check if click was outside of container
         if (e.clientX < containerCoords.x || e.clientX > containerCoords.x + containerCoords.width
             || e.clientY < containerCoords.y || e.clientY > toggleCoords.y + containerCoords.height) {
-            
+
+            //Check if label not focus
             if (!passwordInput.value) {
                 container.querySelector('label').classList.remove('focus-label');
                 toggle.style.display = 'none';
@@ -232,7 +254,7 @@ document.querySelector('button[type="submit"').addEventListener('click', (e) => 
 
     if (!passwordInput.value) {
         showInvalid(passwordInput, 'Please enter password');
-        passwordInput.closest('div').click();
+        passwordInput.closest('div').click(); //Focus on password input
         return;
     }
 
@@ -240,6 +262,6 @@ document.querySelector('button[type="submit"').addEventListener('click', (e) => 
         showInvalid(passwordConfirm, 'Please confirm password');
         return;
     }
-    
+
     document.querySelector('form').submit();
 });
