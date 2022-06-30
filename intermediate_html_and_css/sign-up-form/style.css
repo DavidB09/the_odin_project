@@ -1,4 +1,3 @@
-
 :root {
     font-size: 62.5%;
     --main-font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
@@ -19,25 +18,39 @@ body {
 }
 
 main {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    background: -webkit-gradient(linear, left top, left bottom, from(#e8a66d), color-stop(20%, #e07773), color-stop(30%, #6b4a77), color-stop(35%, #005575), color-stop(50%, #013356), color-stop(70%, #00233f), color-stop(85%, #030a19));
+    background: -o-linear-gradient(top, #e8a66d, #e07773 20%, #6b4a77 30%, #005575 35%, #013356 50%, #00233f 70%, #030a19 85%);
     background: linear-gradient(to bottom, #e8a66d, #e07773 20%, #6b4a77 30%, #005575 35%, #013356 50%, #00233f 70%, #030a19 85%);
 }
 
 @media (min-width: 750px) {
     main {
         background: url("assets/images/background.jpg");
-        background-repeat: no-repeat;
         background-position: top right;
         background-size: cover;
+        background-repeat: no-repeat;
     }
 }
 
 @media (min-width: 1250px) {
     main {
-        flex-direction: row;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
         background: none;
     }
 }
@@ -45,20 +58,33 @@ main {
 /**** FIRST SECTION ****/
 
 section:first-child {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     color: #fff;
     text-align: center;
 }
 
 section:first-child > div {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     gap: 2rem;
-    font-size: 5rem;
     font-family: var(--head-font);
+    font-size: 5rem;
 }
 
 section:first-child p {
@@ -89,13 +115,15 @@ section:first-child img {
         height: 100vh;
         width: min(35%, 60rem);
         background: url("assets/images/background.jpg");
-        background-repeat: no-repeat;
         background-position: top center;
         background-size: cover;
+        background-repeat: no-repeat;
     }
 
     section:first-child > div {
-        justify-content: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
         width: 100%;
         padding: 3rem 0;
         background-color: rgba(0, 0, 0, 0.35);
@@ -127,11 +155,18 @@ section:first-child img {
 /**** LAST SECTION ****/
 
 section:last-child {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 2rem 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     width: 85%;
+    margin: 2rem 0;
     background-color: #f9fbfe;
     border-radius: 2rem;
 }
@@ -186,10 +221,11 @@ section:last-child div:first-child p {
 }
 
 section:last-child > div:nth-child(2) {
-    background-color: #fff;
+    background-color: white;
 }
 
 section:last-child form {
+    display: -ms-grid;
     display: grid;
     grid-template-columns: repeat(1, 85%);
     grid-auto-flow: row;
@@ -201,6 +237,8 @@ section:last-child form div {
     height: 6rem;
     width: 100%;
     border-bottom: #b1b2b4 2px solid;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
     transition: all 0.2s;
 }
 
@@ -211,9 +249,9 @@ section:last-child .focus-div {
 }
 
 section:last-child .invalid-div {
-    outline: 2px red solid;
     border: 0;
     border-radius: 5px;
+    outline: 2px red solid;
 }
 
 section:last-child input {
@@ -222,10 +260,10 @@ section:last-child input {
     left: .8rem;
     width: 82%;
     padding: 0;
+    background-color: transparent;
     font-family: var(--main-font);
     font-size: 1.65rem;
     border: none;
-    background-color: transparent;
 }
 
 section:last-child input[type="tel"] {
@@ -244,22 +282,24 @@ section:last-child label {
     width: 100%;
     font-size: 1.8rem;
     text-transform: uppercase;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
     transition: all 0.3s;
 }
 
 section:last-child .focus-label {
-    font-size: 1.3rem;
     bottom: 3.3rem;
+    font-size: 1.3rem;
 }
 
 section:last-child input:valid + .valid {
     position: absolute;
-    right: .7rem;
     bottom: .3rem;
+    right: .7rem;
+    display: inline-block;
+    color: green !important;
     font-size: 1.8rem;
     font-weight: bold;
-    color: green !important;
-    display: inline-block;
 }
 
 section:last-child input:invalid + .valid {
@@ -267,10 +307,10 @@ section:last-child input:invalid + .valid {
 }
 
 section:last-child .invalid-div .invalid {
-    display: inline-block;
     position: absolute;
     right: .5rem;
     bottom: .3rem;
+    display: inline-block;
     height: 2rem;
     fill: red;
 }
@@ -281,8 +321,8 @@ section:last-child .invalid {
 
 section:last-child .toggle {
     position: absolute;
-    right: .4rem;
     bottom: 0;
+    right: .4rem;
     display: inline-block;
     height: 2rem;
     fill: rgb(117, 117, 117);
@@ -303,9 +343,12 @@ section:last-child h2 {
 
 @media (min-width: 750px) {
     section:last-child form {
+        -ms-grid-columns: min(45%, 45rem) 3rem min(45%, 45rem);
         grid-template-columns: repeat(2, min(45%, 45rem));
         grid-auto-flow: row;
-        column-gap: 3rem;
+        -webkit-column-gap: 3rem;
+           -moz-column-gap: 3rem;
+                column-gap: 3rem;
         row-gap: 3rem;
     }
 }
@@ -319,7 +362,7 @@ section:last-child h2 {
     section:last-child input[type="tel"] {
         font-size: 1.8rem;
     }
-    
+
     section:last-child label {
         font-size: 1.9rem;
     }
@@ -335,7 +378,7 @@ section:last-child h2 {
     section:last-child .optional {
         font-size: 1.2rem;
     }
-    
+
     section:last-child h2 {
         font-size: 2.6rem;
     }
@@ -355,7 +398,7 @@ section:last-child h2 {
     section:last-child input[type="tel"] {
         font-size: 2rem;
     }
-    
+
     section:last-child label {
         bottom: .35rem;
         left: .85rem;
@@ -368,27 +411,27 @@ section:last-child h2 {
     }
 
     section:last-child input:valid + .valid {
-        right: .8rem;
         bottom: .35rem;
+        right: .8rem;
         font-size: 2.2rem;
     }
 
     section:last-child .invalid-div .invalid {
-        right: .55rem;
         bottom: .55rem;
+        right: .55rem;
         height: 2.1rem;
     }
 
     section:last-child .toggle {
-        right: .55rem;
         bottom: .15rem;
+        right: .55rem;
         height: 2.5rem;
     }
 
     section:last-child .optional {
         font-size: 1.35rem;
     }
-    
+
     section:last-child h2 {
         font-size: 3rem;
     }
@@ -414,14 +457,16 @@ section:last-child > div:last-child p {
 }
 
 section:last-child button {
-    font-family: var(--main-font);
-    font-size: 1.8rem;
     padding: 1rem 3rem;
     color: white;
     background-color: var(--main-color);
+    font-family: var(--main-font);
+    font-size: 1.8rem;
     border: 0;
     border-radius: .5rem;
     cursor: pointer;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
     transition: all 0.3s;
 }
 
@@ -480,8 +525,8 @@ section:last-child a:only-child {
     }
 
     section:last-child button {
-        font-size: 2.4rem;
         padding: 1.5rem 3.5rem;
+        font-size: 2.4rem;
     }
 
     section:last-child div:last-child p:first-child {

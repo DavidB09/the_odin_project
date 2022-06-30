@@ -71,6 +71,8 @@ const passwordConfirm = document.getElementById('confirm-password');
         e.preventDefault();
         removeInvalid(phoneInput);
 
+        console.log(document.activeElement);
+
         i = phoneInput.selectionStart; //Update current character selection
 
         //Check if move right input
@@ -164,6 +166,13 @@ const passwordConfirm = document.getElementById('confirm-password');
         valid.style.display = !phoneInput.validity.patternMismatch ? 'inline-block' : 'none'; //Show if valid
     };
 
+    window.addEventListener('keydown', (e) => {
+        //Check if current active element is phone input
+        if (document.activeElement == phoneInput) {
+            handleKeyBoardInput(e);
+        }
+    });
+
     phoneInput.parentElement.addEventListener('click', () => {
         //Check if click was not on editable character
         if (checkNotEditable(phoneInput.selectionStart)) {
@@ -177,7 +186,6 @@ const passwordConfirm = document.getElementById('confirm-password');
         //Update shown value, show if valid, add keyboard input
         phoneInput.value = currInput.join('');
         valid.style.display = !phoneInput.validity.patternMismatch ? 'inline-block' : 'none'; 
-        window.addEventListener('keydown', handleKeyBoardInput);
     });
 
     phoneInput.addEventListener('blur', () => {
@@ -188,7 +196,6 @@ const passwordConfirm = document.getElementById('confirm-password');
         } else if (!phoneInput.checkValidity()) {
             showInvalid(phoneInput, 'Please enter numeric phone number (ex: 123-456-7890)'); 
         }
-        window.removeEventListener('keydown', handleKeyBoardInput); //Stop keyboard input
     });
 })();
 
