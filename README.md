@@ -19,3 +19,7 @@ A repo for The Odin Project mini projects created by David Brunner
 
 ### Calculator:
 [Link](https://the-odin-project-calculator.netlify.app/)
+
+## Intermediate HTML and CSS:
+### Sign-Up Form
+[Link](https://the-odin-project-sign-up.netlify.app/)

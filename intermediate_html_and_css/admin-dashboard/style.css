@@ -211,7 +211,7 @@ main .projects .grid {
     grid-auto-rows: min(1fr, 100px);
     column-gap: 2rem;
     row-gap: 2rem;
-    height: 
+    /* height:  */
     width: 100%;
 }
 
