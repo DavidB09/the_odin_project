@@ -46,6 +46,7 @@ const emailInput = document.getElementById('email');
 const phoneInput = document.getElementById('phone');
 const passwordInput = document.getElementById('password');
 const passwordConfirm = document.getElementById('confirm-password'); 
+const buttonSubmit = document.querySelector('button[type="submit"'); 
 
 //// EMAIL VALIDATION ////
 (function validateEmail() {
@@ -237,6 +238,10 @@ const passwordConfirm = document.getElementById('confirm-password');
         }
     });
 
+    passwordInput.addEventListener('blur', () => {
+        toggle.style.display = container.classList.contains('focus-div') || passwordInput.value ? 'block' : 'none';
+    });
+
     passwordConfirm.addEventListener('blur', () => {
         if (passwordConfirm.value && passwordConfirm.value != passwordInput.value) {
             showInvalid(passwordConfirm, 'Please enter same password');
@@ -245,9 +250,11 @@ const passwordConfirm = document.getElementById('confirm-password');
 })();
 
 //// FORM VALIDATION ////
-document.querySelector('button[type="submit"').addEventListener('click', (e) => {
+buttonSubmit.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (document.activeElement != buttonSubmit) return;
 
     if (!firstNameInput.checkValidity()) {
         showInvalid(firstNameInput, 'Please enter first name');
