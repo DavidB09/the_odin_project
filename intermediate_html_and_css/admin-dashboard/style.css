@@ -9,8 +9,11 @@
 /**** COMMON/MAIN ELEMENTS ****/
 
 body {
+    display: -ms-grid;
     display: grid;
-    grid-template:
+    -ms-grid-rows: auto 1fr 5rem;
+    -ms-grid-columns: min(21%, 400px) 1fr;
+        grid-template:
         "aside header" auto
         "aside main" 1fr 
         "aside footer" 5rem / min(21%, 400px) 1fr;
@@ -21,30 +24,49 @@ body {
 
 header {
     grid-area: header;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     background-color: #fff;
-    box-shadow: 0 -10px 15px #000;
+    -webkit-box-shadow: 0 -10px 15px #000;
+            box-shadow: 0 -10px 15px #000;
     z-index: 998;
 }
 
 aside {
     grid-area: aside;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex; 
-    flex-direction: column;
-    align-items: start;
+    -webkit-box-orient: vertical; 
+    -webkit-box-direction: normal; 
+        -ms-flex-direction: column; 
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: start;
     gap: 5rem;
     padding: 3rem;
     background-color: var(--main-color);
-    box-shadow: -5px 0 10px #000;
+    -webkit-box-shadow: -5px 0 10px #000;
+            box-shadow: -5px 0 10px #000;
     z-index: 999;
 }
 
 main {
     grid-area: main;
+    display: -ms-grid;
     display: grid;
-    grid-template: 
+    -ms-grid-rows: auto 2.5rem 1fr;
+    -ms-grid-columns: 2.5fr 2.5rem 1fr;
+        grid-template: 
         "projects announcements" auto
         "projects trending" 1fr / 2.5fr 1fr;
     gap: 2.5rem;
@@ -55,22 +77,37 @@ main {
 footer {
     grid-area: footer;
     background-color: #e7e5e4;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: end;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: end;
     padding: 0 2rem;
 }
 
 .text-block {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: start;
-    flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: start;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     gap: 0;
 }
 
 @media (max-width: 1250px) {
     body {
-        grid-template:
+        -ms-grid-rows: auto auto 1fr 5rem;
+        -ms-grid-columns: 1fr;
+            grid-template:
             "header" auto
             "aside" auto
             "main" 1fr 
@@ -78,25 +115,33 @@ footer {
     }
 
     aside {
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
     }
 }
 
 @media (max-width: 1000px) {
     main {
-        grid-template: 
+        -ms-grid-rows: auto auto;
+        -ms-grid-columns: 1fr 1fr;
+            grid-template: 
             "projects projects" auto
             "announcements trending" auto / 1fr 1fr;
     }
 
     footer {
-        justify-content: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
     }
 }
 
 @media (max-width: 500px) {
     main {
-        grid-template:
+        -ms-grid-rows: auto 2rem auto 2rem auto;
+        -ms-grid-columns: 1fr;
+            grid-template:
             "projects" auto
             "announcements" auto
             "trending" auto / 1fr;
@@ -113,17 +158,27 @@ footer {
 /**** HEADER ****/
 
 header > div {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     width: 90%;
     margin: 2rem 0rem;
 }
 
 header > div div {
     position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     gap: 1.5rem;
 }
 
@@ -148,12 +203,16 @@ header button {
     border: 0;
     border-radius: 3rem;
     cursor: pointer;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
     transition: all .3s;
 }
 
 header button:hover {
     background-color:#0889ce;
-    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+            transform: scale(1.1);
 }
 
 header > div:first-child img {
@@ -191,6 +250,14 @@ header div:first-child > span[class^="material-icons"] {
     display: none;
 }
 
+header div:first-child > input:not(:-moz-placeholder-shown) + span[class^="material-icons"] {
+    display: inline-block;
+}
+
+header div:first-child > input:not(:-ms-input-placeholder) + span[class^="material-icons"] {
+    display: inline-block;
+}
+
 header div:first-child > input:not(:placeholder-shown) + span[class^="material-icons"] {
     display: inline-block;
 }
@@ -200,18 +267,24 @@ header div:last-child span[class^="material-icons"] {
 }
 
 header div:last-child span[class^="material-icons"]:hover {
-    animation: tilt .15s 3;
+    -webkit-animation: tilt .15s 3;
+            animation: tilt .15s 3;
 }
 
 @media (max-width: 950px) {
     header > div {
-        justify-content: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
         gap: 3rem;
         margin: 3rem 0rem;
     }
 
     header > div:last-child {
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
     }
 
     header input {
@@ -261,15 +334,26 @@ header div:last-child span[class^="material-icons"]:hover {
 /**** ASIDE ****/
 
 aside div {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     color: #fff;
 }
 
 aside nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     gap: 2.5rem;
 }
 
@@ -279,8 +363,12 @@ aside h1 {
 }
 
 aside a {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     gap: 1rem;
     color: #fff;
     font-size: 2.1rem;
@@ -290,13 +378,19 @@ aside a {
 }
 
 aside a:hover span {
-    transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+        -ms-transform: scale(1.25);
+            transform: scale(1.25);
     color: var(--second-color);
 }
 
 aside span[class^="material-icons"] {
     font-size: 3rem;
+    -webkit-transition: -webkit-transform .2s;
+    transition: -webkit-transform .2s;
+    -o-transition: transform .2s;
     transition: transform .2s;
+    transition: transform .2s, -webkit-transform .2s;
 }
 
 aside div:first-child span[class^="material-icons"] {
@@ -305,7 +399,10 @@ aside div:first-child span[class^="material-icons"] {
 
 @media (max-width: 1250px) {
     aside nav {
-        flex-flow: row wrap;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: row wrap;
+                flex-flow: row wrap;
     }
 }
 
@@ -334,6 +431,7 @@ main article > h1 {
 }
 
 main .grid {
+    display: -ms-grid;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-auto-rows: 250px;
@@ -341,8 +439,13 @@ main .grid {
 }
 
 main .box {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     gap: 1.5rem;
     padding: 3rem;
     background-color: #fff;
@@ -355,11 +458,17 @@ main .projects {
 }
 
 main .project-tile {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     padding: 2.5rem 3rem 2rem 3rem;
     background-color: #fff;
-    box-shadow: 6px 6px 10px -10px #000;
+    -webkit-box-shadow: 6px 6px 10px -10px #000;
+            box-shadow: 6px 6px 10px -10px #000;
     border-radius: 12px;
     border-left: 12px solid #f0b429;
 }
@@ -387,7 +496,8 @@ main .project-tile span[class^="material-icons"] {
 
 main .project-tile span[class^="material-icons"]:hover {
     cursor: pointer;
-    animation: tilt .15s 3;
+    -webkit-animation: tilt .15s 3;
+            animation: tilt .15s 3;
 }
 
 main .announcements {
@@ -417,8 +527,12 @@ main .trending {
 }
 
 main .trending-block {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     gap: 1rem;
 }
 
@@ -504,10 +618,18 @@ footer a {
     }
 }
 
+@-webkit-keyframes tilt {
+    0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    25% { -webkit-transform: rotate(15deg); transform: rotate(15deg); }
+    50% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    75% { -webkit-transform: rotate(-15deg); transform: rotate(-15deg); }
+    100% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+}
+
 @keyframes tilt {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(15deg); }
-    50% { transform: rotate(0deg); }
-    75% { transform: rotate(-15deg); }
-    100% { transform: rotate(0deg); }
+    0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    25% { -webkit-transform: rotate(15deg); transform: rotate(15deg); }
+    50% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    75% { -webkit-transform: rotate(-15deg); transform: rotate(-15deg); }
+    100% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
 }
