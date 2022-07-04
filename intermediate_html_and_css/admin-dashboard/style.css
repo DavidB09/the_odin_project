@@ -120,6 +120,7 @@ header > div {
 }
 
 header > div div {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -182,6 +183,16 @@ header p {
 header span[class^="material-icons"] {
     font-size: 3rem;
     cursor: pointer;
+}
+
+header div:first-child > span[class^="material-icons"] {
+    position: absolute;
+    right: 1.5rem;
+    display: none;
+}
+
+header div:first-child > input:not(:placeholder-shown) + span[class^="material-icons"] {
+    display: inline-block;
 }
 
 header div:last-child span[class^="material-icons"] {
