@@ -23,3 +23,6 @@ A repo for The Odin Project mini projects created by David Brunner
 ## Intermediate HTML and CSS:
 ### Sign-Up Form
 [Link](https://the-odin-project-sign-up.netlify.app/)
+
+### Admin Dashboard
+[Link](https://the-odin-project-dashboard.netlify.app/)
