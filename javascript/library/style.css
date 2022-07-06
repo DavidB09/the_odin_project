@@ -1,0 +1,193 @@
+
+:root {
+    --reg-button: rgb(28, 130, 246);
+}
+
+body {
+    margin: 0;
+    font-size: 62.5%;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+button, input, select {
+    font-family: inherit;
+    font-size: 1rem;
+    border: 1px solid #000;
+    border-radius: .3rem;
+}
+
+button {
+    color: #fff;
+    cursor: pointer;
+}
+
+input {
+    transition: outline .1s, border .1s;
+}
+
+input:focus {
+    outline: 2px solid var(--reg-button);
+    border: 1px solid transparent;
+}
+
+h1 {
+    margin: 3rem 0;
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+}
+
+/**** HEADER ****/
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(252, 234, 201);
+}
+
+header div:first-of-type {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+header div:first-of-type button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: .5rem;
+}
+
+header div:last-of-type {
+    display: flex;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+header select, header input {
+    padding: .5rem;
+    background-color: #fff;
+}
+
+header input {
+    width: clamp(5rem, 50vw, 50rem);
+}
+
+header button.search {
+    padding: 0.5rem 1rem;
+}
+
+/**** MAIN ****/
+
+main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) repeat(3, .5fr);
+    grid-auto-flow: row;
+    width: min(80%, 75rem);
+    margin: 2rem auto;
+}
+
+.book-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) repeat(3, .5fr);
+    grid-area: span 1 / span 5;
+    justify-items: flex-start;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.book-container:not(:last-child) {
+    border-bottom: 1px solid #000;
+}
+
+.book-container button.delete {
+    padding: .3rem 1.3rem;
+    justify-self: flex-end;
+}
+
+.book-container input {
+    padding: .3rem 0rem;
+}
+
+.book-container p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/**** OVERLAYS ****/
+
+.add-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, .4);
+}
+
+.add-overlay form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 3rem;
+    background-color: #fff;
+}
+
+/**** BUTTON ****/
+button.add {
+    background-color: rgb(25, 173, 25);
+}
+
+button.delete {
+    background-color: rgb(204, 18, 18);
+}
+
+button.search {
+    background-color: var(--reg-button);
+}
+
+button.read {
+    position: relative;
+    display: inline-block;
+    height: 2rem;
+    width: 4rem;
+    background-color: transparent;
+    border: none;
+}
+
+.slider {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background-color: #ccc;
+    border-radius: 3rem; 
+}
+
+.slider .circle {
+    position: absolute; 
+    left: .25rem; 
+    height: 1.5rem; 
+    width: 1.5rem;
+    background-color: #fff; 
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.selected .slider {
+    background-color: var(--reg-button); 
+}
+
+.selected .circle {
+    transform: translateX(1.95rem); 
+}

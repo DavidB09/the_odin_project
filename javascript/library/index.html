@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <meta name="author" content="David Brunner">
+    <meta name="keywords" content="Library, Mini Project, HTML/CSS/JavaScript">
+    <meta name="description" content="A library for saving read or unread books.">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Personal Library</h1>
+
+        <div>
+            <button class="add" type="button">Add Book</button>
+            <button class="delete" type="button">Delete All</button>
+        </div>
+
+        <div>
+            <select class="options" name="options">
+                <option value="title" selected>Title</option>
+                <option value="author">Author</option>
+            </select>
+            <input type="search">
+            <button class="search" type="button">Search</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="add-overlay">
+            <form id="form-sign-up" action="#" method="post">
+                <h1>Book Details</h1>
+
+                <div>
+                    <label for="title">Title:</label>
+                    <input id="title" type="text" />
+                </div>
+
+                <div>
+                    <label for="author">Author: </label>
+                    <input id="author" type="text" />
+                </div>
+
+                <div>
+                    <p>Read: </p>
+                    <button class="read slider-button" type="button">
+                        <span class="slider">
+                            <span class="circle"></span>
+                        </span>
+                    </button>
+                    <label for="date">Date Read</label>
+                    <input id="date" type="date" />
+                </div>
+
+                <div>
+                    <button type="button">Submit</button>
+                    <button type="button">Clear</button>
+                </div>
+            </form>
+        </div>
+
+        <h2>Title</h2>
+        <h2>Author</h2>
+        <h2>Read</h2>
+        <h2>Date Read</h2>
+
+        <div class="book-container">
+            <p>Naruto</p>
+            <p>Masashi Kishimoto</p>
+            <button class="read" type="button">
+                <span class="slider">
+                    <span class="circle"></span>
+                </span>
+            </button>
+            <input type="date">
+            <button class="delete">Delete</button>
+        </div>
+
+        <div class="book-container">
+            <p>Naruto</p>
+            <p>Masashi Kishimoto</p>
+            <button class="read" type="button">
+                <span class="slider">
+                    <span class="circle"></span>
+                </span>
+            </button>
+            <input type="date">
+            <button class="delete">Delete</button>
+        </div>
+    </main>
+</body>
+
+<script src="script.js"></script>
+
+</html>
