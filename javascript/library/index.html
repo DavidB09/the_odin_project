@@ -10,6 +10,7 @@
     <meta name="description" content="A library for saving read or unread books.">
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
@@ -27,47 +28,86 @@
                 <option value="author">Author</option>
             </select>
             <input type="search">
+            <span class="material-symbols-outlined clear">close</span>
             <button class="search" type="button">Search</button>
         </div>
     </header>
 
-    <main>
-        <div class="add-overlay">
-            <form id="form-sign-up" action="#" method="post">
-                <h1>Book Details</h1>
+    <div class="overlay add-overlay">
+        <form action="#" method="post">
+            <h1>Book Details</h1>
 
-                <div>
-                    <label for="title">Title:</label>
-                    <input id="title" type="text" />
-                </div>
+            <div class="input-container">
+                <label for="title">Title:</label>
+                <input id="title" type="text" />
+                <span class="material-symbols-outlined clear">close</span>
+            </div>
 
-                <div>
-                    <label for="author">Author: </label>
-                    <input id="author" type="text" />
-                </div>
+            <div class="input-container">
+                <label for="author">Author: </label>
+                <input id="author" type="text" />
+                <span class="material-symbols-outlined clear">close</span>
+            </div>
 
-                <div>
+            <div>
+                <div class="input-container">
                     <p>Read: </p>
                     <button class="read slider-button" type="button">
                         <span class="slider">
                             <span class="circle"></span>
                         </span>
                     </button>
-                    <label for="date">Date Read</label>
+                </div>
+
+                <div class="input-container date-container">
+                    <label for="date">Finished</label>
                     <input id="date" type="date" />
                 </div>
+            </div>
 
-                <div>
-                    <button type="button">Submit</button>
-                    <button type="button">Clear</button>
-                </div>
-            </form>
+            <div>
+                <button class="add" type="button">Submit</button>
+                <button class="delete" type="button">Clear</button>
+            </div>
+
+            <span class="material-symbols-outlined close">close</span>
+        </form>
+
+        <div class="success-message">
+            <h1>Success!</h1>
+            <p>Close and view new book in library.</p>
+
+            <span class="material-symbols-outlined close">close</span>
         </div>
 
+        <div class="fail-message">
+            <h1>Fail!</h1>
+            <p>Please enter a title and/or author.</p>
+            <button class="return" type="button">Return</button>
+
+            <span class="material-symbols-outlined close">close</span>
+        </div>
+    </div>
+
+    <div class="overlay remove-overlay">
+        <div class="warning-message">
+            <h1>Warning!!!</h1>
+            <p>SELECTING DELETE ALL WILL REMOVE ALL BOOKS PERMANENTLY.</p>
+
+            <div>
+                <button class="delete" type="button">DELETE ALL</button>
+                <button class="return" type="button">Return</button>
+            </div>
+
+            <span class="material-symbols-outlined close">close</span>
+        </div>
+    </div>
+
+    <main>
         <h2>Title</h2>
         <h2>Author</h2>
         <h2>Read</h2>
-        <h2>Date Read</h2>
+        <h2>Finished</h2>
 
         <div class="book-container">
             <p>Naruto</p>
