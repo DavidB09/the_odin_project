@@ -1,6 +1,8 @@
 
 :root {
-    --reg-button: rgb(28, 130, 246);
+    --reg: rgb(28, 130, 246);
+    --add: rgb(25, 173, 25);
+    --delete: rgb(204, 18, 18);
 }
 
 body {
@@ -27,8 +29,8 @@ input {
     transition: outline .1s, border .1s;
 }
 
-input:focus {
-    outline: 2px solid var(--reg-button);
+input:focus, input:active {
+    outline: 2px solid var(--reg);
     border: 1px solid transparent;
 }
 
@@ -77,28 +79,14 @@ header select, header input {
 
 header input {
     width: clamp(5rem, 50vw, 50rem);
-    padding-right: 3rem;
 }
 
-header button.search {
-    padding: 0.5rem 1rem;
+header button.search, header button.return {
+    width: 5rem;
 }
 
 header h1 {
     margin: 3rem 0;
-}
-
-header span.material-symbols-outlined {
-    position: absolute;
-    top: 2.2rem;
-    right: 8.5rem;
-    display: none;
-    font-size: 2rem;
-    cursor: pointer;
-}
-
-header input:focus ~ span.material-symbols-outlined {
-    display: flex;
 }
 
 /**** MAIN ****/
@@ -129,17 +117,40 @@ main {
     justify-self: flex-end;
 }
 
-.book-container input {
+.book-container input[type="date"] {
     padding: .3rem 0rem;
 }
 
+.book-container input {
+    padding-left: .25rem;
+}
+
 .book-container p {
+    display: inline-block;
     margin: 0;
     font-size: 1rem;
+    width: 80%;
+    cursor: pointer;
+    padding-left: .3rem;
+}
+
+.book-container button:not(.selected) + p, .book-container button:not(.selected) + input {
+    height: 0;
+    width: 0;
+    font-size: 0;
+    padding: 0;
+}
+
+.book-container p:empty {
+    height: 100%;
 }
 
 main h2 {
     margin-top: 3rem;
+}
+
+main h2:nth-child(-n + 2) {
+    padding-left: .3rem;
 }
 
 /**** OVERLAYS ****/
@@ -151,8 +162,8 @@ main h2 {
     height: 100%;
     width: 100%;
     display: none;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     background-color: rgba(0, 0, 0, .4);
     z-index: 1;
 }
@@ -172,6 +183,35 @@ main h2 {
     background-color: #fff;
     border: 5px solid #000;
     border-radius: 2rem;
+}
+
+.overlay button {
+    padding: .5rem 1rem;
+}
+
+.overlay label, .overlay p {
+    font-size: 1.2rem;
+    margin: 0 0 .5rem 0;
+}
+
+.overlay h1 {
+    margin: 0;
+}
+
+.overlay span.close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.5rem;
+    border: 1px solid #000;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.overlay span.close:hover {
+    background-color: var(--reg);
+    color: #fff;
 }
 
 .add-overlay form {
@@ -206,68 +246,39 @@ main h2 {
 }
 
 .add-overlay span.clear {
-    display: none;
     position: absolute;
     top: 2.35rem;
-    font-size: 2rem;
     right: .35rem;
+    display: none;
+    font-size: 2rem;
     cursor: pointer;
 }
 
-.remove-overlay div {
+.remove-overlay .warning-message div {
     display: flex;
     gap: 2rem;
 }
 
-.overlay button {
-    padding: .5rem 1rem;
-}
-
-.overlay label, .overlay p {
-    font-size: 1.2rem;
-    margin: 0 0 .5rem 0;
-}
-
 .fail-message h1, .warning-message h1 {
-    color: rgb(212, 3, 3)
+    color: var(--delete);
 }
 
 .success-message h1 {
-    color: rgb(7, 116, 7);
-}
-
-.overlay h1 {
-    margin: 0;
-}
-
-.overlay span.close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 2.5rem;
-    border: 1px solid #000;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.overlay span.close:hover {
-    background-color: var(--reg-button);
-    color: #fff;
+    color: var(--add);
 }
 
 /**** BUTTONS ****/
 
 button.add {
-    background-color: rgb(25, 173, 25);
+    background-color: var(--add);
 }
 
 button.delete {
-    background-color: rgb(204, 18, 18);
+    background-color: var(--delete);
 }
 
 button.search, button.return {
-    background-color: var(--reg-button);
+    background-color: var(--reg);
 }
 
 button.read {
@@ -302,7 +313,7 @@ button.read {
 }
 
 .selected .slider {
-    background-color: var(--reg-button); 
+    background-color: var(--reg); 
 }
 
 .selected .circle {
