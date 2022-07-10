@@ -99,6 +99,52 @@ main {
     margin: 0 auto;
 }
 
+main div:not(.book-container) {
+    position: relative;
+    margin-top: 3rem;
+}
+
+main span.material-symbols-outlined {
+    position: absolute;
+    right: 3rem;
+    font-size: 2.8rem;
+    height: 15px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: font-size .15s;
+    cursor: pointer;
+}
+
+main div:nth-child(4) span.material-symbols-outlined {
+    right: 0;
+}
+
+main span.material-symbols-outlined:hover {
+    font-size: 3.5rem;
+}
+
+main span.focus {
+    color: var(--reg);
+}
+
+main span:not(.focus):hover {
+    color: var(--reg);
+}
+
+main div:hover > span.focus:not(:hover) {
+    color: #000;
+}
+
+main span.up {
+    top: -.4rem;
+}
+
+main span.down {
+    top: 1.4rem;
+}
+
 .book-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr) repeat(3, .5fr);
@@ -134,7 +180,11 @@ main {
     padding-left: .3rem;
 }
 
-.book-container button:not(.selected) + p, .book-container button:not(.selected) + input {
+.book-container button:not(.selected) + p {
+    cursor: default;
+}
+
+/* .book-container button:not(.selected) + p, .book-container button:not(.selected) + input {
     height: 0;
     width: 0;
     font-size: 0;
@@ -143,10 +193,10 @@ main {
 
 .book-container p:empty {
     height: 100%;
-}
+} */
 
 main h2 {
-    margin-top: 3rem;
+    margin-top: 0;
 }
 
 main h2:nth-child(-n + 2) {
@@ -288,6 +338,7 @@ button.read {
     width: 4rem;
     background-color: transparent;
     border: none;
+    outline: none;
 }
 
 .slider {
