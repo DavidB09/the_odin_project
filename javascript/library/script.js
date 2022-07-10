@@ -1,7 +1,7 @@
 /**** LIBRARY ARRAY ****/
 let myLibrary = [];
 
-/**** HELPER FUNCTION ****/
+/**** HELPER FUNCTIONS ****/
 const convertDateInputToReadable = (inputStr) => {
     let [year, month, day] = inputStr.split('-');
     return `${month} / ${day} / ${year}`;
@@ -25,8 +25,8 @@ const updateHTML = (() => {
             mainElement.querySelectorAll('.book-container')?.forEach(oldBook => mainElement.removeChild(oldBook));
             newLibrary?.forEach(newBook => mainElement.appendChild(newBook.html));
             sortBtn.forEach(btn => btn.classList.remove('focus'));
-        }
-    }
+        },
+    };
 })();
 
 /**** BOOK OBJECT ****/
@@ -78,7 +78,7 @@ Book.prototype.editNames = function() {
             //Convert input text field to name description when focus is removed
             newInput.addEventListener('blur', () => {
                 if (index == 0) this.title = newInput.value;
-                else this.author = newInput.value;
+                if (index == 1) this.author = newInput.value;
                 el.innerText = newInput.value || '-';
 
                 newInput.parentElement.replaceChild(el, newInput);
@@ -111,7 +111,7 @@ Book.prototype.editDate = function() {
 
     //Convert date description to input text field when clicked
     dateElement.addEventListener('click', () => {
-        if (this.read == false) return;
+        if (!this.read) return;
 
         const newInput = document.createElement('input');
         newInput.setAttribute('type', 'date');
@@ -145,16 +145,16 @@ function initialize() {
     //If no prior library books in Session Storage, add 2 default books
     if (!sessionStorage.getItem('myLibrary')) {
         myLibrary = [
-            new Book('The Iliad', 'Homer', false, ''),
-            new Book('Meditations', 'Marcus Aurelius', true, new Date().toISOString().slice(0, 10))
+            new Book('The Iliad', 'Homer', false),
+            new Book('Meditations', 'Marcus Aurelius', true, new Date().toISOString().slice(0, 10)),
+            new Book('The Bible', 'God', true)
         ];
-        updateHTML.updateLibrary(myLibrary);
     } else {
         //Retrieve library books from Session Storage
         myLibrary = Object.values(JSON.parse(sessionStorage.getItem('myLibrary')))
             .map(({title, author, read, date}) => new Book(title, author, read, date));
-        updateHTML.updateLibrary(myLibrary);
     }
+    updateHTML.updateLibrary(myLibrary);
 
     //Update Session Storage before page reload with newest library books
     window.addEventListener('beforeunload', () => {
@@ -163,118 +163,123 @@ function initialize() {
 }
 initialize();
 
-
 /**** OVERLAY LOGIC ****/
 (() => {
-    const closeOverlay = [...document.querySelectorAll('.overlay .close')];
+    const closeBtn = [...document.querySelectorAll('.overlay .close')];
 
     //Add Book Overlay
-    const addBookOverlay = document.querySelector('.add-overlay');
-    const addBookForm = document.querySelector('.add-overlay form');
-    const addBookSuccess = document.querySelector('.add-overlay .success-message');
-    const addBookFail = document.querySelector('.add-overlay .fail-message');
-    
-    const textInput = document.querySelectorAll('.add-overlay input[type="text"]');
-    const textClear = document.querySelectorAll('.add-overlay .clear');
-    const readInput = document.querySelector('.add-overlay .read');
-    const dateContainer = document.querySelector('.add-overlay .date-container');
-    
-    const returnBtn = document.querySelector('.add-overlay .return');
-    const submitBtn = document.querySelector('.add-overlay .add');
-    const clearBtn = document.querySelector('.add-overlay .delete');
-    
-    document.querySelector('header .add').addEventListener('click', () => {
-        addBookOverlay.style.display = 'flex';
-    });
-    addBookOverlay.addEventListener('click', (e) => {
-        if (e.target == addBookOverlay || closeOverlay.some(button => button == e.target)) {
-            addBookOverlay.style.display = 'none';
-            addBookForm.style.display = 'flex';
-            addBookSuccess.style.display = 'none';
-            addBookFail.style.display = 'none';
-            return;
-        }
-    
-        //Show/Hide button if input is clicked
-        textInput.forEach((input, i) => {
-            textClear[i].style.display = input == e.target ? 'inline-block' : 'none';
-        }); 
-    
-        //Hide button and clear input if button is clicked
-        textClear.forEach((btn, i) => {
-            if (btn == e.target) {
-                textInput[i].value = '';
-                btn.display = 'none';
-            }
-        });
-    });
-    
-    readInput.addEventListener('click', () => {
-        readInput.classList.toggle('selected');
-        dateContainer.style.opacity = readInput.classList.contains('selected') ? 1 : 0;
-    });
-    
-    submitBtn.addEventListener('click', () => {
-        const title = addBookOverlay.querySelector('#title').value;
-        const author = addBookOverlay.querySelector('#author').value;
-        const read = addBookOverlay.querySelector('.read').classList.contains('selected');
-        const date = addBookOverlay.querySelector('#date').value || '';
+    (() => {
+        const addBookOverlay = document.querySelector('.add-overlay');
+        const addBookForm = document.querySelector('.add-overlay form');
+        const addBookSuccess = document.querySelector('.add-overlay .success-message');
+        const addBookFail = document.querySelector('.add-overlay .fail-message');
 
-        console.log(date);
-    
-        //Rejects form submission without title and author
-        if (!title && !author) {
-            addBookForm.style.display = 'none';
-            addBookFail.style.display = 'flex';
-            return;
+        const textInput = document.querySelectorAll('.add-overlay input[type="text"]');
+        const textClear = document.querySelectorAll('.add-overlay .clear');
+        const readInput = document.querySelector('.add-overlay .read');
+        const dateContainer = document.querySelector('.add-overlay .date-container');
+
+        const returnBtn = document.querySelector('.add-overlay .return');
+        const submitBtn = document.querySelector('.add-overlay .add');
+        const clearBtn = document.querySelector('.add-overlay .delete');
+
+        //Resets form input to default values
+        function resetForm() {
+            addBookForm.reset();
+            readInput.classList.remove('selected');
+            dateContainer.style.opacity = 0;
         }
-    
-        const newBook = new Book(title, author, read, (read ? date : ''));
-        updateHTML.addBook(newBook.html)
-        myLibrary.unshift(newBook);
-    
-        resetForm();
-        addBookForm.style.display = 'none';
-        addBookSuccess.style.display = 'flex';
-    });
-    
-    returnBtn.addEventListener('click', () => {
-        addBookForm.style.display = 'flex';
-        addBookFail.style.display = 'none';
-    });
-    
-    clearBtn.addEventListener('click', resetForm);
+
+        document.querySelector('header .add').addEventListener('click', () => {
+            addBookOverlay.style.display = 'flex'; //Show overlay
+        });
+        addBookOverlay.addEventListener('click', (e) => {
+            //Closes overlay if background or close button is clicked
+            if (e.target == addBookOverlay || closeBtn.includes(e.target)) {
+                addBookOverlay.style.display = 'none';
+                addBookForm.style.display = 'flex';
+                addBookSuccess.style.display = 'none';
+                addBookFail.style.display = 'none';
+                return;
+            }
+
+            //Show/Hide clear button if input is clicked
+            textInput.forEach((input, i) => {
+                textClear[i].style.display = input == e.target ? 'inline-block' : 'none';
+            }); 
+
+            //Hide button and clear input if button is clicked
+            textClear.forEach((btn, i) => {
+                if (btn == e.target) {
+                    textInput[i].value = '';
+                    btn.display = 'none';
+                }
+            });
+        });
+
+        readInput.addEventListener('click', () => {
+            readInput.classList.toggle('selected');
+            dateContainer.style.opacity = readInput.classList.contains('selected') ? 1 : 0;
+        });
+
+        submitBtn.addEventListener('click', () => {
+            const title = addBookOverlay.querySelector('#title').value;
+            const author = addBookOverlay.querySelector('#author').value;
+            const read = addBookOverlay.querySelector('.read').classList.contains('selected');
+            const date = addBookOverlay.querySelector('#date').value || '';
+
+            //Rejects form submission without title and author
+            if (!title && !author) {
+                addBookForm.style.display = 'none';
+                addBookFail.style.display = 'flex';
+                return;
+            }
+
+            //Create book, add book to DOM, add book to library
+            const newBook = new Book(title, author, read, (read ? date : ''));
+            updateHTML.addBook(newBook.html)
+            myLibrary.unshift(newBook);
+
+            //Reset form to defaults
+            resetForm();
+            addBookForm.style.display = 'none';
+            addBookSuccess.style.display = 'flex';
+        });
+
+        returnBtn.addEventListener('click', () => {
+            addBookForm.style.display = 'flex';
+            addBookFail.style.display = 'none';
+        });
+
+        clearBtn.addEventListener('click', resetForm);
+    })();
 
     //Remove Book Overlay
-    const removeBookOverlay = document.querySelector('.remove-overlay');
-    const deleteBooks = document.querySelector('.remove-overlay .delete');
-    const saveBooks = document.querySelector('.remove-overlay .return');
+    (() => {
+        const removeBookOverlay = document.querySelector('.remove-overlay');
+        const deleteBtn = document.querySelector('.remove-overlay .delete');
+        const returnBtn = document.querySelector('.remove-overlay .return');
+    
+        document.querySelector('header .delete').addEventListener('click', () => {
+            removeBookOverlay.style.display = 'flex'; //Show overlay
+        });
+        removeBookOverlay.addEventListener('click', (e) => {
+            //Closes overlay if background, close button, or return button is clicked
+            if (e.target == removeBookOverlay || closeBtn.includes(e.target) || e.target == returnBtn) {
+                removeBookOverlay.style.display = 'none';
+                return;
+            }
+        });
 
-    document.querySelector('header .delete').addEventListener('click', () => {
-        removeBookOverlay.style.display = 'flex';
-    });
-    removeBookOverlay.addEventListener('click', (e) => {
-        console.log(closeOverlay.includes(e.target));
-        if (e.target == removeBookOverlay || closeOverlay.some(button => button == e.target) || e.target == saveBooks) {
+        deleteBtn.addEventListener('click', () => {
+            myLibrary = [];
+            updateHTML.updateLibrary(myLibrary);
             removeBookOverlay.style.display = 'none';
-            return;
-        }
-    });
-
-    deleteBooks.addEventListener('click', () => {
-        myLibrary = [];
-        updateHTML.updateLibrary(myLibrary);
-        removeBookOverlay.style.display = 'none';
-    });
-
-    function resetForm() {
-        addBookForm.reset();
-        readInput.classList.remove('selected');
-        dateContainer.style.opacity = 0;
-    }
+        });
+    })();
 })();
 
-/**** SEARCH LOGIC  ****/
+/**** SEARCH LOGIC ****/
 (function() {
     const typeInput = document.querySelector('header select');
     const searchInput = document.querySelector('header input');
@@ -283,18 +288,36 @@ initialize();
 
     searchInput.value = '';
 
+    typeInput.addEventListener('input', () => {
+        searchInput.setAttribute('type', typeInput.value == 'date' ? 'date' : 'search');
+    });
+
     searchBtn.addEventListener('click', () => {
         if (!searchInput.value) return;
 
         let foundBooks = [];
-        const searchRegex = new RegExp(searchInput.value.trim(), 'ig');
 
-        myLibrary.forEach(book => {
-            if ((searchRegex).test(book[typeInput.value])) {
-                foundBooks.push(book);
-            }
-            searchRegex.lastIndex = 0;
-        });
+        //Compare date of each book to input value
+        if (searchInput.type == 'date') {
+            myLibrary.forEach(book => {
+                if (book.date == searchInput.value) {
+                    foundBooks.push(book);
+                }
+            });
+        }
+
+        //Compare value of each book to input value
+        if (searchInput.type == 'search') {
+            const searchRegex = new RegExp(searchInput.value.trim(), 'ig');
+
+            myLibrary.forEach(book => {
+                if ((searchRegex).test(book[typeInput.value])) {
+                    foundBooks.push(book);
+                }
+                searchRegex.lastIndex = 0;
+            });
+        }
+
         updateHTML.updateLibrary(foundBooks);
     });
 
@@ -304,27 +327,44 @@ initialize();
     });
 })();
 
+/**** SORT LOGIC ****/
 (function() {
     const sortBtn = [...document.querySelectorAll('main span[class*="material-symbols"]')];
 
     sortBtn.forEach(btn => {
         let isUp = btn.classList.contains('up');
-        let value = btn.parentElement.querySelector('h2').innerText.toLowerCase();
+        let value = btn.closest('.header-container').querySelector('h2').innerText.toLowerCase();
 
         btn.addEventListener('click', () => {
+            //Get current books shown in HTML
             let currBooks = [...document.querySelectorAll('.book-container')];
             let filterLibrary = myLibrary.filter(book => currBooks.includes(book.html));
 
+            //Reset books shown in HTML to default
             if (btn.classList.contains('focus')) {
                 updateHTML.updateLibrary(filterLibrary);
                 btn.classList.remove('focus');
             } else {
+                //Update books shown in HTML to sorted
                 let sorted = filterLibrary;
                 if (value == 'finished') {
-                    sorted.sort((book1, book2) => isUp ? new Date(book1.date + "T00:00:00") < new Date(book2.date+ "T00:00:00") 
-                            : new Date(book1.date + "T00:00:00") > new Date(book2.date + "T00:00:00"));
+                    //Sort book by date
+                    sorted.sort((book1, book2) => {
+                        if (isUp) {
+                            return new Date(book1.date + "T00:00:00") < new Date(book2.date+ "T00:00:00") ? 1 : -1
+                        } else {
+                            return new Date(book1.date + "T00:00:00") > new Date(book2.date + "T00:00:00") ? 1 : -1
+                        }
+                    });
                 } else {
-                    sorted.sort((book1, book2) => isUp ? book1[value] > book2[value] : book1[value] < book2[value]);
+                    //Sort book by title or author
+                    sorted.sort((book1, book2) => {
+                        if (isUp) {
+                            return book1[value] > book2[value] ? 1 : -1;
+                        } else {
+                            return book1[value] < book2[value] ? 1 : -1;
+                        }
+                    });
                 }
                 updateHTML.updateLibrary(sorted);
                 sortBtn.forEach(otherBtn => otherBtn != btn ? otherBtn.classList.remove('focus') : otherBtn.classList.add('focus'));
@@ -332,8 +372,3 @@ initialize();
         });
     });
 })();
-
-/**** * 
- * Total Book Count?
- * 
- */

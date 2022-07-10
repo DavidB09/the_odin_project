@@ -32,6 +32,7 @@
             <select class="options" name="options">
                 <option value="title" selected>Title</option>
                 <option value="author">Author</option>
+                <option value="date">Date</option>
             </select>
             <input type="search">
             <button class="search" type="button">Search</button>
@@ -110,27 +111,34 @@
     </div>
 
     <main>
-        <div>
+        <div class="header-container">
             <h2>Title</h2>
 
-            <span class="up material-symbols-outlined">expand_less</span>
-            <span class="down material-symbols-outlined">expand_more</span>
+            <div>
+                <span class="up material-symbols-outlined">expand_less</span>
+                <span class="down material-symbols-outlined">expand_more</span>
+            </div>
         </div>
-        <div>
+        <div class="header-container">
             <h2>Author</h2>
 
-            <span class="up material-symbols-outlined">expand_less</span>
-            <span class="down material-symbols-outlined">expand_more</span>
+            <div>
+                <span class="up material-symbols-outlined">expand_less</span>
+                <span class="down material-symbols-outlined">expand_more</span>
+            </div>
         </div>
-        <div>
+        <div class="header-container">
             <h2>Read</h2>
         </div>
-        <div>
+        <div class="header-container">
             <h2>Finished</h2>
 
-            <span class="up material-symbols-outlined">expand_less</span>
-            <span class="down material-symbols-outlined">expand_more</span>
+            <div>
+                <span class="up material-symbols-outlined">expand_less</span>
+                <span class="down material-symbols-outlined">expand_more</span>
+            </div>
         </div>
+        <div class="header-container"></div>
     </main>
 </body>
 
