@@ -1,8 +1,11 @@
 :root {
-    font-size: 62.5%;
     --main-font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     --head-font: "Norse", sans-serif;
     --main-color: #005274;
+}
+
+html {
+    font-size: 62.5%;
 }
 
 @font-face {

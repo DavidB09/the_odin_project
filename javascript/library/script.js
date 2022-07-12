@@ -1,3 +1,5 @@
+'use strict';
+
 /**** LIBRARY ARRAY ****/
 let myLibrary = [];
 
@@ -308,13 +310,12 @@ initialize();
 
         //Compare value of each book to input value
         if (searchInput.type == 'search') {
-            const searchRegex = new RegExp(searchInput.value.trim(), 'ig');
+            let toLower = searchInput.value.trim().toLowerCase();
 
             myLibrary.forEach(book => {
-                if ((searchRegex).test(book[typeInput.value])) {
+                if (book[typeInput.value].trim().toLowerCase().includes(toLower)) {
                     foundBooks.push(book);
                 }
-                searchRegex.lastIndex = 0;
             });
         }
 
@@ -350,6 +351,9 @@ initialize();
                 if (value == 'finished') {
                     //Sort book by date
                     sorted.sort((book1, book2) => {
+                        if (!book2.date) return -1;
+                        if (!book1.date) return 1;
+
                         if (isUp) {
                             return new Date(book1.date + "T00:00:00") < new Date(book2.date+ "T00:00:00") ? 1 : -1
                         } else {
@@ -359,6 +363,9 @@ initialize();
                 } else {
                     //Sort book by title or author
                     sorted.sort((book1, book2) => {
+                        if (!book2[value]) return -1;
+                        if (!book1[value]) return 1;
+
                         if (isUp) {
                             return book1[value] > book2[value] ? 1 : -1;
                         } else {
