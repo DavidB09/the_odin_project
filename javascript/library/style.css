@@ -3,7 +3,7 @@
     --reg: rgb(28, 130, 246);
     --add: rgb(25, 173, 25);
     --delete: rgb(204, 18, 18);
-    --background-color: rgb(232, 230, 227);
+    --background-color: rgb(212, 211, 211);
 }
 
 html {
@@ -31,6 +31,8 @@ button {
 }
 
 input {
+    -webkit-transition: outline .1s, border .1s;
+    -o-transition: outline .1s, border .1s;
     transition: outline .1s, border .1s;
 }
 
@@ -56,13 +58,22 @@ h2 {
 /**** HEADER ****/
 
 header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     background-color: var(--background-color);
 }
 
 header > div:first-of-type {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 3rem;
     margin: 2rem;
@@ -77,16 +88,28 @@ header > div:first-of-type button {
 }
 
 header > div:last-of-type {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     gap: 2rem;
     margin: 3rem;
 }
 
 header > div:last-of-type div {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 2rem;
+}
+
+header > div:last-of-type button {
+    width: 8rem;
+    height: 4rem;
 }
 
 header select, header input {
@@ -98,11 +121,6 @@ header input {
     width: clamp(20rem, 55vw, 70rem);
 }
 
-header button.search, header button.return {
-    width: 8rem;
-    height: 4rem;
-}
-
 header h1 {
     margin: 5rem 1.5rem 4.5rem;
     text-align: center;
@@ -110,54 +128,63 @@ header h1 {
 
 @media (max-width: 400px) {
     header > div:first-of-type {
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
     }
 }
 
 /**** MAIN ****/
 
 main {
+    display: -ms-grid;
     display: grid;
-    grid-template-columns: repeat(2, 1fr) repeat(3, .5fr);
+    grid-template-columns: repeat(2, 1fr) .5fr 1fr .5fr;
     grid-auto-flow: row;
     width: min(80%, 120rem);
     margin: 5rem auto;
+}
+
+main h2 {
+    margin-top: 0;
 }
 
 .header-container {
     position: relative;
 }
 
-.header-container:nth-child(-n + 2) {
+.header-container:not(:nth-child(2n + 3)) {
     margin-left: .87rem;
 }
 
 .header-container span {
     position: absolute;
     right: 5rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     height: 15px;
     width: 20px;
     font-size: 4.8rem;
+    -webkit-transition: font-size .15s;
+    -o-transition: font-size .15s;
     transition: font-size .15s;
     cursor: pointer;
 }
 
-.header-container:nth-child(4) span {
-    right: 0;
-}
-
 .header-container span:hover {
+    color: var(--reg);
     font-size: 6rem;
 }
 
 .header-container span.focus {
-    color: var(--reg);
-}
-
-.header-container span:not(.focus):hover {
     color: var(--reg);
 }
 
@@ -174,11 +201,14 @@ main {
 }
 
 .book-container {
+    display: -ms-grid;
     display: grid;
-    grid-template-columns: repeat(2, 1fr) repeat(3, .5fr);
+    grid-template-columns: repeat(2, 1fr) .5fr 1fr .5fr;
     grid-area: span 1 / span 5;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     justify-items: flex-start;
-    align-items: center;
     padding: 1.5rem 0;
 }
 
@@ -191,47 +221,29 @@ main {
 }
 
 .book-container button.delete {
-    padding: .5rem 2rem;
     justify-self: flex-end;
+    padding: .5rem 2rem;
 }
 
-.book-container button:not(.selected) + p {
+.book-container button.read:not(.selected) + p {
     cursor: default;
 }
 
 .book-container p {
-    display: inline-block;
     width: 80%;
-    margin: 0;
-    margin: .7rem .87rem;
+    margin: .47rem .87rem;
     font-size: 1.6rem;
     word-break: break-all;
     cursor: pointer;
 }
 
-main h2 {
-    margin-top: 0;
-}
-
-@media (max-width: 1100px) {
-    main, .book-container {
-        grid-template-columns: repeat(5, 1fr);
+@media (max-width: 1200px) {
+    .header-container span {
+        right: 3rem;
     }
 
     .book-container input {
         width: 80%;
-    }
-
-    .header-container:nth-child(3) {
-        margin-left: 2rem;
-    }
-
-    .header-container span {
-        right: 1rem;
-    }
-
-    .book-container .read {
-        margin-left: 2rem;
     }
 }
 
@@ -242,30 +254,29 @@ main h2 {
     }
 
     .header-container {
-        margin-left: 1rem;
-    }
-
-    .header-container:nth-child(-n + 2) {
-        margin-left: 1rem;
-    }
-
-    .header-container:nth-child(3) {
-        margin-left: 1rem;
-    }
-
-    .header-container:nth-child(4) span {
-        right: 1rem;
+        margin-left: .87rem;
     }
 
     .header-container:nth-child(5) {
         display: none;
     }
 
+    .header-container span {
+        right: 1rem;
+    }
+
     .book-container {
         grid-area: span 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: start;
+            -ms-flex-align: start;
+                align-items: flex-start;
         justify-items: flex-start;
         gap: 1.5rem;
         padding: 1rem;
@@ -277,25 +288,22 @@ main h2 {
         border-bottom: solid 2px #000;
     }
 
-    .book-container .read {
-        margin-left: 0;
-    }
-
-    .book-container p {
-        margin: .37rem .67rem;
-        width: 90%;
+    .book-container button.read {
+        margin-left: .4rem;
     }
 
     .book-container input {
-        padding: .3rem .6rem;
         width: 90%;
+        padding: .3rem .6rem;
+    }
+
+    .book-container p {
+        width: 90%;
+        margin: .37rem .67rem;
     }
 }
 
 @media (max-width: 800px) and (min-width: 600px) {
-    .header-container:nth-child(3) {
-        text-align: center;
-    }
     .header-container:nth-child(4) {
         grid-column: 1 / -1;
     }
@@ -314,8 +322,12 @@ main h2 {
     height: 100%;
     width: 100%;
     display: none;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     background-color: rgba(0, 0, 0, .4);
     z-index: 1;
 }
@@ -325,9 +337,16 @@ main h2 {
 .overlay .fail-message, 
 .overlay .warning-message {
     position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     gap: 3rem;
     min-height: 20rem;
     width: min(80%, 70rem);
@@ -335,7 +354,8 @@ main h2 {
     background-color: #fff;
     border: 5px solid #000;
     border-radius: 3rem;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 .overlay button {
@@ -343,8 +363,8 @@ main h2 {
 }
 
 .overlay label, .overlay p {
-    font-size: 1.6rem;
     margin: 0 0 1rem 0;
+    font-size: 1.6rem;
 }
 
 .overlay h1 {
@@ -360,12 +380,14 @@ main h2 {
     border: 1px solid #000;
     border-radius: 50%;
     cursor: pointer;
+    -webkit-transition: .3s;
+    -o-transition: .3s;
     transition: .3s;
 }
 
 .overlay span.close:hover {
-    background-color: var(--reg);
     color: #fff;
+    background-color: var(--reg);
 }
 
 .add-overlay form {
@@ -382,11 +404,18 @@ main h2 {
 }
 
 .add-overlay .input-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 .add-overlay form div:not([class^="input-container"]) {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 2rem;
 }
@@ -408,7 +437,9 @@ main h2 {
     cursor: pointer;
 }
 
-.remove-overlay .warning-message div {
+.warning-message div {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 2rem;
 }
@@ -423,7 +454,10 @@ main h2 {
 
 @media (max-width: 500px) {
     .add-overlay form div:not([class^="input-container"]) {
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
     }
 
     .add-overlay input[type="date"] {
@@ -461,19 +495,25 @@ button.read {
     left: 0;
     right: 0;
     bottom: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    background-color: #ccc;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: var(--background-color);
     border-radius: 3rem; 
 }
 
 .slider .circle {
     position: absolute; 
-    left: .5rem; 
+    left: .6rem; 
     height: 2.5rem; 
     width: 2.5rem;
     background-color: #fff; 
     border-radius: 50%;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
     transition: 0.3s;
 }
 
@@ -482,5 +522,7 @@ button.read {
 }
 
 .selected .circle {
-    transform: translateX(3.3rem); 
+    -webkit-transform: translateX(3.2rem);
+        -ms-transform: translateX(3.2rem);
+            transform: translateX(3.2rem); 
 }
