@@ -149,7 +149,6 @@ function initialize() {
         myLibrary = [
             new Book('The Iliad', 'Homer', false),
             new Book('Meditations', 'Marcus Aurelius', true, new Date().toISOString().slice(0, 10)),
-            new Book('The Bible', 'God', true)
         ];
     } else {
         //Retrieve library books from Session Storage
