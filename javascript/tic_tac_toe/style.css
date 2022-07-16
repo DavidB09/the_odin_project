@@ -1,0 +1,207 @@
+@font-face {
+    font-family: GraublauWeb;
+    src: url("fonts/spaced.otf") format("opentype");
+}
+
+:root {
+    --main-color: rgb(6, 214, 255);
+    --light-main: rgb(81, 218, 246);
+    --dark-main: rgb(10, 159, 189);
+    --main-shadow: 0 0 7px rgb(81, 218, 246),
+        0 0 10px rgb(81, 218, 246),
+        0 0 21px rgb(81, 218, 246),
+        0 0 42px rgb(10, 159, 189),
+        0 0 82px rgb(10, 159, 189),
+        0 0 92px rgb(10, 159, 189),
+        0 0 102px rgb(10, 159, 189),
+        0 0 131px rgb(10, 159, 189);
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    color: var(--main-color);
+    background-color: #000;
+    font-family: GraublauWeb, 'Courier New', Courier, monospace
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 12rem;
+    /* animation: flicker 2s infinite alternate;   */
+    color: rgb(160, 229, 243);
+    text-shadow: var(--main-shadow);
+}
+
+@keyframes flicker {
+    100% {
+        text-shadow:
+        0 0 4px rgb(81, 218, 246),
+        0 0 11px rgb(81, 218, 246),
+        0 0 19px rgb(81, 218, 246),
+        0 0 40px rgb(10, 159, 189),
+        0 0 80px rgb(10, 159, 189),
+        0 0 90px rgb(10, 159, 189),
+        0 0 100px rgb(10, 159, 189),
+        0 0 128px rgb(10, 159, 189);
+    }
+
+    80% {
+        text-shadow:
+            0 0 2px rgb(81, 218, 246),
+            0 0 7px rgb(81, 218, 246),
+            0 0 10px rgb(81, 218, 246),
+            0 0 25px rgb(10, 159, 189),
+            0 0 65px rgb(10, 159, 189),
+            0 0 70px rgb(10, 159, 189),
+            0 0 85px rgb(10, 159, 189),
+            0 0 100px rgb(10, 159, 189);
+    }
+
+    0% {
+        text-shadow:
+            0 0 2px rgb(81, 218, 246),
+            0 0 4px rgb(81, 218, 246),
+            0 0 6px rgb(81, 218, 246),
+            0 0 10px rgb(10, 159, 189),
+            0 0 45px rgb(10, 159, 189),
+            0 0 55px rgb(10, 159, 189),
+            0 0 70px rgb(10, 159, 189),
+            0 0 80px rgb(10, 159, 189);
+    }
+}
+
+.start-game {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    text-align: center;
+    width: 80%;
+}
+
+.player-selection {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.player-selection > p {
+    color: rgb(160, 229, 243);
+    text-shadow: var(--main-shadow);
+    font-size: 20rem;
+    margin: 0;
+}
+
+.player-container {
+    position: relative;
+    width: 40%;
+}
+
+.player-container div {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.player-container div:last-child {
+    position: absolute;
+    bottom: calc(0px - min-content);
+}
+
+.player-container .player-svg {
+    margin-bottom: 3rem;
+}
+
+.player-container h2, .player-container button {
+    color: rgb(160, 229, 243);
+    font-size: 5rem;
+    margin: 0;
+}
+
+.player-container h2 {
+    text-shadow: var(--main-shadow);
+}
+
+.player-container button {
+    padding: 1rem 3rem 2.5rem;
+    background-color: transparent;
+    font-family: inherit;
+    outline: none;
+    border: 2px solid transparent;
+    border-radius: 1.5rem;
+    cursor: pointer;
+}
+
+.player-container button:hover, .player-container button.selected {
+    text-shadow: var(--main-shadow);
+    border: 2px solid rgb(160, 229, 243);
+    box-shadow: 0 0 5px rgb(6, 214, 255);
+}
+
+.player-container div:last-child button {
+    margin-top: 1rem;
+}
+
+button.play {
+    position: relative;
+    bottom: calc(0px - 15rem);
+    align-self: center;
+    font-family: inherit;
+    font-size: 5rem;
+    padding: 1rem 5rem 2.5rem;
+    background-color: transparent;
+    color: rgb(160, 229, 243);
+    border: 3px solid rgb(160, 229, 243);
+    border-radius: 2rem;
+}
+
+button.play:hover {
+    text-shadow: var(--main-shadow);
+    box-shadow: 0 0 10px rgb(6, 214, 255);
+}
+
+.grid-layer {
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    background-color: aqua;
+    height: 20rem;
+    width: 20rem;
+    perspective: 1000px;
+    perspective-origin: 63% 263%;
+    transform: rotateX(30deg) skewX(33deg) skewY(-1deg)
+}
+
+.grid-layer div {
+    border: 1px solid #000;
+}
+
+.grid-layer div:hover {
+    background-color: red;
+}
+
+.player-svg {
+    fill: white;
+}
+
+.user1 {
+    filter: url(#green-glow);
+    height: 20rem;
+    width: 20rem;
+}
+
+.user2 {
+    filter: url(#red-glow);
+    height: 20rem;
+    width: 20rem;
+}

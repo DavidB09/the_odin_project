@@ -4,9 +4,182 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tic-Tac-Toe</title>
+    <meta name="author" content="David Brunner">
+    <meta name="keywords" content="3D Tic-Tac-Toe, Mini Project, HTML/CSS/JavaScript">
+    <meta name="description" content="A 3D Tic-Tac-Toe game in space.">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
+
+    <main>
+
+        <div class="start-game">
+            <h1>3D Tic-Tac-Toe</h1>
+
+            <div class="player-selection">
+                <div class="player-container">
+                    <svg class="player-svg user1" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512">
+                        <g><use xlink:href="#astronaut"></use></g>
+                    </svg>
+                    <h2>Player 1</h2>
+                </div>
+
+                <p>VS</p>
+
+                <div class="player-container">
+                    <svg class="player-svg user2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512">
+                        <g><use xlink:href="#machine"></use></g>
+                    </svg>
+                    <div>
+                        <button class="human">Human</button>
+                        <button class="cpu selected">CPU</button>
+                    </div>
+                    <div>
+                        <button class="easy">Easy</button>
+                        <button class="hard">Hard</button>
+                        <button class="impossible">Impossible</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="play">Play Game</button>
+        </div>
+
+        <!--<div class="play-game">
+            <div class="grid-layer">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
     
+            <div class="grid-layer">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+    
+            <div class="grid-layer">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div> -->
+
+    </main>
+
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <filter id="red-glow" filterUnits="userSpaceOnUse">
+                <!-- blur the text at different levels-->
+                <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur5"/>
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur10"/>
+                <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur20"/>
+                <feGaussianBlur in="SourceGraphic" stdDeviation="30" result="blur30"/>
+                <!-- <feGaussianBlur in="SourceGraphic" stdDeviation="50" result="blur50"/> -->
+                <!-- merge all the blurs except for the first one -->
+                <feMerge result="blur-merged">
+                    <feMergeNode in="blur10"/>
+                    <feMergeNode in="blur20"/>
+                    <feMergeNode in="blur30"/>
+                    <!-- <feMergeNode in="blur50"/> -->
+                </feMerge>
+                <!-- recolour the merged blurs red-->
+                <feColorMatrix result="red-blur" in="blur-merged" type="matrix"
+                    values="1 0 0 0 0
+                            0 0 0 0 0
+                            0 0 0 0 0
+                            0 0 0 1 0" />
+                <feMerge>
+                    <feMergeNode in="red-blur"/>       <!-- largest blurs coloured red -->
+                    <feMergeNode in="blur5"/>          <!-- smallest blur left white -->
+                    <feMergeNode in="SourceGraphic"/>  <!-- original white fill -->
+                </feMerge>
+            </filter>
+
+            <filter id="green-glow" filterUnits="userSpaceOnUse">
+                <!-- blur the text at different levels-->
+                <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur5"/>
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur10"/>
+                <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur20"/>
+                <feGaussianBlur in="SourceGraphic" stdDeviation="30" result="blur30"/>
+                <!-- <feGaussianBlur in="SourceGraphic" stdDeviation="50" result="blur50"/> -->
+                <!-- merge all the blurs except for the first one -->
+                <feMerge result="blur-merged">
+                    <feMergeNode in="blur10"/>
+                    <feMergeNode in="blur20"/>
+                    <feMergeNode in="blur30"/>
+                    <!-- <feMergeNode in="blur50"/> -->
+                </feMerge>
+                <!-- recolour the merged blurs red-->
+                <feColorMatrix result="red-blur" in="blur-merged" type="matrix"
+                    values="0 0 0 0 0
+                            0 1 0 0 0
+                            0 0 0 0 0
+                            0 0 0 1 0" />
+                <feMerge>
+                    <feMergeNode in="red-blur"/>       <!-- largest blurs coloured red -->
+                    <feMergeNode in="blur5"/>          <!-- smallest blur left white -->
+                    <feMergeNode in="SourceGraphic"/>  <!-- original white fill -->
+                </feMerge>
+            </filter>
+        </defs>
+    </svg>
+
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="machine">
+            <rect x="164.069" y="96.034" width="176.072" height="15.602"/>
+            <path d="M252.1,15.602c39.828,0,72.23,32.402,72.23,72.23h15.602C339.932,39.402,300.531,0,252.1,0s-87.832,39.402-87.832,87.832 h15.602C179.869,48.004,212.271,15.602,252.1,15.602z"/>
+            <path d="M252.1,264.105c-21.953,0-39.813,17.86-39.813,39.813v72.028c0,21.953,17.86,39.814,39.813,39.814 s39.813-17.861,39.813-39.814v-72.028C291.912,281.965,274.052,264.105,252.1,264.105z M276.31,375.946 c0,13.351-10.861,24.212-24.211,24.212s-24.211-10.861-24.211-24.212v-72.028c0-13.35,10.861-24.211,24.211-24.211 s24.211,10.861,24.211,24.211V375.946z"/>
+            <!-- <rect x="236.295" y="335.928" width="15.602" height="16.006"/> -->
+            <rect x="204.082" y="64.03" width="16.007" height="15.602"/>
+            <rect x="244.096" y="64.03" width="16.006" height="15.602"/>
+            <rect x="284.109" y="64.03" width="16.007" height="15.602"/>
+            <path d="M387.951,279.706V110.32c9.306-3.237,16.006-12.091,16.006-22.487c0-13.127-10.68-23.807-23.807-23.807 s-23.807,10.68-23.807,23.807c0,10.396,6.699,19.251,16.006,22.487v153.785h-32.417V120.048H164.268v264.104h-40.017v112.045 h-16.208v15.602h48.593v-15.602h-16.783v-96.443h24.415v40.017h48.019V512h15.602v-8.206h48.423V512h15.602v-72.23h48.019 v-40.017h24.415v96.443h-16.783v15.602h48.593v-15.602h-16.208V384.151h-40.017V279.706H387.951z M371.945,87.832 c0-4.524,3.681-8.206,8.206-8.206s8.206,3.681,8.206,8.206c0,4.525-3.681,8.206-8.206,8.206S371.945,92.357,371.945,87.832z M276.31,488.193h-48.423v-24.415h48.423V488.193z M276.31,448.177h-48.423v-8.407h48.423V448.177z M291.912,424.168v-8.206 H276.31v8.206h-48.423v-8.206h-15.602v8.206h-32.417v-216.49h17.381c3.488,13.781,15.99,24.009,30.84,24.009h48.018 c14.849,0,27.353-10.229,30.84-24.009h17.381v216.49H291.912z M211.881,199.877c0-8.938,7.271-16.209,16.209-16.209h48.018 c8.938,0,16.209,7.271,16.209,16.209c0,8.938-7.271,16.208-16.209,16.208H228.09 C219.153,216.085,211.881,208.815,211.881,199.877z M324.331,192.076h-0.001h-17.381c-3.488-13.782-15.991-24.01-30.84-24.01 H228.09c-14.85,0-27.353,10.229-30.84,24.01h-17.381V135.65h144.461V192.076z"/>
+            <!-- <rect x="244.096" y="192.079" width="16.006" height="15.602"/> -->
+        </g>
+    </svg>
+
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="astronaut">
+            <path d="M256.052,52.058c-70.494,0-127.845,57.351-127.845,127.844c0,70.494,57.351,127.845,127.845,127.845 s127.845-57.351,127.845-127.845S326.546,52.058,256.052,52.058z M256.052,292.06c-61.845,0-112.159-50.314-112.159-112.159 S194.208,67.743,256.052,67.743s112.159,50.315,112.159,112.158C368.211,241.746,317.897,292.06,256.052,292.06z"/>
+            <!-- <polygon points="112.593,499.952 128.279,499.858 127.941,443.747 144.05,443.747 144.05,428.062 112.16,428.062 "/> -->
+            <!-- <rect x="296.052" y="420.062" width="16" height="15.686"/>
+            <rect x="296.052" y="452.061" width="16" height="15.686"/>
+            <rect x="296.052" y="484.06" width="16" height="15.686"/> -->
+            <!-- <rect x="368.049" y="52.058" width="16" height="15.686"/> -->
+            <rect x="184.206" y="117.275" transform="matrix(0.7071 0.7071 -0.7071 0.7071 155.1766 -94.8219)" width="15.686" height="45.258"/>
+            <rect x="154.511" y="152.061" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -46.275 208.0903)" width="147.078" height="15.686"/>
+            <!-- <rect x="260.207" y="166.934" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 327.5492 503.4855)" width="15.686" height="33.941"/> -->
+            <!-- <rect x="239.474" y="204.063" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -63.1313 271.3987)" width="113.135" height="15.686"/> -->
+            <!-- <rect x="56.207" y="243.901" width="15.686" height="16"/>
+            <rect x="56.207" y="267.9" width="15.686" height="16"/>
+            <rect x="56.207" y="291.899" width="15.686" height="16"/> -->
+            <!-- <polygon points="376.054,443.747 392.164,443.747 391.826,499.858 407.511,499.953 407.944,428.062 376.054,428.062 "/> -->
+            <path d="M487.898,375.105V44.057h-75.296c-6.139-14.108-20.207-24-36.549-24c-16.187,0-30.14,9.708-36.369,23.604 c-25.118-15.469-53.812-23.604-83.633-23.604c-30.855,0-59.689,8.797-84.145,24H112.05v15.686h38.709 c-19.785,17.359-35.263,39.511-44.598,64.627c-0.761,0.081-1.517,0.179-2.268,0.29V11.899H88.208v117.517 c-18.897,8.961-32.001,28.219-32.001,50.485c0,28.803,21.92,52.578,49.955,55.531c9.377,25.23,24.95,47.47,44.862,64.863 c-11.187,0.578-22.259,2.302-33.01,5.186c-2.813,0.754-5.646,1.599-8.418,2.511c-27.627,9.084-51.425,25.165-69.704,45.902 V59.743h40.157V44.057H24.206v330.93c-15.341,24.646-24,53.605-24,84.167L0,499.866l15.686,0.079l0.042-8.197h72.166v-63.686 H19.304c1.227-5.555,2.774-11,4.629-16.314H56.05v-15.686H30.477c2.731-5.587,5.803-10.989,9.223-16.157h0.191v-0.299 c16.62-24.971,41.044-44.621,70.586-55.303c13.071,10.449,60.006,45.376,113.731,54.382v25.063H328.21v96.159h15.686V388.062 H239.894v-8.965c5.347,0.426,10.734,0.65,16.157,0.65c52.818,0,102.471-20.35,140.073-57.326 c31.392,9.954,58.144,30.44,76.087,57.29v0.193h0.128c0.141,0.211,0.28,0.425,0.419,0.637 c-23.377,6.669-40.548,28.208-40.548,53.696c0,30.792,25.051,55.843,55.843,55.843h7.66l-0.187,10.017h16.434l0.036-40.855 l0.001-0.156C511.979,428.277,503.143,399.492,487.898,375.105z M100.925,218.48c-16.746-4.837-29.032-20.295-29.032-38.578 s12.286-33.741,29.032-38.578c-3.074,12.36-4.717,25.28-4.717,38.578S97.851,206.119,100.925,218.48z M72.208,443.746v0.001 v32.315H15.807l0.045-8.911l40.082,0.594l0.233-15.684l-40.044-0.594c0.138-2.59,0.343-5.164,0.617-7.722H72.208z M376.054,35.742c13.32,0,24.158,10.837,24.158,24.158c0,13.32-10.837,24.157-24.158,24.157s-24.158-10.837-24.158-24.157 C351.896,46.579,362.733,35.742,376.054,35.742z M248.21,363.886h-0.001c-42.444-1.765-82.304-17.843-114.027-45.925 c8.271-1.461,16.689-2.217,25.157-2.217h12.568c22.372,13.908,48.407,22.451,76.303,23.806V363.886z M111.893,179.901 c0-79.49,64.669-144.159,144.159-144.159c28.795,0,56.416,8.419,80.163,24.35c0.105,21.816,17.829,39.541,39.644,39.645 c15.931,23.746,24.352,51.368,24.352,80.163c0,79.49-64.67,144.159-144.159,144.159S111.893,259.391,111.893,179.901z M263.895,363.886v-24.335c27.895-1.354,53.931-9.898,76.303-23.806h12.67c8.552,0,16.93,0.756,25.075,2.198 C346.218,346.037,306.351,362.121,263.895,363.886z M472.213,354.069c-27.487-31.166-66.948-51.533-111.106-53.797 c19.9-17.39,35.463-39.621,44.837-64.841c28.033-2.952,49.955-26.727,49.955-55.531c0-28.783-21.891-52.545-49.897-55.523 c-3.612-9.75-8.193-19.156-13.707-28.109c13.895-6.229,23.604-20.182,23.604-36.369c0-0.052-0.004-0.105-0.004-0.157h56.319 V354.069z M411.22,141.335c16.725,4.851,28.992,20.298,28.992,38.566c0,18.283-12.286,33.741-29.033,38.578 c3.074-12.359,4.718-25.28,4.718-38.578C415.897,166.758,414.312,153.833,411.22,141.335z M496.017,474.395h-7.962 c-22.143,0-40.157-18.014-40.157-40.157c0-19.727,14.302-36.165,33.079-39.52c5.282,10.451,9.319,21.63,11.923,33.345h-20.845 v15.686h23.425c0.541,5.019,0.827,10.114,0.833,15.274L496.017,474.395z"/>
+        </g>
+    </svg>
 </body>
+
 </html>
