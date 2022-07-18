@@ -1,6 +1,6 @@
 @font-face {
     font-family: GraublauWeb;
-    src: url("fonts/spaced.otf") format("opentype");
+    src: url("assets/fonts/spaced.otf") format("opentype");
 }
 
 :root {
@@ -25,6 +25,10 @@ body {
     color: var(--main-color);
     background-color: #000;
     font-family: GraublauWeb, 'Courier New', Courier, monospace
+}
+
+.hidden {
+    display: none !important;
 }
 
 main {
@@ -84,8 +88,8 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 5rem;
-    text-align: center;
     width: 80%;
+    text-align: center;
 }
 
 .player-selection {
@@ -103,59 +107,57 @@ h1 {
 }
 
 .player-container {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
     width: 40%;
 }
 
-.player-container div {
+.player-container .type-selector {
     display: flex;
     justify-content: center;
     gap: 1rem;
     width: 100%;
 }
 
-.player-container div:last-child {
-    position: absolute;
-    bottom: calc(0px - min-content);
+.player-container .difficulty-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
 }
 
-.player-container .player-svg {
-    margin-bottom: 3rem;
-}
-
-.player-container h2, .player-container button {
+.player-container input, .player-container button {
+    margin: 0;
+    padding: 1rem 2.5rem 2.5rem;
+    background-color: transparent;
     color: rgb(160, 229, 243);
     font-size: 5rem;
-    margin: 0;
-}
-
-.player-container h2 {
-    text-shadow: var(--main-shadow);
-}
-
-.player-container button {
-    padding: 1rem 3rem 2.5rem;
-    background-color: transparent;
     font-family: inherit;
     outline: none;
     border: 2px solid transparent;
     border-radius: 1.5rem;
+}
+
+.player-container input {
+    width: 80%;
+    text-align: center;
+}
+
+.player-container button {
     cursor: pointer;
 }
 
-.player-container button:hover, .player-container button.selected {
+.player-container input:focus, .player-container button:hover, .player-container button.selected {
     text-shadow: var(--main-shadow);
     border: 2px solid rgb(160, 229, 243);
     box-shadow: 0 0 5px rgb(6, 214, 255);
 }
 
-.player-container div:last-child button {
-    margin-top: 1rem;
-}
-
 button.play {
-    position: relative;
-    bottom: calc(0px - 15rem);
+    margin-top: 5rem;
     align-self: center;
     font-family: inherit;
     font-size: 5rem;
@@ -164,6 +166,7 @@ button.play {
     color: rgb(160, 229, 243);
     border: 3px solid rgb(160, 229, 243);
     border-radius: 2rem;
+    cursor: pointer;
 }
 
 button.play:hover {
@@ -171,27 +174,97 @@ button.play:hover {
     box-shadow: 0 0 10px rgb(6, 214, 255);
 }
 
+.play-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+
+.play-game > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+    margin-bottom: 6rem;
+}
+
+.play-game h1 {
+    font-size: 6rem;
+}
+
+.play-game button.restart {
+    font-family: inherit;
+    font-size: 5rem;
+    padding: .5rem 3rem 2rem;
+    background-color: transparent;
+    color: rgb(160, 229, 243);
+    border: 3px solid rgb(160, 229, 243);
+    border-radius: 2rem;
+}
+
+.play-game button.restart:hover {
+    text-shadow: var(--main-shadow);
+    box-shadow: 0 0 10px rgb(6, 214, 255);
+}
+
 .grid-layer {
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-    background-color: aqua;
-    height: 20rem;
-    width: 20rem;
+    background-color: transparent;
+    height: 15rem;
+    width: 15rem;
     perspective: 1000px;
     perspective-origin: 63% 263%;
-    transform: rotateX(30deg) skewX(33deg) skewY(-1deg)
+    transform: rotateX(30deg) skewX(33deg) skewY(-1deg);
+
+    color: rgb(160, 229, 243);
+    border: 3px solid rgb(160, 229, 243);
+    box-shadow: 0 0 10px rgb(6, 214, 255);
+}
+
+.grid-layer div:not(:nth-child(3n)) {
+    border-right: 3px solid rgb(160, 229, 243);
+}
+
+.grid-layer div:not(:nth-child(n + 7)) {
+    border-bottom: 3px solid rgb(160, 229, 243);
 }
 
 .grid-layer div {
-    border: 1px solid #000;
+    position: relative;
+    box-shadow: 0 0 20px rgb(6, 214, 255);
+    cursor: pointer;
+}
+
+.grid-layer p {
+    position: absolute;
+    font-size: 50px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
 }
 
 .grid-layer div:hover {
     background-color: red;
 }
 
+/* .shadow {
+    height: 15rem;
+    width: 15rem;
+    background-color: rgb(160, 229, 243);
+    perspective: 1000px;
+    perspective-origin: 63% 263%;
+    transform: rotateX(30deg) skewX(33deg) skewY(-1deg);
+} */
+
 .player-svg {
     fill: white;
+    margin-bottom: 2rem;
 }
 
 .user1 {
@@ -205,3 +278,10 @@ button.play:hover {
     height: 20rem;
     width: 20rem;
 }
+
+/****
+    BACKGROUND SPACE
+    AIRSHIP?
+    BOUNCING GRIDS
+    SCREEN TRANSITION SCALING
+*****/
