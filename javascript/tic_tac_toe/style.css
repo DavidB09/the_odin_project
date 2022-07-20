@@ -122,13 +122,6 @@ h1 {
     width: 100%;
 }
 
-.player-container .difficulty-selector {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-}
-
 .player-container input, .player-container button {
     margin: 0;
     padding: 1rem 2.5rem 2.5rem;
@@ -208,6 +201,10 @@ button.play:hover {
     box-shadow: 0 0 10px rgb(6, 214, 255);
 }
 
+.play-game div.winner {
+    background-color: pink;
+}
+
 .grid-layer {
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
@@ -277,6 +274,10 @@ button.play:hover {
     filter: url(#red-glow);
     height: 20rem;
     width: 20rem;
+}
+
+svg.init {
+    display: none;
 }
 
 /****

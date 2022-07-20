@@ -1,11 +1,6 @@
-const Player = () => {
-    let overlay;
-    let gridLayers;
-
-    function init(newOverlay) {
-        overlay = newOverlay;
-        gridLayers = [...overlay.querySelectorAll('.grid-layer')];
-    }
+const Player = (newOverlay) => {
+    const overlay = newOverlay;
+    const gridLayers = [...overlay.querySelectorAll('.grid-layer')];
 
     function playMove() {
         return new Promise(resolve => {
@@ -21,13 +16,13 @@ const Player = () => {
                 let column = squareIndex % 3;
 
                 overlay.removeEventListener('click', handleClick);
-                resolve({square, layerIndex, row, column});
+                resolve({layer: layerIndex, row, column});
             });
         });
     }
 
     return {
-        init, playMove
+        playMove,
     };
 }
 
