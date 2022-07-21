@@ -12,8 +12,8 @@ const Player = (newOverlay) => {
                 let layerIndex = gridLayers.indexOf(layer);
                 let squareIndex = [...layer.children].indexOf(square);
 
-                let row = Math.floor(squareIndex / 3);
-                let column = squareIndex % 3;
+                let row = Math.floor(squareIndex / 4);
+                let column = squareIndex % 4;
 
                 overlay.removeEventListener('click', handleClick);
                 resolve({layer: layerIndex, row, column});

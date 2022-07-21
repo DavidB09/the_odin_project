@@ -207,10 +207,10 @@ button.play:hover {
 
 .grid-layer {
     display: grid;
-    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    grid-template: repeat(4, 1fr) / repeat(4, 1fr);
     background-color: transparent;
-    height: 15rem;
-    width: 15rem;
+    height: 18rem;
+    width: 18rem;
     perspective: 1000px;
     perspective-origin: 63% 263%;
     transform: rotateX(30deg) skewX(33deg) skewY(-1deg);
@@ -220,11 +220,11 @@ button.play:hover {
     box-shadow: 0 0 10px rgb(6, 214, 255);
 }
 
-.grid-layer div:not(:nth-child(3n)) {
+.grid-layer div:not(:nth-child(4n)) {
     border-right: 3px solid rgb(160, 229, 243);
 }
 
-.grid-layer div:not(:nth-child(n + 7)) {
+.grid-layer div:not(:nth-child(n + 13)) {
     border-bottom: 3px solid rgb(160, 229, 243);
 }
 

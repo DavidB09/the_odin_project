@@ -52,7 +52,7 @@ const TicTacToe = () => {
                 || clickedBtn.previousElementSibling?.classList.remove('selected');
         }));
 
-        nameInputs.forEach((input, player) => input.addEventListener('blur', () => {
+        nameInputs.forEach((input, player) => input.addEventListener('change', () => {
             if (!input.value.trim()) input.value = `Player ${player + 1}`;
             if (player == 0) play1Name = input.value;
             if (player == 1) play2Name = input.value;
@@ -71,7 +71,7 @@ const TicTacToe = () => {
         });
 
         restartBtn.addEventListener('click', () => {
-            hideElements(playOverlay);
+            hideElements(restartBtn, playOverlay);
             showElements(startOverlay);
         });
 
@@ -94,7 +94,7 @@ const TicTacToe = () => {
         return new Promise(resolve => resolve(isPlayer1 ? player1.playMove(grid) : player2.playMove(grid)))
             .then(({layer, row, column}) => {
                 grid[layer][row][column] = isPlayer1 ? 1 : 2;
-                gridLayers[layer][row * 3 + column].innerHTML = `<p>${isPlayer1 ? 'X' : 'O'}</p>`;
+                gridLayers[layer][row * 4 + column].innerHTML = `<p>${isPlayer1 ? 'X' : 'O'}</p>`;
             });
     }
 
@@ -110,19 +110,28 @@ const TicTacToe = () => {
     function clearGrid() {
         grid = [
             [
-                [0, 0, 0],
-                [0, 0, 0],
-                [0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
             ],
             [
-                [0, 0, 0],
-                [0, 0, 0],
-                [0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
             ],
             [
-                [0, 0, 0],
-                [0, 0, 0],
-                [0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+            ],
+            [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
             ],
         ];
         gridLayers.forEach(layer => layer.forEach(square => {
@@ -132,8 +141,8 @@ const TicTacToe = () => {
     }
 
     function isFull() {
-        for (let l = 0; l < 3; l++) {
-            for (let r = 0; r < 3; r++) {
+        for (let l = 0; l < 4; l++) {
+            for (let r = 0; r < 4; r++) {
                 if (grid[l][r].some(square => square == 0)) 
                     return false;
             }
@@ -143,36 +152,39 @@ const TicTacToe = () => {
     }
 
     function isDone() {
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
                 //Check rows of each layer
-                if (grid[i][j][0] && (grid[i][j][0] == grid[i][j][1]) && (grid[i][j][0] == grid[i][j][2])) {
+                if (grid[i][j][0] && (grid[i][j][0] == grid[i][j][1]) 
+                  && (grid[i][j][0] == grid[i][j][2]) && (grid[i][j][0] == grid[i][j][3])) {
                     winner = grid[i][j][0];
 
                     let gridRow = gridLayers[i];
                     gridRow.forEach((square, index) => {
-                        if (Math.floor(index / 3) == j) square.classList.add('winner');
+                        if (Math.floor(index / 4) == j) square.classList.add('winner');
                     });
                     return true;
                 }
 
                 //Check columns of each layer
-                if (grid[i][0][j] && (grid[i][0][j] == grid[i][1][j]) &&  (grid[i][0][j] == grid[i][2][j])) {
+                if (grid[i][0][j] && (grid[i][0][j] == grid[i][1][j]) 
+                  && (grid[i][0][j] == grid[i][2][j]) && (grid[i][0][j] == grid[i][3][j])) {
                     winner = grid[i][0][j];
 
                     let gridRow = gridLayers[i];
                     gridRow.forEach((square, index) => {
-                        if (index % 3 == j) square.classList.add('winner');
+                        if (index % 4 == j) square.classList.add('winner');
                     });
                     return true;
                 }
 
                 //Check down each layer
-                if (grid[0][i][j] && (grid[0][i][j] == grid[1][i][j]) &&  (grid[0][i][j] == grid[2][i][j])) {
+                if (grid[0][i][j] && (grid[0][i][j] == grid[1][i][j]) 
+                  && (grid[0][i][j] == grid[2][i][j]) && (grid[0][i][j] == grid[3][i][j])) {
                     winner = grid[0][i][j];
 
                     gridLayers.forEach(layer => {
-                        layer[i * 3 + j].classList.add('winner');
+                        layer[i * 4 + j].classList.add('winner');
                     });
                     return true;
                 }
@@ -180,107 +192,127 @@ const TicTacToe = () => {
         }
 
         //Check down each layer diagonally
-        for (let i = 0; i < 3; i++) {
-            if (grid[0][i][0] && (grid[0][i][0] == grid[1][i][1]) && (grid[0][i][0] == grid[2][i][2])) {
+        for (let i = 0; i < 4; i++) {
+            if (grid[0][i][0] && (grid[0][i][0] == grid[1][i][1])
+              && (grid[0][i][0] == grid[2][i][2]) && (grid[0][i][0] == grid[3][i][3])) {
                 winner = grid[0][i][0];
 
-                gridLayers[0][i * 3 + 0].classList.add('winner');
-                gridLayers[1][i * 3 + 1].classList.add('winner');
-                gridLayers[2][i * 3 + 2].classList.add('winner');
+                gridLayers[0][i * 4 + 0].classList.add('winner');
+                gridLayers[1][i * 4 + 1].classList.add('winner');
+                gridLayers[2][i * 4 + 2].classList.add('winner');
+                gridLayers[3][i * 4 + 3].classList.add('winner');
                 return true;
             }
 
-            if (grid[0][i][2] && (grid[0][i][2] == grid[1][i][1]) && (grid[0][i][2] == grid[2][i][0])) {
-                winner = grid[0][i][2];
+            if (grid[0][i][3] && (grid[0][i][3] == grid[1][i][2])
+              && (grid[0][i][3] == grid[2][i][1]) && (grid[0][i][3] == grid[3][i][0])) {
+                winner = grid[0][i][3];
 
-                gridLayers[0][i * 3 + 2].classList.add('winner');
-                gridLayers[1][i * 3 + 1].classList.add('winner');
-                gridLayers[2][i * 3 + 0].classList.add('winner');
+                gridLayers[0][i * 4 + 3].classList.add('winner');
+                gridLayers[1][i * 4 + 2].classList.add('winner');
+                gridLayers[2][i * 4 + 1].classList.add('winner');
+                gridLayers[3][i * 4 + 0].classList.add('winner');
                 return true;
             }
 
-            if (grid[0][0][i] && (grid[0][0][i] == grid[1][1][i]) && (grid[0][0][i] == grid[2][2][i])) {
+            if (grid[0][0][i] && (grid[0][0][i] == grid[1][1][i])
+              && (grid[0][0][i] == grid[2][2][i]) && (grid[0][0][i] == grid[3][3][i])) {
                 winner = grid[0][0][i];
 
-                gridLayers[0][0 * 3 + i].classList.add('winner');
-                gridLayers[1][1 * 3 + i].classList.add('winner');
-                gridLayers[2][2 * 3 + i].classList.add('winner');
+                gridLayers[0][0 * 4 + i].classList.add('winner');
+                gridLayers[1][1 * 4 + i].classList.add('winner');
+                gridLayers[2][2 * 4 + i].classList.add('winner');
+                gridLayers[3][3 * 4 + i].classList.add('winner');
                 return true;
             }
 
-            if (grid[0][2][i] && (grid[0][2][i] == grid[1][1][i]) && (grid[0][2][i] == grid[2][0][i])) {
-                winner = grid[0][2][i];
+            if (grid[0][3][i] && (grid[0][3][i] == grid[1][2][i])
+              && (grid[0][3][i] == grid[2][1][i]) && (grid[0][3][i] == grid[3][0][i])) {
+                winner = grid[0][3][i];
 
-                gridLayers[0][2 * 3 + i].classList.add('winner');
-                gridLayers[1][1 * 3 + i].classList.add('winner');
-                gridLayers[2][0 * 3 + i].classList.add('winner');
+                gridLayers[0][3 * 4 + i].classList.add('winner');
+                gridLayers[1][2 * 4 + i].classList.add('winner');
+                gridLayers[2][1 * 4 + i].classList.add('winner');
+                gridLayers[3][0 * 4 + i].classList.add('winner');
                 return true;
             }
         }
 
         //Check diagonals in each layer
-        for (let l = 0; l < 3; l++) {
+        for (let l = 0; l < 4; l++) {
             let layer = grid[l];
 
-            if (layer[0][0] && (layer[0][0] == layer[1][1]) && (layer[0][0] == layer[2][2])) {
+            if (layer[0][0] && (layer[0][0] == layer[1][1])
+              && (layer[0][0] == layer[2][2]) && (layer[0][0] == layer[3][3])) {
                 winner = layer[0][0];
 
                 let gridLayer = gridLayers[l];
-                gridLayer[0 * 3 + 0].classList.add('winner');
-                gridLayer[1 * 3 + 1].classList.add('winner');
-                gridLayer[2 * 3 + 2].classList.add('winner');
+                gridLayer[0 * 4 + 0].classList.add('winner');
+                gridLayer[1 * 4 + 1].classList.add('winner');
+                gridLayer[2 * 4 + 2].classList.add('winner');
+                gridLayer[3 * 4 + 3].classList.add('winner');
                 return true;
             }
 
-            if (layer[0][2] && (layer[0][2] == layer[1][1]) && (layer[0][2] == layer[2][0])) {
-                winner = layer[0][2];
+            if (layer[0][3] && (layer[0][3] == layer[1][2])
+              && (layer[0][3] == layer[2][1]) && (layer[0][3] == layer[3][0])) {
+                winner = layer[0][3];
 
                 let gridLayer = gridLayers[l];
-                gridLayer[0 * 3 + 2].classList.add('winner');
-                gridLayer[1 * 3 + 1].classList.add('winner');
-                gridLayer[2 * 3 + 0].classList.add('winner');
+                gridLayer[0 * 4 + 3].classList.add('winner');
+                gridLayer[1 * 4 + 2].classList.add('winner');
+                gridLayer[2 * 4 + 1].classList.add('winner');
+                gridLayer[3 * 4 + 0].classList.add('winner');
                 return true;
             }
         }
 
         //Check diagonals through layer
         //Top:Top:Left -> Bottom:Bottom:Right
-        if (grid[0][0][0] && (grid[0][0][0] == grid[1][1][1]) && (grid[0][0][0] == grid[2][2][2])) {
+        if (grid[0][0][0] && (grid[0][0][0] == grid[1][1][1])
+          && (grid[0][0][0] == grid[2][2][2]) && (grid[0][0][0] == grid[3][3][3])) {
             winner = grid[0][0][0];
 
-            gridLayers[0][0 * 3 + 0].classList.add('winner');
-            gridLayers[1][1 * 3 + 1].classList.add('winner');
-            gridLayers[2][2 * 3 + 2].classList.add('winner');
+            gridLayers[0][0 * 4 + 0].classList.add('winner');
+            gridLayers[1][1 * 4 + 1].classList.add('winner');
+            gridLayers[2][2 * 4 + 2].classList.add('winner');
+            gridLayers[3][3 * 4 + 3].classList.add('winner');
             return true;
         }
 
         //Top:Bottom:Right -> Bottom:Top:Left
-        if (grid[0][2][2] && (grid[0][2][2] == grid[1][1][1]) && (grid[0][2][2] == grid[2][0][0])) {
-            winner = grid[0][2][2];
+        if (grid[0][3][3] && (grid[0][3][3] == grid[1][2][2])
+          && (grid[0][3][3] == grid[2][1][1]) && (grid[0][3][3] == grid[3][0][0])) {
+            winner = grid[0][3][3];
 
-            gridLayers[0][2 * 3 + 2].classList.add('winner');
-            gridLayers[1][1 * 3 + 1].classList.add('winner');
-            gridLayers[2][0 * 3 + 0].classList.add('winner');
+            gridLayers[0][3 * 4 + 3].classList.add('winner');
+            gridLayers[1][2 * 4 + 2].classList.add('winner');
+            gridLayers[2][1 * 4 + 1].classList.add('winner');
+            gridLayers[3][0 * 4 + 0].classList.add('winner');
             return true;
         }
 
         //Top:Top:Right ->Bottom:Bottom:Left
-        if (grid[0][0][2] && (grid[0][0][2] == grid[1][1][1]) && (grid[0][0][2] == grid[2][2][0])) {
-            winner = grid[0][0][2];
+        if (grid[0][0][3] && (grid[0][0][3] == grid[1][1][2])
+          && (grid[0][0][3] == grid[2][2][1]) && (grid[0][0][3] == grid[3][3][0])) {
+            winner = grid[0][0][3];
 
-            gridLayers[0][0 * 3 + 2].classList.add('winner');
-            gridLayers[1][1 * 3 + 1].classList.add('winner');
-            gridLayers[2][2 * 3 + 0].classList.add('winner');
+            gridLayers[0][0 * 4 + 3].classList.add('winner');
+            gridLayers[1][1 * 4 + 2].classList.add('winner');
+            gridLayers[2][2 * 4 + 1].classList.add('winner');
+            gridLayers[3][3 * 4 + 0].classList.add('winner');
             return true;
         }
     
         //Top:Bottom:Left -> Bottom:Top:Right
-        if (grid[0][2][0] && (grid[0][2][0] == grid[1][1][1]) && (grid[0][2][0] == grid[2][0][2])) {
-            winner = grid[0][2][0];
+        if (grid[0][3][0] && (grid[0][3][0] == grid[1][2][1])
+          && (grid[0][3][0] == grid[2][1][2]) && (grid[0][3][0] == grid[3][0][3])) {
+            winner = grid[0][3][0];
 
-            gridLayers[0][2 * 3 + 0].classList.add('winner');
-            gridLayers[1][1 * 3 + 1].classList.add('winner');
-            gridLayers[2][0 * 3 + 2].classList.add('winner');
+            gridLayers[0][3 * 4 + 0].classList.add('winner');
+            gridLayers[1][2 * 4 + 1].classList.add('winner');
+            gridLayers[2][1 * 4 + 2].classList.add('winner');
+            gridLayers[3][0 * 4 + 3].classList.add('winner');
             return true;
         }
 
