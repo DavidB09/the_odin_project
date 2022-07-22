@@ -30,3 +30,6 @@ A repo for The Odin Project mini projects created by David Brunner
 ## JavaScript:
 ### Library
 [Link](https://the-odin-project-library.netlify.app/)
+
+### 3D Tic-Tac-Toe
+[Link](https://the-odin-project-3d-tic-tac-toe.netlify.app/)
