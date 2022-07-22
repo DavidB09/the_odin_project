@@ -5,8 +5,8 @@ const Player = (newOverlay) => {
     function playMove() {
         return new Promise(resolve => {
             overlay.addEventListener('click', function handleClick(e) {
-                let square = e.target.closest('div.grid-layer div');
-                if (!square || square.querySelector('p')) return;
+                let square = e.target.closest('div.grid-layer div'); //Retrieve clicked div
+                if (!square || square.querySelector('p')) return; //Check if null or already selected
 
                 let layer = square.closest('div.grid-layer');
                 let layerIndex = gridLayers.indexOf(layer);
@@ -16,7 +16,7 @@ const Player = (newOverlay) => {
                 let column = squareIndex % 4;
 
                 overlay.removeEventListener('click', handleClick);
-                resolve({layer: layerIndex, row, column});
+                resolve({layer: layerIndex, row, column}); //Returns selected layer, row, and column
             });
         });
     }
