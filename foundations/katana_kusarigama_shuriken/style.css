@@ -135,7 +135,7 @@ ul {
     color: #fff; 
 }
 
-.main-button:before {
+.main-button::before {
     content: ""; 
     position: absolute;
     top: 100%; 
@@ -149,7 +149,7 @@ ul {
     z-index: -1; 
 }
 
-.main-button:hover:before {
+.main-button:hover::before {
     top: 0; 
 }
 
