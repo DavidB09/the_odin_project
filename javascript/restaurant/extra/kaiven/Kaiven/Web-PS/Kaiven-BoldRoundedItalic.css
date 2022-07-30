@@ -1,0 +1,9 @@
+/* Webfont: Kaiven-BoldItalic */@font-face {
+    font-family: 'Kaiven';
+    src: url('Kaiven-BoldRoundedItalic.woff2') format('woff2'), /* Modern Browsers */
+         url('Kaiven-BoldRoundedItalic.otf') format('opentype'); /* Safari, Android, iOS */
+             font-style: italic;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+}
+

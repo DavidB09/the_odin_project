@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Kaiven';
+    src: url(./assets/fonts/kaiven-reg-rounded.ttf);
+}
+
+@font-face {
+    font-family: 'Bellenia Love';
+    src: url(./assets/fonts/bellenia-love.otf);
+}
+
+$main-font: 'Kaiven', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$header-font: 'Bellenia Love', cursive;

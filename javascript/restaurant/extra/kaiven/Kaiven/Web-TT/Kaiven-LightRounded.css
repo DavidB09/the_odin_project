@@ -1,0 +1,12 @@
+/* Webfont: Kaiven-Light */@font-face {
+    font-family: 'Kaiven';
+    src: url('Kaiven-LightRounded.eot'); /* IE9 Compat Modes */
+    src: url('Kaiven-LightRounded.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Kaiven-LightRounded.woff') format('woff'), /* Modern Browsers */
+         url('Kaiven-LightRounded.woff2') format('woff2'), /* Modern Browsers */
+         url('Kaiven-LightRounded.ttf') format('truetype'); /* Safari, Android, iOS */
+             font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+

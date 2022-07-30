@@ -1,0 +1,12 @@
+/* Webfont: Kaiven-Bold */@font-face {
+    font-family: 'Kaiven';
+    src: url('Kaiven-BoldRounded.eot'); /* IE9 Compat Modes */
+    src: url('Kaiven-BoldRounded.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Kaiven-BoldRounded.woff') format('woff'), /* Modern Browsers */
+         url('Kaiven-BoldRounded.woff2') format('woff2'), /* Modern Browsers */
+         url('Kaiven-BoldRounded.ttf') format('truetype'); /* Safari, Android, iOS */
+             font-style: normal;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+}
+
