@@ -1,17 +1,10 @@
 import './style.scss';
 
-import pizzaSvg from './assets/svg/pizza.svg';
-import uberSvg from './assets/svg/uber-eats.svg';
-import grubhubSvg from './assets/svg/grubhub.svg';
+import homePage from './assets/functions/home.js';
+import { renderPage, renderIMG } from './assets/functions/render.js';
 
-
-(function createIMG() {
-    const pizzaImg = document.querySelector('img.pizza');
-    pizzaImg.setAttribute('src', pizzaSvg);
-
-    const uberImg = document.querySelector('img.uber');
-    uberImg.setAttribute('src', uberSvg);
-
-    const grubhubImg = document.querySelector('img.grubhub');
-    grubhubImg.setAttribute('src', grubhubSvg);
+(function init() {
+    renderIMG.FOOTER();
+    // renderPage(homePage);
+    renderIMG.HOME();
 })();

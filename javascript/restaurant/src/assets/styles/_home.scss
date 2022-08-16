@@ -85,9 +85,15 @@
         }
 
         img {
-            height: 5rem;
+            height: 6rem;
             border-radius: 12px;
             cursor: pointer;
+
+            &.postmates {
+                padding: 5px;
+                box-sizing: border-box;
+                background-color: #fff;
+            }
         }
 
         h3 {

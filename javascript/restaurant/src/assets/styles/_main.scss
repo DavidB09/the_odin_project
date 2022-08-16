@@ -48,8 +48,25 @@ header {
         margin: 2rem 0;
 
         a {
+            position: relative;
             text-decoration: none;
             color: inherit;
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                height: 3px;
+                width: 0;
+                background-color: var.$second-color;
+                border-radius: 5rem;
+                transition: width .3s;
+            }
+
+            &:hover::after {
+                width: 100%;
+            }
         }
     }
 }
@@ -84,12 +101,20 @@ main {
         width: 80%;
         padding: 2rem 0;
 
+        &:first-child {
+            flex-direction: row;
+            justify-content: space-between;
+
+            img {
+                height: 4.5rem;
+                margin-right: 1rem;
+                cursor: pointer;
+            }
+        }
+
         &:not(.hour-container) {
             align-items: center;
-    
-            p {
-                font-size: 2rem;
-            }
+            font-size: 2rem;
         }
 
         &.hour-container {
@@ -106,8 +131,8 @@ main {
         }
     }
 
-    .divider {
-        height: .5px;
+    & > .divider {
+        height: 1.5px;
         width: 80%;
         background-color: var.$background-color;
     }
