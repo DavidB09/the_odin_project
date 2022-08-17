@@ -1,0 +1,50 @@
+@use 'var';
+
+.menu {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    background-color: var.$background-color;
+
+    .image-container {
+        background-image: url(./assets/images/oven.jpg);
+    }
+
+    .menu-container {
+        width: 80%;
+
+        .meal-container {
+            display: flex;
+            flex-direction: column;
+            text-align: start;
+
+            .meal-header {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+            }
+        }
+        h2 {
+            font-size: 4.5rem;
+            margin: 2.5rem 0 1rem;
+        }
+
+        h3 {
+            font-size: 2.1rem;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        p {
+            font-size: 1.6rem;
+            margin: .5rem 0;
+        }
+
+        span.line {
+            width: 100%;
+            height: 1px;
+            background-color: #000;;
+        }
+    }
+}

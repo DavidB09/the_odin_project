@@ -8,22 +8,7 @@
     background-color: var.$background-color;
 
     .image-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         background-image: url(./assets/images/oven.jpg);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-attachment: fixed;
-        width: 100%;
-        height: 70rem;
-        color: #fff;
-
-        h1 {
-            font-size: 7rem;
-            margin: 0 4rem;
-        }
     }
 
     .welcome-container {
