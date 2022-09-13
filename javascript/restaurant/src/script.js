@@ -1,10 +1,11 @@
 import './style.scss';
 
 import homePage from './assets/functions/home.js';
+import menuPage from './assets/functions/menu.js';
 import { renderPage, renderIMG } from './assets/functions/render.js';
 
 (function init() {
     renderIMG.FOOTER();
-    // renderPage(homePage);
+    // renderPage(menuPage);
     renderIMG.HOME();
 })();
