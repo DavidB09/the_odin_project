@@ -8,7 +8,7 @@ module.exports = {
     entry: './src/script.js',
     output: {
         filename: devMode ? '[name].bundle.js' : '[name].[contenthash].js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'build'),
         clean: true,
     },
     plugins: [
