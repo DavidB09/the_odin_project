@@ -1,0 +1,504 @@
+
+@font-face {
+    font-family: spaced;
+    src: url("./assets/fonts/spaced.otf") format("opentype");
+}
+
+:root {
+    --main-color: rgb(160, 229, 243);
+    --main-shadow: 0 0 7px rgb(81, 218, 246),
+        0 0 10px rgb(81, 218, 246),
+        0 0 21px rgb(81, 218, 246),
+        0 0 42px rgb(10, 159, 189),
+        0 0 82px rgb(10, 159, 189),
+        0 0 92px rgb(10, 159, 189),
+        0 0 102px rgb(10, 159, 189),
+        0 0 131px rgb(10, 159, 189);
+    --second-shadow: 0 0 7px rgb(81, 218, 246),
+        0 0 10px rgb(81, 218, 246),
+        0 0 21px rgb(81, 218, 246),
+        0 0 42px rgb(10, 159, 189),
+        0 0 60px rgb(10, 159, 189),
+        0 0 82px rgb(10, 159, 189);
+    --border-shadow: 0 0 5px rgb(81, 218, 246),
+        0 0 7px rgb(10, 159, 189);
+    --grid-shadow: 0 0 5px rgb(81, 218, 246),
+        0 0 20px rgb(10, 159, 189);
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    color: var(--main-color);
+    background-color: #000;
+    font-family: spaced, 'Courier New', Courier, monospace;
+}
+
+/**** COMMON ****/
+
+main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.star {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 0 8px 2px #fff;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.star.small {
+    height: 3px;
+    width: 3px;
+}
+
+.star.large {
+    height: 6px;
+    width: 6px;
+}
+
+.player-svg {
+    margin-bottom: 2rem;
+    height: 12rem;
+    width: 12rem;
+}
+
+.player-svg.player1 {
+    filter: url(./assets/svg/filter.svg#green-glow);
+}
+
+.player-svg.player2 {
+    filter: url(./assets/svg/filter.svg#red-glow);
+}
+
+.add {
+    display: flex;
+}
+
+.remove {
+    display: none;
+}
+
+.show {
+    animation: show 1s linear 1 forwards;
+}
+
+.hide {
+    animation: hide .6s linear 1 forwards;
+}
+
+@keyframes show {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes hide {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(0);
+    }
+}
+
+input, button {
+    color: inherit;
+    background-color: transparent;
+    font-size: 3rem;
+    font-family: inherit;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+input:focus, button:hover, button.selected {
+    text-shadow: var(--second-shadow);
+    box-shadow: var(--border-shadow);
+}
+
+h1, .player-selection > p {
+    text-shadow: var(--main-shadow);
+    animation: flicker 5s infinite alternate;  
+}
+
+@keyframes flicker {
+    100% {
+        text-shadow:
+        0 0 4px rgb(81, 218, 246),
+        0 0 11px rgb(81, 218, 246),
+        0 0 19px rgb(81, 218, 246),
+        0 0 40px rgb(10, 159, 189),
+        0 0 80px rgb(10, 159, 189),
+        0 0 90px rgb(10, 159, 189),
+        0 0 100px rgb(10, 159, 189),
+        0 0 128px rgb(10, 159, 189);
+    }
+
+    70% {
+        text-shadow:
+            0 0 2px rgb(81, 218, 246),
+            0 0 7px rgb(81, 218, 246),
+            0 0 10px rgb(81, 218, 246),
+            0 0 25px rgb(10, 159, 189),
+            0 0 65px rgb(10, 159, 189),
+            0 0 70px rgb(10, 159, 189),
+            0 0 85px rgb(10, 159, 189),
+            0 0 100px rgb(10, 159, 189);
+    }
+
+    0% {
+        text-shadow:
+            0 0 2px rgb(81, 218, 246),
+            0 0 4px rgb(81, 218, 246),
+            0 0 6px rgb(81, 218, 246),
+            0 0 10px rgb(10, 159, 189),
+            0 0 45px rgb(10, 159, 189),
+            0 0 55px rgb(10, 159, 189),
+            0 0 70px rgb(10, 159, 189),
+            0 0 80px rgb(10, 159, 189);
+    }
+}
+
+@media (min-width: 500px) {
+    .player-svg {
+        height: 15rem;
+        width: 15rem;
+    }
+
+    input, button {
+        font-size: 4rem;
+    }
+}
+
+@media (min-width: 750px) {
+    .star.small {
+        height: 5px;
+        width: 5px;
+    }
+
+    .star.large {
+        height: 10px;
+        width: 10px;
+    }
+
+    .player-svg {
+        height: 20rem;
+        width: 20rem;
+    }
+
+    input, button {
+        font-size: 5rem;
+    }
+}
+
+/**** START PAGE ****/
+
+.start-game {
+    flex-direction: column;
+    gap: 5rem;
+    width: min(160rem, 90%);
+    text-align: center;
+}
+
+.start-game h1 {
+    font-size: 5rem;
+}
+
+.start-game .player-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-selection > p {
+    margin: 3rem 0 6rem;
+    font-size: 10rem;
+}
+
+.player-selection .player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.player-container .type-selector {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.player-container input, .player-container button {
+    margin: 0;
+    padding: .5rem 2rem 1.5rem;
+    border: 2px solid transparent;
+    border-radius: 1.5rem;
+}
+
+.player-container input {
+    width: 50%;
+    text-align: center;
+}
+
+.player-container input:focus, .player-container button:hover, .player-container button.selected {
+    border: 2px solid var(--main-color);
+}
+
+.start-game button.play {
+    align-self: center;
+    margin-top: 2rem;
+    padding: 1rem 3rem 2rem;
+    border: 3px solid var(--main-color);
+    border-radius: 2rem;
+}
+
+@media (min-width: 500px) {
+    .start-game h1 {
+        font-size: 7rem;
+    }
+
+    .player-selection > p {
+        font-size: 12rem;
+    }
+
+    .player-selection .player-container {
+        gap: 2rem;
+    }
+
+    .player-container input, .player-container button {
+        padding: 1rem 2rem 2rem;
+    }
+}
+
+@media (min-width: 750px) {
+    .start-game h1 {
+        font-size: 9rem;
+    }
+
+    .player-selection > p {
+        margin: 4rem 0 8rem;
+        font-size: 15rem;
+    }
+
+    .player-selection .player-container {
+        gap: 3rem;
+    }
+
+    .player-container input, .player-container button {
+        padding: 1rem 2.5rem 2.5rem;
+    }
+
+    .start-game button.play {
+        margin-top: 5rem;
+        padding: 1rem 5rem 2.5rem;
+    }
+}
+
+@media (min-width: 1100px) {
+    .start-game h1 {
+        font-size: 12rem;
+    }
+
+    .start-game .player-selection {
+        flex-direction: row;
+        align-items: start;
+        justify-content: space-between;
+    }
+
+    .player-selection > p {
+        margin: 0;
+        font-size: 20rem;
+    }
+
+    .player-container input {
+        width: 70%;
+    }
+}
+
+@media (min-width: 1300px) {
+    .player-container input {
+        width: 50%;
+    }
+}
+
+/**** PLAY PAGE ****/
+
+.play-game {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.play-game > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    text-align: center;
+    margin: 3rem 2rem 6rem;
+}
+
+.play-game h1 {
+    font-size: 5rem;
+}
+
+.play-game button.restart {
+    align-self: center;
+    justify-content: center;
+    padding: 1rem 3rem 2rem;
+    border: 3px solid var(--main-color);
+    border-radius: 2rem;
+}
+
+.grid-layer {
+    display: -ms-grid;
+    display: grid;
+    grid-template: repeat(4, clamp(3rem, 7vw, 5rem)) / repeat(4, clamp(3rem, 7vw, 5rem));
+    background-color: transparent;
+    border: 3px solid var(--main-color);
+    box-shadow: var(--grid-shadow);
+    perspective: 1000px;
+    perspective-origin: 63% 263%;
+}
+
+.grid-layer:nth-child(2) {
+    animation: rotate 3s linear forwards, bounce 3s linear 3.3s infinite forwards;
+}
+
+.grid-layer:nth-child(3) {
+    animation: rotate 3s linear forwards, bounce 3s linear 4s infinite forwards;
+}
+
+.grid-layer:nth-child(4) {
+    animation: rotate 3s linear forwards, bounce 3s linear 3.7s infinite forwards;
+}
+
+.grid-layer:nth-child(5) {
+    animation: rotate 3s linear forwards, bounce 3s linear 3.4s infinite forwards;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotateX(30deg) skewX(33deg) skewY(-1deg);
+    }
+
+    75% {
+        transform: rotateX(30deg) skewX(33deg);
+    }
+
+    40% {
+        transform: rotateX(30deg);
+    }
+
+    0% {
+        transform: rotateX(0deg) skewX(0deg) skewY(0deg);
+    }
+}
+
+@keyframes bounce {
+    0%, 50%, 100% {
+        transform: rotateX(30deg) skewX(33deg) skewY(-1deg) translate(0, 0);
+    }
+
+    75% {
+        transform: rotateX(30deg) skewX(33deg) skewY(-1deg) translate(-2px, 2px);
+    }
+
+    25% {
+        transform: rotateX(30deg) skewX(33deg) skewY(-1deg) translate(1px, -2px);
+    }
+ }
+
+.grid-layer div {
+    position: relative;
+    box-shadow: var(--grid-shadow);
+    cursor: pointer;
+}
+
+.play-game div.winner {
+    background-color: rgb(136, 118, 238);
+}
+
+.grid-layer div:not(:nth-child(4n)) {
+    border-right: 3px solid var(--main-color);
+}
+
+.grid-layer div:not(:nth-child(n + 13)) {
+    border-bottom: 3px solid var(--main-color);
+}
+
+.grid-layer p {
+    position: absolute;
+    top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    width: 100%;
+    margin: 0;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: font-size .3s;
+}
+
+.grid-layer p.player1 {
+    color: rgb(11, 244, 11);
+}
+
+.grid-layer p.player2 {
+    color: rgb(234, 64, 64);
+}
+
+.play-game.player1 .grid-layer div:hover {
+    background-color: rgb(11, 244, 11);
+    z-index: 2;
+}
+
+.play-game.player2 .grid-layer div:hover {
+    background-color: rgb(234, 64, 64);
+    z-index: 2;
+}
+
+@media (min-width: 500px) {
+    .play-game h1 {
+        font-size: 6rem;
+    }
+
+    .play-game button.restart {
+        padding: 1rem 4rem 2.5rem;
+    }
+
+    .grid-layer p {
+        top: 3px;
+        font-size: 4rem;
+    }
+}
+
+@media (min-width: 650px) {
+    .grid-layer p {
+        top: 5px;
+        font-size: 5rem;
+    }
+}
+
+@media (min-width: 750px) {
+    .play-game h1 {
+        font-size: 7rem;
+    }
+}
