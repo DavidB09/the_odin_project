@@ -1,6 +1,7 @@
-
-const MENU = `
-    <div class="content-container menu">
+const MENU = (() => {
+    const divContainer = document.createElement('div');
+    divContainer.classList = 'content-container menu';
+    const innerHTML = `
         <div class="image-container">
             <h1>Menù</h1>
         </div>
@@ -251,7 +252,10 @@ const MENU = `
                 </div>
             </div>
         </div>
-    </div>
-`;
+    `;
+
+    divContainer.insertAdjacentHTML('afterbegin', innerHTML);
+    return divContainer;
+})();
 
 export default MENU;

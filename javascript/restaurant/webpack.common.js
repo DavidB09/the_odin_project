@@ -21,21 +21,30 @@ module.exports = {
                 test: /\.(sa|sc|c)ss$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    {
-                        loader: 'css-loader',
-                        options: { sourceMap: true },
-                    },
+                    { loader: 'css-loader', options: { sourceMap: true }, },
+                    { loader: 'postcss-loader', options: { sourceMap: true }, },
                     {
                         loader: 'sass-loader',
                         options: {
                             implementation: require('sass'),
                             sourceMap: true,
-                        }
-                    }
+                        },
+                    },
                 ],
             },
             {
-                test: /\.(png|svg|jpg|jpeg)$/i,
+                test: /\.(png|jpg|jpeg)$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.svg$/i,
+                type: 'asset/resource',
+                use: [
+                    { loader: 'svgo-loader' },
+                ]
+            },
+            {
+                test: /\.(otf|ttf)$/i,
                 type: 'asset/resource',
             },
         ],

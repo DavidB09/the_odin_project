@@ -1,12 +1,6 @@
 @use 'var';
 
 .home {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    background-color: var.$background-color;
-
     .image-container {
         background-image: url(./assets/images/oven.jpg);
     }

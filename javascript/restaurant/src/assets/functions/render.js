@@ -12,27 +12,18 @@ const MAIN = document.querySelector('main');
 
 function renderPage(pageHTML) {
     MAIN.innerHTML = "";
-    MAIN.insertAdjacentHTML("afterbegin", pageHTML);
+    MAIN.appendChild(pageHTML);
 
     const imgContainer = document.querySelector('div.image-container');
-    window.onscroll = () => {
-        imgContainer.style.backgroundPosition = `center -${window.scrollY * 1.1}px`;
-    };
+    // window.onscroll = () => {
+    //     imgContainer.style.backgroundPosition = `center -${window.scrollY * 1.1}px`;
+    // };
 }
 
 const renderIMG = {
-    HOME: () => {
+    HEADER: () => {
         const PIZZA = document.querySelector('img.pizza');
         PIZZA.setAttribute('src', pizzaSvg);
-    
-        const UBER = document.querySelector('img.uber');
-        UBER.setAttribute('src', uberSvg);
-    
-        const GRUBHUB = document.querySelector('img.grubhub');
-        GRUBHUB.setAttribute('src', grubhubSvg);
-    
-        const POSTMATES = document.querySelector('img.postmates');
-        POSTMATES.setAttribute('src', postmatesSvg);
     },
     FOOTER: () => {
         const INSTAGRAM = document.querySelector('img.instagram');
@@ -43,6 +34,16 @@ const renderIMG = {
     
         const FACEBOOK = document.querySelector('img.facebook');
         FACEBOOK.setAttribute('src', facebookSvg);
+    },
+    HOME: () => {
+        const UBER = document.querySelector('img.uber');
+        UBER.setAttribute('src', uberSvg);
+    
+        const GRUBHUB = document.querySelector('img.grubhub');
+        GRUBHUB.setAttribute('src', grubhubSvg);
+    
+        const POSTMATES = document.querySelector('img.postmates');
+        POSTMATES.setAttribute('src', postmatesSvg);
     },
 };
 

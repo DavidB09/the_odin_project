@@ -6,7 +6,8 @@ import contactPage from './assets/functions/contact.js';
 import { renderPage, renderIMG } from './assets/functions/render.js';
 
 (function init() {
+    renderIMG.HEADER();
     renderIMG.FOOTER();
-    // renderPage(menuPage);
+    renderPage(homePage);
     renderIMG.HOME();
 })();

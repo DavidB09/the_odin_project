@@ -1,6 +1,8 @@
 
-const HOMEPAGE = `
-    <div class="content-container home">
+const HOMEPAGE = (() => {
+    const divContainer = document.createElement('div');
+    divContainer.classList = 'content-container home';
+    const innerHTML = `
         <div class="image-container">
             <h1>Ciao a Gianni's Pizza Stop!</h1>
         </div>
@@ -30,7 +32,10 @@ const HOMEPAGE = `
                 <img class="postmates" />
             </div>
         </div>
-    </div>
-`;
+    `;
+
+    divContainer.insertAdjacentHTML('afterbegin', innerHTML);
+    return divContainer;
+})();
 
 export default HOMEPAGE;
