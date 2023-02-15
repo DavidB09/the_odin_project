@@ -8,16 +8,19 @@ import instagramSvg from '../svg/instagram.svg';
 import twitterSvg from '../svg/twitter.svg';
 import facebookSvg from '../svg/facebook.svg';
 
+import ovenImg from '../images/oven.jpg';
+
 const MAIN = document.querySelector('main');
 
 function renderPage(pageHTML) {
     MAIN.innerHTML = "";
     MAIN.appendChild(pageHTML);
+    window.scrollTo(0, 0);
 
-    const imgContainer = document.querySelector('div.image-container');
-    // window.onscroll = () => {
-    //     imgContainer.style.backgroundPosition = `center -${window.scrollY * 1.1}px`;
-    // };
+    const backgroundIMG = document.querySelector('img.background-image');
+    window.onscroll = () => {
+        backgroundIMG.style.transform = `translateY(${Math.min(window.scrollY * 0.25, 100)}px)`;
+    };
 }
 
 const renderIMG = {
@@ -36,6 +39,9 @@ const renderIMG = {
         FACEBOOK.setAttribute('src', facebookSvg);
     },
     HOME: () => {
+        const backgroundImg = document.querySelector('img.background-image');
+        backgroundImg.setAttribute('src', ovenImg);
+
         const UBER = document.querySelector('img.uber');
         UBER.setAttribute('src', uberSvg);
     
@@ -44,6 +50,14 @@ const renderIMG = {
     
         const POSTMATES = document.querySelector('img.postmates');
         POSTMATES.setAttribute('src', postmatesSvg);
+    },
+    MENU: () => {
+        const backgroundImg = document.querySelector('img.background-image');
+        backgroundImg.setAttribute('src', ovenImg);
+    },
+    CONTACT: () => {
+        const backgroundImg = document.querySelector('img.background-image');
+        backgroundImg.setAttribute('src', ovenImg);
     },
 };
 

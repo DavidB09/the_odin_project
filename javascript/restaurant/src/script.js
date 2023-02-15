@@ -10,4 +10,26 @@ import { renderPage, renderIMG } from './assets/functions/render.js';
     renderIMG.FOOTER();
     renderPage(homePage);
     renderIMG.HOME();
+
+    (function initiateLinks() {
+        const homeLinks = document.querySelectorAll('.home-link');
+        const menuLinks = document.querySelectorAll('.menu-link');
+        const contactLinks = document.querySelectorAll('.contact-link');
+
+        homeLinks.forEach(link => link.addEventListener('click', () => {
+            renderPage(homePage);
+            renderIMG.HOME();
+        }));
+
+        menuLinks.forEach(link => link.addEventListener('click', () => {
+            renderPage(menuPage);
+            renderIMG.MENU();
+        }));
+
+        contactLinks.forEach(link => link.addEventListener('click', () => {
+            renderPage(contactPage);
+            renderIMG.CONTACT();
+        }));
+    })();
 })();
+

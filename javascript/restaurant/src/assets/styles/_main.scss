@@ -5,10 +5,6 @@ html {
 }
 
 body {
-    margin: 0;
-}
-
-body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -24,6 +20,7 @@ header {
     color: #000;
     background-color: var.$background-color;
     text-align: center;
+    z-index: 1;
 
     .logo-container {
         display: flex;
@@ -45,7 +42,6 @@ header {
         display: flex;
         gap: 1.2rem;
         font-size: 1.8rem;
-        text-decoration: none;
         margin: 1.5rem 0;
 
         a {
@@ -125,31 +121,47 @@ header {
 }
 
 main {
-    position: relative;
-    display: flex;
+    //position: relative;
+    // display: flex;
     // flex-grow: 100;
 
     .content-container {
-        position: relative;
+        //position: relative;
         display: flex;
         flex-direction: column;
-        align-items: center;
         text-align: center;
         // width: 100%;
-        background-color: var.$background-color;
+        //background-color: var.$background-color;
+
+        .background-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var.$background-color;
+        }
 
         .image-container {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-position: center 150%;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
+            // background-position: center -100px;
+            // background-repeat: no-repeat;
+            // background-size: cover;
+            // background-attachment: fixed;
             width: 100%;
             height: 40rem;
             color: #fff;
-    
+            z-index: -1;
+
+            img {
+                position: absolute;
+                top: 0;
+                right: -15%;
+                height: 100%;
+                z-index: -2;
+            }
+
             h1 {
                 font-size: 5rem;
                 margin: 0 4rem;
@@ -176,12 +188,41 @@ main {
     }
 }
 
+@media (min-width: 500px) {
+    main {
+        .content-container {
+            .image-container {
+                position: static;
+
+                img {
+                    top: 150px;
+                    right: 0;
+                    height: auto;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
 @media (min-width: 750px) {
     main {
         .content-container {
             .image-container {
                 h1 {
                     font-size: 7rem;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 950px) {
+    main {
+        .content-container {
+            .image-container {
+                img {
+                    top: 0;
                 }
             }
         }
@@ -198,6 +239,10 @@ main {
                     font-size: 8rem;
                 }
             }
+        }
+
+        .divider {
+            width: 70%;
         }
     }
 }
@@ -224,30 +269,22 @@ footer {
         display: flex;
         flex-direction: column;
         width: 80%;
-        padding: 2rem 0;
+        padding: 1rem 0;
+        text-align: center;
+        font-size: 1.5rem;
 
         &:first-child {
-            flex-direction: row;
             justify-content: space-between;
 
             img {
-                height: 4.5rem;
-                margin-right: 1rem;
+                height: 3.5rem;
+                margin: 1rem 1rem 1rem 0;
                 cursor: pointer;
             }
         }
 
-        &:not(.hour-container) {
-            align-items: center;
-            font-size: 2rem;
-        }
-
-        &.hour-container {
-            font-size: 1.8rem;
-        }
-
         h3 {
-            font-size: 2.4rem;
+            font-size: 2.1rem;
             margin: 1rem 0;
         }
 
@@ -261,7 +298,65 @@ footer {
         width: 80%;
         background-color: var.$background-color;
     }
- }
+}
+
+@media (min-width: 450px) {
+    footer {
+        & > div {
+            font-size: 1.8rem; 
+
+            &:first-child {
+                img {
+                    height: 4.5rem;
+                    margin-right: 1.2rem;
+                }
+            }
+
+            h3 {
+                font-size: 2.4rem;
+            }
+        }
+    }
+}
+
+@media (min-width: 750px) {
+    footer {
+        & > div {
+            font-size: 2.1rem;
+
+            &:first-child {
+                flex-direction: row;
+                align-items: center;
+
+                .hour-container {
+                    text-align: start;
+                }
+
+                img {
+                    height: 5rem;
+                    margin-right: 1.4rem;
+                }
+            }
+
+            h3 {
+                font-size: 2.8rem;
+                margin: 1.4rem 0;
+            }
+        }
+    }
+}
+
+@media (min-width: 1050px) {
+    footer {
+        & > div {
+            width: 70%;
+        }
+
+        & > .divider {
+            width: 70%;
+        }
+    }
+}
 
 h1, h2 {
     font-family: var.$header-font;
