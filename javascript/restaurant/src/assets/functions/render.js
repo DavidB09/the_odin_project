@@ -9,6 +9,8 @@ import twitterSvg from '../svg/twitter.svg';
 import facebookSvg from '../svg/facebook.svg';
 
 import ovenImg from '../images/oven.jpg';
+import pizzaImg from '../images/pizza.jpg';
+import chefImg from '../images/chef.jpg';
 
 const MAIN = document.querySelector('main');
 
@@ -31,10 +33,10 @@ const renderIMG = {
     FOOTER: () => {
         const INSTAGRAM = document.querySelector('img.instagram');
         INSTAGRAM.setAttribute('src', instagramSvg);
-    
+
         const TWITTER = document.querySelector('img.twitter');
         TWITTER.setAttribute('src', twitterSvg);
-    
+
         const FACEBOOK = document.querySelector('img.facebook');
         FACEBOOK.setAttribute('src', facebookSvg);
     },
@@ -44,20 +46,20 @@ const renderIMG = {
 
         const UBER = document.querySelector('img.uber');
         UBER.setAttribute('src', uberSvg);
-    
+
         const GRUBHUB = document.querySelector('img.grubhub');
         GRUBHUB.setAttribute('src', grubhubSvg);
-    
+
         const POSTMATES = document.querySelector('img.postmates');
         POSTMATES.setAttribute('src', postmatesSvg);
     },
     MENU: () => {
         const backgroundImg = document.querySelector('img.background-image');
-        backgroundImg.setAttribute('src', ovenImg);
+        backgroundImg.setAttribute('src', pizzaImg);
     },
     CONTACT: () => {
         const backgroundImg = document.querySelector('img.background-image');
-        backgroundImg.setAttribute('src', ovenImg);
+        backgroundImg.setAttribute('src', chefImg);
     },
 };
 

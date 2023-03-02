@@ -3,9 +3,11 @@
 .home {
     font-size: 1.5rem;
 
-    // .image-container {
-    //     //background-image: url(./assets/images/oven.jpg);
-    // }
+    .image-container {
+        img {
+            right: -5rem;
+        }
+    }
 
     .welcome-container {
         display: flex;
