@@ -20,13 +20,12 @@ const CONTACT = (() => {
                     </label>
                     <label for="reserve-time">
                         Time:
-                        <input id="reserve-time" type="time" name="time"/>
+                        <input id="reserve-time" type="time" name="time" step="60"/>
                     </label>
                     <label for="reserve-guest">
                         # of Guests:
                         <input id="reserve-guest" type="number" name="guest" min="1" max="12"/>
                     </label>
-                    <!--SET LIMIT ON TIME AND DATE-->
                 </div>
 
                 <div class="row-container">

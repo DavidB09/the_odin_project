@@ -8,8 +8,8 @@ import { renderPage, renderIMG } from './assets/functions/render.js';
 (function init() {
     renderIMG.HEADER();
     renderIMG.FOOTER();
-    renderPage(menuPage);
-    renderIMG.MENU();
+    renderPage(contactPage);
+    renderIMG.CONTACT();
 
     (function initiateLinks() {
         const homeLinks = document.querySelectorAll('.home-link');
