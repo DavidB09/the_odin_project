@@ -33,3 +33,6 @@ A repo for The Odin Project mini projects created by David Brunner
 
 ### 3D Tic-Tac-Toe
 [Link](https://the-odin-project-3d-tic-tac-toe.netlify.app/)
+
+### Restaurant Page
+[Link](https://the-odin-project-restaurant.netlify.app/)
