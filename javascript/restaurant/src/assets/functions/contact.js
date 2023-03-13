@@ -10,21 +10,21 @@ const CONTACT = (() => {
 
         <div class="background-container">
 
-            <div class="reserve-container">
+            <form class="reserve-container">
                 <h2>Make a Reservation</h2>
 
                 <div class="row-container">
                     <label for="reserve-date">
                         Date:
-                        <input id="reserve-date" type="date" name="date"/>
+                        <input id="reserve-date" type="date" name="date" required/>
                     </label>
                     <label for="reserve-time">
                         Time:
-                        <input id="reserve-time" type="time" name="time" step="60"/>
+                        <input id="reserve-time" type="time" name="time" step="60" required/>
                     </label>
                     <label for="reserve-guest">
                         # of Guests:
-                        <input id="reserve-guest" type="number" name="guest" min="1" max="12"/>
+                        <input id="reserve-guest" type="number" name="guest" min="1" max="12" required/>
                     </label>
                 </div>
 
@@ -37,10 +37,10 @@ const CONTACT = (() => {
 
                 <label for="reserve-email">
                     Email:
-                    <input id="reserve-email" type="email" name="email" placeholder="Enter your email" />
+                    <input id="reserve-email" type="email" name="email" placeholder="Enter your email" required/>
                 </label>
                 <button type="submit">Submit Request</button>
-            </div>
+            </form>
 
             <div class="contact-container">
                 <h2>Contact Us!</h2>

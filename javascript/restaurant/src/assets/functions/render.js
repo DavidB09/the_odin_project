@@ -65,7 +65,7 @@ const renderIMG = {
         const currDate = new Date();
 
         dateInput.min = currDate.toISOString().slice(0, 10);
-        dateInput.max = new Date(currDate.getTime() + (3600 * 24 * 14 * 1000)).toISOString().slice(0, 10);
+        dateInput.max = new Date(currDate.getTime() + (3600 * 24 * 13 * 1000)).toISOString().slice(0, 10);
         dateInput.addEventListener('input', () => {
             const timeInput = document.querySelector('input[type="time"]');
             const selectedDay = new Date(dateInput.value).getDay();

@@ -238,7 +238,7 @@ main {
         }
 
         .divider {
-            width: 70%;
+            width: min(65%, 135rem);
         }
     }
 }
@@ -356,11 +356,11 @@ footer {
 @media (min-width: 1050px) {
     footer {
         & > div {
-            width: 70%;
+            width: min(70%, 130rem);
         }
 
         & > .divider {
-            width: 70%;
+            width: min(70%, 135rem);
         }
     }
 }

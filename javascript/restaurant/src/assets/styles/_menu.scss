@@ -97,7 +97,7 @@
 @media (min-width: 1050px) {
     .menu {
         .menu-container {
-            width: 70%;
+            width: min(70%, 130rem);
         }
     }
 }

@@ -188,7 +188,7 @@
 @media (min-width: 1050px) {
     .home {
         .welcome-container {
-            width: 60%;
+            width: min(65%, 130rem);
 
             h2 {
                 font-size: 6rem;

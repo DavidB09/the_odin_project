@@ -66,6 +66,7 @@
     .contact-container {
         display: flex;
         flex-direction: column;
+        width: 80%;
 
         a {
             color: inherit;
@@ -108,7 +109,7 @@
 
         .reserve-container {
             gap: 2rem;
-            width: 70%;
+            width: auto;
 
             .row-container {
                 gap: 2rem;
@@ -163,7 +164,6 @@
 
         .reserve-container {
             gap: 2.5rem;
-            width: 60%;
 
             .row-container {
                 flex-direction: row;
@@ -189,14 +189,6 @@
 
         h3 {
             font-size: 2.8rem;
-        }
-    }
-}
-
-@media (min-width: 1050px) {
-    .contact {
-        .reserve-container {
-            width: 45%;
         }
     }
 }
