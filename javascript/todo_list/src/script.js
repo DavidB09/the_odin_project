@@ -14,48 +14,76 @@ import circle from './assets/svg/circle.svg';
 (function init() {
     const VIEW = RenderView();
     VIEW.init();
-    VIEW.renderIcons();
-    VIEW.handleFolder();
 })();
 
 function RenderView () {
     const LIBRARY = Library();
     const MAIN = document.querySelector('body');
     const PROJECT_FOLDER = MAIN.querySelector('aside section:last-child');
+    const PROJECT_VIEW = MAIN.querySelector('main .note-container');
 
     const init = () => {
+        renderIcons();
+
         /*
             GET VALUES FROM LOCAL STORAGE
         */
+
         LIBRARY.addFolder('Today');
         LIBRARY.addFolder('This Week');
         LIBRARY.addFolder('Important');
         createFolder('The Odin Project');
         createFolder('Schoolwork');
-        showFolder('Today');
+
+        MAIN.querySelector('section:first-child li:first-child').classList.add('selected');
+        showFolder('All Tasks');
+
+        handleFolder();
     };
 
     const handleFolder = () => {
         const folders = MAIN.querySelectorAll('ul li');
 
         folders.forEach(folder => folder.addEventListener('click', (e) => {
+            const liElement = e.target.closest('li');
             /*
                 HANDLE EDIT BUTTON
             */
-            folders.forEach(f => f != e.target ? f.classList.remove('selected') : f.classList.add('selected'));
-            showFolder(e.target.innerText);
+            folders.forEach(f => f != liElement ? f.classList.remove('selected') : f.classList.add('selected'));
+            showFolder(liElement.innerText, liElement.classList.contains('created'));
         }));
     };
 
-    const showFolder = (name) => {
-        LIBRARY.getFolder(name).forEach(book => {
-            const HTMLView = `<li>${book.name}<img class='circle' /></li>`
-            console.log(book.name);
-        });
+    const showFolder = (name, isCreated) => {
+        MAIN.querySelector('.header-container h2').innerText = name;
+        PROJECT_VIEW.innerHTML = '';
+
+        const addButton = PROJECT_VIEW.nextElementSibling;
+        if (addButton) {
+            PROJECT_VIEW.parentElement.removeChild(addButton);
+        }
+
+        const values = LIBRARY.getFolder(name);
+
+        if (values.length == 0 && !isCreated) {
+            const newHTML =`<p class="empty-warning">No tasks exist!</p>`;
+            PROJECT_VIEW.insertAdjacentHTML('beforeend', newHTML);
+            return;
+        }
+
+        if (isCreated) {
+            const newHTML = `<button class="add-project"><img class="add" src="${add}" /><p>Add Task</p></button>`;
+            PROJECT_VIEW.parentElement.insertAdjacentHTML('beforeend', newHTML);
+        }
+
+        // LIBRARY.getFolder(name).forEach(book => {
+        //     // const HTMLView = `<li>${book.name}<img class='circle' /></li>`
+        //     console.log(book.name);
+        // });
     };
 
     const createFolder = (name) => {
-        const HTMLView = `<li><img class="menu" />${name}<img class='circle' /></li>`
+        const HTMLView = `<li class="created"><img class="menu" src="${menu}"/>${name}<img class='circle' src="${circle}"/></li>`
         PROJECT_FOLDER.querySelector('ul').insertAdjacentHTML('beforeend', HTMLView);
 
         LIBRARY.addFolder(name);
@@ -82,10 +110,7 @@ function RenderView () {
 
         const menuImgs = MAIN.querySelectorAll('.menu');
         menuImgs.forEach(img => img.setAttribute('src', menu));
+    };
 
-        const circleImgs = MAIN.querySelectorAll('.circle');
-        circleImgs.forEach(img => img.setAttribute('src', circle));
-    }
-
-    return { init, renderIcons, handleFolder };
+    return { init };
 }
