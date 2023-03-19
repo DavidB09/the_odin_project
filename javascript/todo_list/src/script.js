@@ -38,10 +38,10 @@ function RenderView () {
         MAIN.querySelector('section:first-child li:first-child').classList.add('selected');
         showFolder('All Tasks');
 
-        handleFolder();
+        handleFolderEvents();
     };
 
-    const handleFolder = () => {
+    const handleFolderEvents = () => {
         const folders = MAIN.querySelectorAll('ul li');
 
         folders.forEach(folder => folder.addEventListener('click', (e) => {
@@ -52,6 +52,39 @@ function RenderView () {
             folders.forEach(f => f != liElement ? f.classList.remove('selected') : f.classList.add('selected'));
             showFolder(liElement.innerText, liElement.classList.contains('created'));
         }));
+
+        const addButton = PROJECT_FOLDER.querySelector('button');
+        addButton.addEventListener('click', () => {
+            if (PROJECT_FOLDER.querySelector('form') != null)
+                return;
+
+            const newHTML = `
+            <form>
+                <input type="text" placeholder="Enter folder name"/>
+                <button type="submit">Add</button>
+                <button type="button">Cancel</button>
+            </form>`;
+            addButton.insertAdjacentHTML('beforebegin', newHTML);
+            const folderInput = MAIN.querySelector('aside form input');
+            folderInput.focus();
+
+            MAIN.querySelector('aside form button:first-of-type').addEventListener('click', (e) => {
+                e.preventDefault();
+
+                if (LIBRARY.folderExists(folderInput.value)) {
+                    folderInput.setCustomValidity("Please use a folder name that doesn't exist");
+                    element.reportValidity();
+                    return;
+                }
+
+                createFolder(folderInput.value);
+                addButton.parentElement.removeChild(addButton.previousElementSibling);
+            });
+
+            MAIN.querySelector('aside form button:last-of-type').addEventListener('click', () => {
+                addButton.parentElement.removeChild(addButton.previousElementSibling);
+            });
+        });
     };
 
     const showFolder = (name, isCreated) => {

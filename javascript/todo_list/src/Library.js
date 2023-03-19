@@ -15,10 +15,10 @@ function Library() {
     }
 
     const folderExists = (name) => {
-
+        return Object.keys(FOLDERS).includes(name);
     }
 
-    return { addFolder, getFolder };
+    return { addFolder, getFolder, folderExists };
 }
 
 export default Library;
